@@ -8,7 +8,7 @@
 		<version>3.2.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>com.phsz</groupId>
 	<artifactId>phsz-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>phsz-backend</name>
@@ -16,6 +16,11 @@
 	<properties>
 		<java.version>21</java.version>
 	</properties>
+	<packaging>pom</packaging>
+	<modules>
+		<module>src/userservice</module>
+		<module>src/userservice/userservice-provider</module>
+	</modules>
 
 	<dependencyManagement>
 		<dependencies>
@@ -23,7 +28,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web</artifactId>
 			</dependency>
-
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-devtools</artifactId>
@@ -39,6 +43,10 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-test</artifactId>
 				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-data-jpa</artifactId>
 			</dependency>
 			<dependency>
 				<groupId>com.alibaba.cloud</groupId>
