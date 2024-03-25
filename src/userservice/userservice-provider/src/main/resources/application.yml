@@ -7,3 +7,16 @@ spring:
         server-addr: localhost:8848
   application:
     name: userservice
+  datasource:
+    url: jdbc:postgresql://localhost:5432/phsz
+    username: postgres
+    password: postgre
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgresql
+    show-sql: true
+    generate-ddl: true
+    hibernate.ddl-auto: update
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
