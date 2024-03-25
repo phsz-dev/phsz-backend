@@ -23,10 +23,6 @@ public class UserServiceImpl implements UserService {
 		else return "false";
 	}
 
-	@Override
-	public String getPassword(Integer id) {
-		return userRepository.findById(id).get().getPassword();
-	}
 
 	@Override
 	public String findAll() {

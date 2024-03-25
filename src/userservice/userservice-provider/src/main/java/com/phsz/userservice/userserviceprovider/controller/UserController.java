@@ -18,10 +18,6 @@ public class UserController {
 	public String login(@RequestBody User user){
 		return userService.login(user);
 	}
-	@GetMapping("/{id}")
-	public String getPassword(@PathVariable("id") Integer id){
-		return userService.getPassword(id);
-	}
 	@GetMapping
 	public String getAll(){
 		return userService.findAll();
