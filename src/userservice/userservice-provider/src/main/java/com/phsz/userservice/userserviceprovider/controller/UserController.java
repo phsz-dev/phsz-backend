@@ -1,8 +1,8 @@
 package com.phsz.userservice.userserviceprovider.controller;
 
-import com.phsz.userservice.userserviceprovider.pojo.User;
-import com.phsz.userservice.userserviceprovider.service.impl.UserServiceImpl;
+import com.phsz.userservice.userserviceprovider.service.UserServiceImpl;
 import jakarta.annotation.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,13 +14,14 @@ public class UserController {
 		this.userService = userService;
 	}
 
-	@PostMapping
-	public String login(@RequestBody User user){
-		return userService.login(user);
-	}
-	@GetMapping
+	@GetMapping("/users")
 	public String getAll(){
-		return userService.findAll();
+		return "getAll";
+	}
+
+	@GetMapping("/me")
+	public ResponseEntity<?> getCurrentUser() {
+		return ResponseEntity.ok(userService.getCurrentUser());
 	}
 
 }

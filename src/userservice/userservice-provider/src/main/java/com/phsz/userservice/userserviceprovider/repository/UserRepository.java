@@ -1,8 +1,11 @@
 package com.phsz.userservice.userserviceprovider.repository;
 
-import com.phsz.userservice.userserviceprovider.pojo.User;
+import com.phsz.userservice.userserviceprovider.pojo.AppUser;
 import org.springframework.data.repository.CrudRepository;
 
-public interface UserRepository extends CrudRepository<User,Integer> {
+import java.util.Optional;
 
+public interface UserRepository extends CrudRepository<AppUser,Integer> {
+
+    Optional<AppUser> findByUsername(String username);
 }

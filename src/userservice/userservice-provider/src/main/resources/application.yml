@@ -8,7 +8,7 @@ spring:
   application:
     name: userservice
   datasource:
-    url: jdbc:postgresql://localhost:5432/phsz
+    url: jdbc:postgresql://101.34.208.76:5432/phsz
     username: postgres
     password: postgre
     driver-class-name: org.postgresql.Driver
@@ -21,3 +21,7 @@ spring:
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
     open-in-view: off
+phsz:
+  jwt:
+    secret: Of0dtVLJL/iNa5tlASR8VXKRvAe7UEqETaC4s0EtePo=
+    expiration: 3600000
