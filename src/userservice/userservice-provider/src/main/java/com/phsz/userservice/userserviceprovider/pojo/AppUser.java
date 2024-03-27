@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@Table(name = "app_user",schema = "public")
 public class AppUser {
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

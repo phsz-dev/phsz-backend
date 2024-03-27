@@ -6,7 +6,7 @@ spring:
       discovery:
         server-addr: localhost:8848
   application:
-    name: userservice
+    name: userservice-provider
   datasource:
     url: jdbc:postgresql://101.34.208.76:5432/phsz
     username: postgres
