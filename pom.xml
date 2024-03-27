@@ -20,6 +20,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>src/userservice</module>
+		<module>src/officeservice</module>
 	</modules>
 
 	<dependencyManagement>

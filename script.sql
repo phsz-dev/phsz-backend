@@ -1,178 +1,165 @@
-create table assay
+CREATE TABLE "user"
 (
-    assay_id    varchar(20) not null,
-    type        varchar(40) not null,
-    sample      text        not null,
-    description text        not null,
-    price       float       not null
+    user_id     SERIAL      NOT NULL PRIMARY KEY,
+    user_name   VARCHAR(20) NOT NULL,
+    password    VARCHAR(20) NOT NULL,
+    authority   VARCHAR(20) NOT NULL,
+    phone       VARCHAR(11) NOT NULL,
+    email       VARCHAR(30) NOT NULL,
+    gender      VARCHAR(2)  NOT NULL,
+    information TEXT        NOT NULL
 );
 
-create table `case`
+CREATE TABLE assay
 (
-    case_id      varchar(10)  not null
-        primary key,
-    case_name    varchar(30)  not null,
-    case_time    varchar(20)  not null,
-    illness_id   varchar(50)  not null,
-    description  text         not null,
-    medicine_id  varchar(200) null,
-    vaccine_id   varchar(100) null,
-    assay_id     varchar(40)  null,
-    charge_id    int          not null,
-    charge_value float        not null,
-    doctor_id    varchar(100) not null,
-    doctor_name  varchar(100) not null
+    assay_id    SERIAL      NOT NULL PRIMARY KEY,
+    type        VARCHAR(40) NOT NULL,
+    sample      TEXT        NOT NULL,
+    description TEXT        NOT NULL,
+    price       NUMERIC     NOT NULL,
 );
 
-create table charge
+CREATE TABLE medicine
 (
-    charge_id    varchar(10)  not null
-        primary key,
-    case_id      varchar(10)  not null,
-    charge_value float        not null,
-    medicine_id  varchar(200) null,
-    vaccine_id   varchar(40)  null,
-    assay_id     varchar(40)  null,
-    others       float        null,
-    description  text         null
+    medicine_id   SERIAL      NOT NULL PRIMARY KEY,
+    medicine_name VARCHAR(20) NOT NULL,
+    type          VARCHAR(50) NOT NULL,
+    batch_number  VARCHAR(20) NOT NULL,
+    validity      VARCHAR(20) NOT NULL,
+    usage         VARCHAR(40) NOT NULL,
+    price         NUMERIC     NOT NULL
 );
 
-create table clerk
+CREATE TABLE vaccine
 (
-    clerk_id     varchar(20) not null
-        primary key,
-    clerk_name   varchar(20) not null,
-    office_id    varchar(20) not null,
-    phone        varchar(11) not null,
-    email        varchar(30) not null,
-    service_time varchar(30) not null,
-    authority    varchar(20) not null
+    vaccine_id   SERIAL      NOT NULL PRIMARY KEY,
+    type         VARCHAR(50) NOT NULL,
+    batch_number VARCHAR(20) NOT NULL,
+    validity     VARCHAR(20) NOT NULL,
+    usage        VARCHAR(40) NOT NULL,
+    price        NUMERIC     NOT NULL
 );
 
-create table document
+CREATE TABLE charge
 (
-    document_id      varchar(20) not null,
-    document_content text        not null
+    charge_id    SERIAL       NOT NULL PRIMARY KEY,
+    case_id      SERIAL       NOT NULL,
+    charge_value NUMERIC      NOT NULL,
+    medicine_id  SERIAL       NOT NULL REFERENCES medicine (medicine_id),
+    vaccine_id   SERIAL       NOT NULL REFERENCES vaccine (vaccine_id),
+    assay_id     SERIAL       NOT NULL REFERENCES assay (assay_id),
+    others       NUMERIC,
+    description  TEXT,
 );
 
-create table examination
+CREATE TABLE office
 (
-    examination_id    varchar(10)   not null
-        primary key,
-    paper_id          varchar(10)   not null,
-    examination_time  varchar(20)   not null,
-    examination_user  varchar(5000) not null,
-    examination_state varchar(10)   not null
+    office_id      SERIAL      NOT NULL PRIMARY KEY,
+    office_name    TEXT        NOT NULL,
+    position       VARCHAR(30) NOT NULL,
+    responsibility TEXT        NOT NULL,
+    service_time   VARCHAR(30) NOT NULL,
+    chairman       VARCHAR(20) NOT NULL
 );
 
-create table examination_result
+CREATE TABLE illness
 (
-    user_id     varchar(10)  not null,
-    paper_id    varchar(10)  not null,
-    answer      varchar(100) not null,
-    total_score int          null
+    illness_id   SERIAL      NOT NULL PRIMARY KEY,
+    illness_name VARCHAR(20),
+    office_id    SERIAL      NOT NULL REFERENCES office (office_id),
 );
 
-create table hospitalization
+CREATE TABLE clerk
 (
-    hospitalization_id   varchar(10) not null,
-    hospitalization_name varchar(20) not null,
-    hospitalization_time varchar(20) not null,
-    ward                 varchar(10) not null,
-    discharge            varchar(20) not null
+    clerk_id     SERIAL      NOT NULL PRIMARY KEY,
+    clerk_name   VARCHAR(20) NOT NULL,
+    office_id    SERIAL      NOT NULL REFERENCES office (office_id),
+    phone        VARCHAR(11) NOT NULL,
+    email        VARCHAR(30) NOT NULL,
+    service_time VARCHAR(30) NOT NULL,
+    authority    VARCHAR(20) NOT NULL
 );
 
-create table illness
+CREATE TABLE "case"
 (
-    illness_id   varchar(10) null,
-    illness_name varchar(20) null,
-    office_id    int         null
+    case_id      SERIAL       NOT NULL PRIMARY KEY,
+    case_name    VARCHAR(30)  NOT NULL,
+    case_time    TIMESTAMP    NOT NULL,
+    illness_id   SERIAL       NOT NULL REFERENCES illness (illness_id),
+    description  TEXT         NOT NULL,
+    medicine_id  SERIAL       NOT NULL REFERENCES medicine (medicine_id),
+    vaccine_id   SERIAL       NOT NULL REFERENCES vaccine (vaccine_id),
+    assay_id     SERIAL       NOT NULL REFERENCES assay (assay_id),
+    charge_id    SERIAL       NOT NULL REFERENCES charge (charge_id),
+    charge_value NUMERIC      NOT NULL,
+    doctor_id    SERIAL       NOT NULL REFERENCES clerk (clerk_id),
 );
 
-create table map
+CREATE TABLE document
 (
-    map_id varchar(10) not null
-        primary key,
-    url    int         not null
+    document_id      VARCHAR(20) NOT NULL,
+    document_content TEXT        NOT NULL
 );
 
-create table medicine
+CREATE TABLE examination
 (
-    medicine_id   varchar(30) not null
-        primary key,
-    medicine_name varchar(20) not null,
-    type          varchar(50) not null,
-    batch_number  varchar(20) not null,
-    validity      varchar(20) not null,
-    `usage`       varchar(40) not null,
-    price         float       not null
+    examination_id    VARCHAR(10)   NOT NULL PRIMARY KEY,
+    paper_id          VARCHAR(10)   NOT NULL,
+    examination_time  VARCHAR(20)   NOT NULL,
+    examination_user  TEXT          NOT NULL,
+    examination_state VARCHAR(10)   NOT NULL
 );
 
-create table office
+CREATE TABLE examination_result
 (
-    office_id      varchar(20) not null,
-    office_name    int         not null,
-    position       varchar(30) not null,
-    responsibility text        not null,
-    service_time   varchar(30) not null,
-    chairman       varchar(20) not null
+    user_id     VARCHAR(10)  NOT NULL,
+    paper_id    VARCHAR(10)  NOT NULL,
+    answer      VARCHAR(100) NOT NULL,
+    total_score INTEGER
 );
 
-create table paper
+CREATE TABLE hospitalization
 (
-    paper_id        varchar(10)   not null
-        primary key,
-    total_score     int           not null,
-    content         varchar(1000) not null,
-    time_limit      varchar(20)   not null,
-    question_number int           not null
+    hospitalization_id   SERIAL      NOT NULL PRIMARY KEY,
+    hospitalization_name VARCHAR(20) NOT NULL,
+    hospitalization_time VARCHAR(20) NOT NULL,
+    ward                 VARCHAR(10) NOT NULL,
+    discharge            VARCHAR(20) NOT NULL
 );
 
-create table paper_content
+CREATE TABLE map
 (
-    paper_id    varchar(10) not null,
-    `order`     int         not null,
-    question_id varchar(10) not null
+    map_id SERIAL      NOT NULL PRIMARY KEY,
+    url    TEXT        NOT NULL
 );
 
-create table play
+CREATE TABLE paper
 (
-    play_id      varchar(3) not null,
-    play_content text       not null
+    paper_id        SERIAL      NOT NULL PRIMARY KEY,
+    total_score     INTEGER     NOT NULL,
+    content         TEXT        NOT NULL,
+    time_limit      INTEGER     NOT NULL,
+    question_number INTEGER     NOT NULL
 );
 
-create table question
+CREATE TABLE question
 (
-    question_id varchar(10) not null
-        primary key,
-    type        varchar(10) not null,
-    content     text        not null,
-    answer      text        not null,
-    score       int         not null
+    question_id SERIAL      NOT NULL PRIMARY KEY,
+    type        VARCHAR(10) NOT NULL,
+    content     TEXT        NOT NULL,
+    answer      TEXT        NOT NULL,
+    score       INTEGER     NOT NULL
 );
 
-create table user
+CREATE TABLE paper_content
 (
-    user_id    varchar(20) not null
-        primary key,
-    user_name  varchar(20) not null,
-    password   varchar(20) not null,
-    authority  varchar(20) not null,
-    phone      varchar(11) not null,
-    email      varchar(30) not null,
-    gender     varchar(2)  not null,
-    infomation text        not null
+    paper_id    SERIAL      NOT NULL REFERENCES paper (paper_id),
+    order       INTEGER     NOT NULL,
+    question_id SERIAL      NOT NULL REFERENCES question (question_id)
 );
 
-create table vaccine
+CREATE TABLE play
 (
-    vaccine_id   varchar(20) not null
-        primary key,
-    type         varchar(50) not null,
-    batch_number varchar(20) not null,
-    validity     varchar(20) not null,
-    `usage`      varchar(40) not null,
-    price        float       not null
+    play_id      VARCHAR(3) NOT NULL,
+    play_content TEXT       NOT NULL
 );
-
-
