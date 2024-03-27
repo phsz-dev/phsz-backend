@@ -20,7 +20,9 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>src/userservice</module>
-	</modules>
+        <module>src/caseservice</module>
+        <module>src/demo</module>
+    </modules>
 
 	<dependencyManagement>
 		<dependencies>
