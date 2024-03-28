@@ -1,12 +1,12 @@
 server:
-  port: 9002
+  port: 9004
 spring:
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
   application:
-    name: officeservice-provider
+    name: roleplayservice-provider
   datasource:
     url: jdbc:postgresql://101.34.208.76:5432/phsz
     username: postgres

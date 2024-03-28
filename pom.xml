@@ -23,6 +23,7 @@
 		<module>src/officeservice</module>
 		<module>src/hospitalizationservice</module>
         <module>src/common</module>
+        <module>src/roleplayservice</module>
     </modules>
 
 	<dependencyManagement>
