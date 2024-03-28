@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.phsz</groupId>
-        <artifactId>officeservice</artifactId>
+        <artifactId>hospitalizationservice</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>officeservice-api</artifactId>
+    <artifactId>hospitalizationservice-api</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -20,7 +20,7 @@
     <dependencies>
         <dependency>
             <groupId>com.phsz</groupId>
-            <artifactId>officeservice-provider</artifactId>
+            <artifactId>hospitalizationservice-provider</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>

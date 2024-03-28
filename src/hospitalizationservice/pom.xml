@@ -5,11 +5,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.phsz</groupId>
-        <artifactId>officeservice</artifactId>
+        <artifactId>phsz-backend</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>officeservice-api</artifactId>
+    <artifactId>hospitalizationservice</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>hospitalizationservice-api</module>
+        <module>hospitalizationservice-provider</module>
+    </modules>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -17,17 +23,4 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.phsz</groupId>
-            <artifactId>officeservice-provider</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>4.1.0</version>
-        </dependency>
-    </dependencies>
 </project>

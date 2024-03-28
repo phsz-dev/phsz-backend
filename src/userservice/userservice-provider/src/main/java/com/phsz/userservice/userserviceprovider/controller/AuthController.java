@@ -1,7 +1,7 @@
 package com.phsz.userservice.userserviceprovider.controller;
 
 import com.phsz.userservice.userserviceprovider.JwtTokenProvider;
-import com.phsz.userservice.userserviceprovider.pojo.AppUser;
+import com.phsz.userservice.userserviceprovider.entity.AppUser;
 import com.phsz.userservice.userserviceprovider.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -5,11 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.phsz</groupId>
-        <artifactId>officeservice</artifactId>
+        <artifactId>phsz-backend</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>officeservice-api</artifactId>
+    <artifactId>common</artifactId>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -19,15 +20,10 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.phsz</groupId>
-            <artifactId>officeservice-provider</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <version>4.1.0</version>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

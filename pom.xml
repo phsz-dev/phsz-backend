@@ -21,7 +21,9 @@
 	<modules>
 		<module>src/userservice</module>
 		<module>src/officeservice</module>
-	</modules>
+		<module>src/hospitalizationservice</module>
+        <module>src/common</module>
+    </modules>
 
 	<dependencyManagement>
 		<dependencies>

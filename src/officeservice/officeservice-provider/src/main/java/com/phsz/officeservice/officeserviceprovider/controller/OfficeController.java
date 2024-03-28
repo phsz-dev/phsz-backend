@@ -5,6 +5,8 @@ import com.phsz.officeservice.officeserviceprovider.service.OfficeServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
+import com.phsz.common.Result;
+
 @RestController
 @RequestMapping("/offices")
 public class OfficeController {
@@ -15,32 +17,32 @@ public class OfficeController {
     }
 
     @GetMapping("/offices")
-    public String findAll(){
-        return officeService.findAll();
+    public Result findAll() {
+        return Result.success("success", officeService.findAll());
     }
 
-    @GetMapping("/offices/{id}")
-    public String findOne(Long id) {
-        return officeService.findOne(id);
+    @GetMapping("/offices/{officeId}")
+    public Result findById(Long officeId) {
+        return Result.success("success", officeService.findById(officeId));
     }
 
-    @GetMapping("/offices/{name}")
-    public String findByName(String name) {
-        return officeService.findByName(name);
+    @GetMapping("/offices/{officeName}")
+    public Result findByName(String officeName) {
+        return Result.success("success", officeService.findByName(officeName));
     }
 
     @PostMapping("/offices")
-    public String add(Office office) {
-        return officeService.add(office);
+    public Result save(Office office) {
+        return Result.success("success", officeService.save(office));
     }
 
     @PutMapping("/offices")
-    public String update(Office office) {
-        return officeService.update(office);
+    public Result update(Office office) {
+        return Result.success("success", officeService.update(office));
     }
 
-    @DeleteMapping("/offices/{id}")
-    public String delete(Long id) {
-        return officeService.delete(id);
+    @DeleteMapping("/offices/{officeId}")
+    public Result deleteById(Long officeId) {
+        return Result.success("success", officeService.deleteById(officeId));
     }
 }

@@ -1,6 +1,6 @@
 package com.phsz.userservice.userserviceapi.service;
 
 public interface UserService {
-	String login(Long user_id, String password);
-	String findAll();
+	public boolean register(String username, String password);
+	public String getCurrentUser();
 }

@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface OfficeRepository extends CrudRepository<Office,Integer> {
     List<Office> findAll();
-    Optional<Office> findOne(Long id);
-    void add(Office office);
+    Optional<Office> findById(Long officeId);
+    Optional<Office> findByName(String officeName);
+    Office save(Office office);
     void update(Office office);
-    void delete(Long id);
-    Optional<Office> findByName(String name);
+    void deleteById(Long officeId);
 }

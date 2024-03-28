@@ -4,7 +4,12 @@ import com.phsz.officeservice.officeserviceapi.service.OfficeService;
 import com.phsz.officeservice.officeserviceprovider.repository.OfficeRepository;
 import jakarta.annotation.Resource;
 import com.phsz.officeservice.officeserviceprovider.entity.Office;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
+@Service
 public class OfficeServiceImpl implements OfficeService {
     @Resource
     private final OfficeRepository officeRepository;
@@ -14,23 +19,23 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public String findAll() {
-        return officeRepository.findAll().toString();
+    public List<Office> findAll() {
+        return officeRepository.findAll();
     }
 
     @Override
-    public String findOne(Long id) {
-        return officeRepository.findOne(id).toString();
+    public Optional<Office> findById(Long officeId) {
+        return officeRepository.findById(officeId);
     }
 
     @Override
-    public String findByName(String name) {
-        return officeRepository.findByName(name).toString();
+    public Optional<Office> findByName(String officeName) {
+        return officeRepository.findByName(officeName);
     }
 
     @Override
-    public String add(Office office) {
-        officeRepository.add(office);
+    public String save(Office office) {
+        officeRepository.save(office);
         return "success";
     }
 
@@ -41,8 +46,8 @@ public class OfficeServiceImpl implements OfficeService {
     }
 
     @Override
-    public String delete(Long id) {
-        officeRepository.delete(id);
+    public String deleteById(Long officeId) {
+        officeRepository.deleteById(officeId);
         return "success";
     }
 }
