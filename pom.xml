@@ -24,6 +24,7 @@
 		<module>src/hospitalizationservice</module>
         <module>src/common</module>
         <module>src/roleplayservice</module>
+        <module>src/clerkservice</module>
     </modules>
 
 	<dependencyManagement>
