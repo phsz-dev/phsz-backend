@@ -1,6 +1,7 @@
 package com.phsz.userservice.userserviceprovider.service;
 
-import com.phsz.userservice.userserviceprovider.pojo.AppUser;
+import com.phsz.userservice.userserviceapi.service.UserService;
+import com.phsz.userservice.userserviceprovider.entity.AppUser;
 import com.phsz.userservice.userserviceprovider.repository.UserRepository;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 	@Resource
 	private final UserRepository userRepository;
 

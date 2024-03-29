@@ -22,8 +22,9 @@ public class ExaminationController {
 	Result result;
 	@GetMapping("/{examinationId}")
 	public Result getExaminationById(@PathVariable Long examinationId) {
-		result.setData(examinationService.getExaminationById(examinationId));
-		if(examinationService.getExaminationById(examinationId) == null){
+		Examination examination= examinationService.getExaminationById(examinationId);
+		result.setData(examination);
+		if(examination == null){
 			result.setCode(0);
 			result.setMessage("not found");
 			return result;
@@ -50,8 +51,9 @@ public class ExaminationController {
 	}
 	@PostMapping
 	public Result addExamination(@RequestBody Examination examination) {
-		result.setData(examinationService.addExamination(examination));
-		if(examinationService.addExamination(examination) == null){
+		String s = examinationService.addExamination(examination);
+		result.setData(s);
+		if(s == null){
 			result.setCode(0);
 			result.setMessage("already exists");
 			return result;
@@ -62,8 +64,9 @@ public class ExaminationController {
 	}
 	@PutMapping
 	public Result updateExamination(@RequestBody Examination examination) {
-		result.setData(examinationService.updateExamination(examination));
-		if(examinationService.updateExamination(examination) == null){
+		String s = examinationService.updateExamination(examination);
+		result.setData(s);
+		if(s == null){
 			result.setCode(0);
 			result.setMessage("not found");
 			return result;
@@ -74,8 +77,9 @@ public class ExaminationController {
 	}
 	@DeleteMapping("/{examinationId}")
 	public Result deleteExamination(@PathVariable Long examinationId) {
-		result.setData(examinationService.deleteExamination(examinationId));
-		if(examinationService.deleteExamination(examinationId) == null){
+		String s = examinationService.deleteExamination(examinationId);
+		result.setData(s);
+		if(s == null){
 			result.setCode(0);
 			result.setMessage("not found");
 			return result;

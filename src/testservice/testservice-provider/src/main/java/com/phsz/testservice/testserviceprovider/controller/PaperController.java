@@ -1,6 +1,7 @@
 package com.phsz.testservice.testserviceprovider.controller;
 
 import com.phsz.testservice.testserviceprovider.pojo.Paper;
+import com.phsz.testservice.testserviceprovider.pojo.PaperInfo;
 import com.phsz.testservice.testserviceprovider.pojo.Result;
 import com.phsz.testservice.testserviceprovider.service.Impl.PaperServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,9 @@ public class PaperController {
 	Result result;
 	@GetMapping("/{id}")
 	public Result getPaperById(@PathVariable Long id) {
-		result.setData(paperService.getPaperById(id));
-		if(paperService.getPaperById(id)==null){
+		PaperInfo paperById = paperService.getPaperById(id);
+		result.setData(paperById);
+		if(paperById==null){
 			result.setCode(0);
 			result.setMessage("not found");
 			return result;
@@ -40,8 +42,9 @@ public class PaperController {
 	}
 	@PostMapping
 	public Result addPaper(@RequestBody Paper paper) {
-		result.setData(paperService.addPaper(paper));
-		if(paperService.addPaper(paper)==null){
+		String s = paperService.addPaper(paper);
+		result.setData(s);
+		if(s==null){
 			result.setCode(0);
 			result.setMessage("already exists");
 			return result;
@@ -65,8 +68,9 @@ public class PaperController {
 	}
 	@DeleteMapping("/{id}")
 	public Result deletePaper(@PathVariable Long id) {
-		result.setData(paperService.deletePaper(id));
-		if(paperService.deletePaper(id)==null){
+		String s = paperService.deletePaper(id);
+		result.setData(s);
+		if(s==null){
 			result.setCode(0);
 			result.setMessage("not found");
 			return result;

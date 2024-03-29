@@ -1,4 +1,4 @@
-package com.phsz.userservice.userserviceprovider.pojo;
+package com.phsz.userservice.userserviceprovider.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

@@ -20,16 +20,16 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>src/userservice</module>
-        <module>src/caseservice</module>
-        <module>src/testservice</module>
+		<module>src/officeservice</module>
+		<module>src/hospitalizationservice</module>
+        <module>src/common</module>
+        <module>src/roleplayservice</module>
+        <module>src/clerkservice</module>
+		<module>src/caseservice</module>
+		<module>src/testservice</module>
 		<module>src/testservice/testservice-provider</module>
-
-		<module>src/vaccineservice</module>
-		<module>src/vaccineservice/vaccineservice-provider</module>
-		<module>src/vaccineservice/vaccineservice-api</module>
-        <module>src/assayservice</module>
-        <module>src/chargeservice</module>
-        <module>src/documentservice</module>
+		<module>src/playservice</module>
+		<module>src/playservice/playservice-provider</module>
     </modules>
 
 	<dependencyManagement>
