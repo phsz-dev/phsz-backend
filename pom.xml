@@ -23,7 +23,14 @@
         <module>src/caseservice</module>
         <module>src/testservice</module>
 		<module>src/testservice/testservice-provider</module>
-	</modules>
+
+		<module>src/vaccineservice</module>
+		<module>src/vaccineservice/vaccineservice-provider</module>
+		<module>src/vaccineservice/vaccineservice-api</module>
+        <module>src/assayservice</module>
+        <module>src/chargeservice</module>
+        <module>src/documentservice</module>
+    </modules>
 
 	<dependencyManagement>
 		<dependencies>
