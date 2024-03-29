@@ -21,8 +21,9 @@
 	<modules>
 		<module>src/userservice</module>
         <module>src/caseservice</module>
-        <module>src/demo</module>
-    </modules>
+        <module>src/testservice</module>
+		<module>src/testservice/testservice-provider</module>
+	</modules>
 
 	<dependencyManagement>
 		<dependencies>

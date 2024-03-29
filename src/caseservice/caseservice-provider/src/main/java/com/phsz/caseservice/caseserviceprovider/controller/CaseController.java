@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
-@RestController("/api/cases")
+@RestController
+@RequestMapping("/api/cases")
 public class CaseController {
 	@Resource
 	private CaseServiceImpl caseService;
@@ -34,8 +35,12 @@ public class CaseController {
 	//添加病例
 	@PostMapping
 	Result addNewCase(@RequestBody Case case1) {
-		String s = caseService.addNewCase(case1);
-		result.setData(s);
+		result.setData(caseService.addNewCase(case1));
+		if(caseService.addNewCase(case1)==null){
+			result.setCode(0);
+			result.setMessage("already exists");
+			return result;
+		}
 		result.setCode(1);
 		result.setMessage("successfully");
 		return result;
@@ -58,8 +63,12 @@ public class CaseController {
 	//修改病例
 	@PutMapping("/{id}")
 	Result updateCaseById(@PathVariable Long id,@RequestBody Case case1){
-		String s = caseService.updateCase(case1);
-		result.setData(s);
+		result.setData(caseService.updateCase(case1));
+		if (caseService.updateCase(case1)==null){
+			result.setCode(0);
+			result.setMessage("not found");
+			return result;
+		}
 		result.setCode(1);
 		result.setMessage("successfully");
 		return result;
@@ -80,7 +89,7 @@ public class CaseController {
 	}
 
 	//根据名称查找病例
-	@GetMapping
+	@GetMapping("/name")
 	Result findCaseByName(@RequestParam("caseName") String caseName,@RequestParam("pageSize") int pageSize,@RequestParam("pageNum") int pageNum){
 		Pageable pageable= PageRequest.of(pageNum,pageSize);
 		result.setData(caseService.findAllByCaseNameLike(caseName,pageable));
@@ -89,8 +98,8 @@ public class CaseController {
 		return result;
 	}
 	//根据疾病名称查询病例
-	@GetMapping
-	Result findCaseByIllnessId(@RequestParam("illnessName") Long illnessId,@RequestParam("pageSize") int pageSize,@RequestParam("pageNum") int pageNum){
+	@GetMapping("/illness")
+	Result findCaseByIllnessId(@RequestParam("illnessId") Long illnessId,@RequestParam("pageSize") int pageSize,@RequestParam("pageNum") int pageNum){
 		Pageable pageable= PageRequest.of(pageNum,pageSize);
 		result.setData(caseService.findAllByIllnessId(illnessId,pageable));
 		result.setCode(1);

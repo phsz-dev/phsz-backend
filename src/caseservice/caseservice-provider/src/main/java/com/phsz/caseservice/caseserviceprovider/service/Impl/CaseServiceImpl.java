@@ -23,6 +23,10 @@ public class CaseServiceImpl implements CaseService {
 
 	@Override
 	public String addNewCase(Case case1) {
+		Long caseId = case1.getCaseId();
+		if (caseRepository.findById(caseId).isPresent()){
+			return null;
+		}
 		Case save = caseRepository.save(case1);
 		return save.getCaseId().toString();
 	}
@@ -35,6 +39,10 @@ public class CaseServiceImpl implements CaseService {
 
 	@Override
 	public String updateCase(Case case1) {
+		Long caseId = case1.getCaseId();
+		if (caseRepository.findById(caseId).isEmpty()){
+			return null;
+		}
 		return caseRepository.save(case1).getCaseId().toString();
 	}
 
