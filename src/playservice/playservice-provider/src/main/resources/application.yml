@@ -1,12 +1,12 @@
 server:
-  port: 9003
+  port: 8085
 spring:
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
   application:
-    name: clerkservice-provider
+    name: playservice-provider
   datasource:
     url: jdbc:postgresql://101.34.208.76:5432/phsz
     username: postgres

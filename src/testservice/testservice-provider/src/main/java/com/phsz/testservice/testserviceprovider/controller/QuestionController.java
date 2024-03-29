@@ -31,7 +31,6 @@ public class QuestionController {
 	public Result findById(@PathVariable("id") Long id) {
 		Question question = questionService.getQuestionByQuestionId(id);
 		result.setData(question);
-		System.out.println("1"+question);
 		if (question==null){
 			result.setCode(0);
 			result.setMessage("not found");
@@ -43,8 +42,9 @@ public class QuestionController {
 	}
 	@PostMapping
 	public Result addQuestion(@RequestBody Question question) {
-		result.setData(questionService.addQuestion(question));
-		if(questionService.addQuestion(question) == null){
+		String s = questionService.addQuestion(question);
+		result.setData(s);
+		if(s == null){
 			result.setCode(0);
 			result.setMessage("already exists");
 			return result;
@@ -56,8 +56,9 @@ public class QuestionController {
 
 	@PutMapping
 	public Result updateQuestion(@RequestBody Question question) {
-		result.setData(questionService.updateQuestion(question));
-		if (questionService.updateQuestion(question) == null){
+		String s = questionService.updateQuestion(question);
+		result.setData(s);
+		if (s == null){
 			result.setCode(0);
 			result.setMessage("not found");
 			return result;
@@ -68,8 +69,9 @@ public class QuestionController {
 	}
 	@DeleteMapping("/{id}")
 	public Result deleteQuestion(@PathVariable("id") Long id) {
-		result.setData(questionService.deleteQuestionByQuestionId(id));
-		if(questionService.deleteQuestionByQuestionId(id)==null){
+		Question question = questionService.deleteQuestionByQuestionId(id);
+		result.setData(question);
+		if(question==null){
 			result.setCode(0);
 			result.setMessage("not found");
 			return result;

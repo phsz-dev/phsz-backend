@@ -35,8 +35,9 @@ public class CaseController {
 	//添加病例
 	@PostMapping
 	Result addNewCase(@RequestBody Case case1) {
-		result.setData(caseService.addNewCase(case1));
-		if(caseService.addNewCase(case1)==null){
+		String s = caseService.addNewCase(case1);
+		result.setData(s);
+		if(s==null){
 			result.setCode(0);
 			result.setMessage("already exists");
 			return result;
@@ -61,10 +62,11 @@ public class CaseController {
 
 	}
 	//修改病例
-	@PutMapping("/{id}")
-	Result updateCaseById(@PathVariable Long id,@RequestBody Case case1){
-		result.setData(caseService.updateCase(case1));
-		if (caseService.updateCase(case1)==null){
+	@PutMapping
+	Result updateCaseById(@RequestBody Case case1){
+		String s = caseService.updateCase(case1);
+		result.setData(s);
+		if (s==null){
 			result.setCode(0);
 			result.setMessage("not found");
 			return result;
