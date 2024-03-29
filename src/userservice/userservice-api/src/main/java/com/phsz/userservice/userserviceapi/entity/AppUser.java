@@ -1,4 +1,4 @@
-package com.phsz.userservice.userserviceapi.pojo;
+package com.phsz.userservice.userserviceapi.entity;
 
 public class AppUser {
 

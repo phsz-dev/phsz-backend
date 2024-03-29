@@ -20,10 +20,12 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>src/userservice</module>
-        <module>src/caseservice</module>
-        <module>src/testservice</module>
-		<module>src/testservice/testservice-provider</module>
-	</modules>
+		<module>src/officeservice</module>
+		<module>src/hospitalizationservice</module>
+        <module>src/common</module>
+        <module>src/roleplayservice</module>
+        <module>src/clerkservice</module>
+    </modules>
 
 	<dependencyManagement>
 		<dependencies>
