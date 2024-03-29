@@ -1,6 +1,6 @@
 package com.phsz.clerkservice.clerkserviceprovider.repository;
 
-import com.phsz.clerkservice.clerkserviceprovider.entity.Clerk;
+import com.phsz.clerkservice.clerkserviceapi.entity.Clerk;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -11,6 +11,5 @@ public interface ClerkRepository extends CrudRepository<Clerk,Integer> {
     Optional<Clerk> findById(Long clerkId);
     Optional<Clerk> findByName(String clerkName);
     Clerk save(Clerk clerk);
-    void update(Clerk clerk);
     void deleteById(Long clerkId);
 }

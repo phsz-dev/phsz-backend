@@ -1,7 +1,7 @@
-package com.phsz.hospitalizaionservice.hospitalizaionserviceapi.service;
+package com.phsz.hospitalizationservice.hospitalizationserviceapi.service;
 
 
-import com.phsz.hospitalizationservice.hospitalizationserviceprovider.entity.Hospitalization;
+import com.phsz.hospitalizationservice.hospitalizationserviceapi.entity.Hospitalization;
 
 import java.util.List;
 import java.util.Optional;

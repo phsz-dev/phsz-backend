@@ -1,6 +1,6 @@
 package com.phsz.officeservice.officeserviceprovider.controller;
 
-import com.phsz.officeservice.officeserviceprovider.entity.Office;
+import com.phsz.officeservice.officeserviceapi.entity.Office;
 import com.phsz.officeservice.officeserviceprovider.service.OfficeServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;

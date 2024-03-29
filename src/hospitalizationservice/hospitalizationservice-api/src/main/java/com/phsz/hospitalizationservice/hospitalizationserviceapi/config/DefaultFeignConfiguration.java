@@ -1,4 +1,4 @@
-package com.phsz.hospitalizaionservice.hospitalizaionserviceapi.config;
+package com.phsz.hospitalizationservice.hospitalizationserviceapi.config;
 
 import feign.Logger;
 import org.springframework.context.annotation.Bean;

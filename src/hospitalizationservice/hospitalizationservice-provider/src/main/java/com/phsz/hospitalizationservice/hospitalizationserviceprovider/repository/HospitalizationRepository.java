@@ -1,6 +1,6 @@
 package com.phsz.hospitalizationservice.hospitalizationserviceprovider.repository;
 
-import com.phsz.hospitalizationservice.hospitalizationserviceprovider.entity.Hospitalization;
+import com.phsz.hospitalizationservice.hospitalizationserviceapi.entity.Hospitalization;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -10,6 +10,5 @@ public interface HospitalizationRepository extends CrudRepository<Hospitalizatio
     List<Hospitalization> findAll();
     Optional<Hospitalization> findById(Long hospitalizationId);
     Hospitalization save(Hospitalization hospitalization);
-    void update(Hospitalization hospitalization);
     void deleteById(Long hospitalizationId);
 }

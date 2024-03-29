@@ -2,7 +2,7 @@ package com.phsz.clerkservice.clerkserviceprovider.service;
 
 import com.phsz.clerkservice.clerkserviceapi.service.ClerkService;
 import com.phsz.clerkservice.clerkserviceprovider.repository.ClerkRepository;
-import com.phsz.clerkservice.clerkserviceprovider.entity.Clerk;
+import com.phsz.clerkservice.clerkserviceapi.entity.Clerk;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +41,7 @@ public class ClerkServiceImpl implements ClerkService {
 
     @Override
     public String update(Clerk clerk) {
-        clerkRepository.update(clerk);
+        clerkRepository.save(clerk);
         return "success";
     }
 

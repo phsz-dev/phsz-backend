@@ -1,6 +1,6 @@
 package com.phsz.officeservice.officeserviceapi.service;
 
-import com.phsz.officeservice.officeserviceprovider.entity.Office;
+import com.phsz.officeservice.officeserviceapi.entity.Office;
 
 import java.util.List;
 import java.util.Optional;

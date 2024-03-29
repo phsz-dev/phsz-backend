@@ -1,6 +1,6 @@
 package com.phsz.clerkservice.clerkserviceprovider.controller;
 
-import com.phsz.clerkservice.clerkserviceprovider.entity.Clerk;
+import com.phsz.clerkservice.clerkserviceapi.entity.Clerk;
 import com.phsz.clerkservice.clerkserviceprovider.service.ClerkServiceImpl;
 import com.phsz.common.Result;
 import jakarta.annotation.Resource;

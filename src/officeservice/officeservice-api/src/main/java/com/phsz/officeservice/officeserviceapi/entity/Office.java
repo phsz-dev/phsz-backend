@@ -1,4 +1,4 @@
-package com.phsz.officeservice.officeserviceprovider.entity;
+package com.phsz.officeservice.officeserviceapi.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,9 +8,9 @@ import lombok.Data;
 @Table(name = "office",schema = "public")
 public class Office {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long officeId;
+    private Long id;
 
-    private String officeName;
+    private String name;
     private String location;
     private String responsibility;
     private String serviceHours;

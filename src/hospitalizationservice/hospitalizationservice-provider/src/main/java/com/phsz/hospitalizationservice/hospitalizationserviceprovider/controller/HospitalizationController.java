@@ -1,7 +1,7 @@
 package com.phsz.hospitalizationservice.hospitalizationserviceprovider.controller;
 
 import com.phsz.common.Result;
-import com.phsz.hospitalizationservice.hospitalizationserviceprovider.entity.Hospitalization;
+import com.phsz.hospitalizationservice.hospitalizationserviceapi.entity.Hospitalization;
 import com.phsz.hospitalizationservice.hospitalizationserviceprovider.service.HospitalizationServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;

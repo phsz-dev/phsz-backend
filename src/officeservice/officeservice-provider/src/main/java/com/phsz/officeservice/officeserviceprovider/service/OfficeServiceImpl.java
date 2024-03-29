@@ -3,7 +3,7 @@ package com.phsz.officeservice.officeserviceprovider.service;
 import com.phsz.officeservice.officeserviceapi.service.OfficeService;
 import com.phsz.officeservice.officeserviceprovider.repository.OfficeRepository;
 import jakarta.annotation.Resource;
-import com.phsz.officeservice.officeserviceprovider.entity.Office;
+import com.phsz.officeservice.officeserviceapi.entity.Office;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class OfficeServiceImpl implements OfficeService {
 
     @Override
     public String update(Office office) {
-        officeRepository.update(office);
+        officeRepository.save(office);
         return "success";
     }
 

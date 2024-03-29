@@ -1,4 +1,4 @@
-package com.phsz.clerkservice.clerkserviceprovider.entity;
+package com.phsz.clerkservice.clerkserviceapi.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,9 +8,9 @@ import lombok.Data;
 @Table(name = "clerk",schema = "public")
 public class Clerk {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long clerkId;
+    private Long id;
 
-    private String clerkName;
+    private String name;
     private String email;
     private String phoneNumber;
     private String serviceHours;

@@ -1,6 +1,6 @@
 package com.phsz.officeservice.officeserviceprovider.repository;
 
-import com.phsz.officeservice.officeserviceprovider.entity.Office;
+import com.phsz.officeservice.officeserviceapi.entity.Office;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -11,6 +11,5 @@ public interface OfficeRepository extends CrudRepository<Office,Integer> {
     Optional<Office> findById(Long officeId);
     Optional<Office> findByName(String officeName);
     Office save(Office office);
-    void update(Office office);
     void deleteById(Long officeId);
 }
