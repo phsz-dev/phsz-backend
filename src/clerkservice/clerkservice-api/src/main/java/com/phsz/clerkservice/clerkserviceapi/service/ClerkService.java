@@ -1,6 +1,6 @@
 package com.phsz.clerkservice.clerkserviceapi.service;
 
-import com.phsz.clerkservice.clerkserviceprovider.entity.Clerk;
+import com.phsz.clerkservice.clerkserviceapi.entity.Clerk;
 
 import java.util.List;
 import java.util.Optional;

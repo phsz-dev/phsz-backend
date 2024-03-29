@@ -1,6 +1,6 @@
 package com.phsz.roleplayservice.roleplayserviceapi.service;
 
-import com.phsz.roleplayservice.roleplayserviceprovider.entity.Role;
+import com.phsz.roleplayservice.roleplayserviceapi.entity.Role;
 import java.util.List;
 import java.util.Optional;
 

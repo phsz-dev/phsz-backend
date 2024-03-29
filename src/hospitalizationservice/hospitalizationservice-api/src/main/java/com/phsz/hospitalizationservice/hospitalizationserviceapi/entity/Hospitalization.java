@@ -1,4 +1,4 @@
-package com.phsz.hospitalizationservice.hospitalizationserviceprovider.entity;
+package com.phsz.hospitalizationservice.hospitalizationserviceapi.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,10 +7,9 @@ import java.sql.Date;
 
 @Entity
 @Data
-@Table(name = "hospitalization",schema = "public")
 public class Hospitalization {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long hospitalizationId;
+    private Long id;
 
     private Long petId;
     private Date admissionDate;

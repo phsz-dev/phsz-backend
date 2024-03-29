@@ -1,7 +1,7 @@
 package com.phsz.roleplayservice.roleplayserviceprovider.controller;
 
 import com.phsz.common.Result;
-import com.phsz.roleplayservice.roleplayserviceprovider.entity.Role;
+import com.phsz.roleplayservice.roleplayserviceapi.entity.Role;
 import com.phsz.roleplayservice.roleplayserviceprovider.service.RolePlayServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;

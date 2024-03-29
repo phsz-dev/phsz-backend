@@ -1,7 +1,7 @@
 package com.phsz.roleplayservice.roleplayserviceprovider.service;
 
 import com.phsz.roleplayservice.roleplayserviceapi.service.RolePlayService;
-import com.phsz.roleplayservice.roleplayserviceprovider.entity.Role;
+import com.phsz.roleplayservice.roleplayserviceapi.entity.Role;
 import com.phsz.roleplayservice.roleplayserviceprovider.repository.RoleRepository;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class RolePlayServiceImpl implements RolePlayService {
 
     @Override
     public String update(Role role) {
-        roleRepository.update(role);
+        roleRepository.save(role);
         return "success";
     }
 

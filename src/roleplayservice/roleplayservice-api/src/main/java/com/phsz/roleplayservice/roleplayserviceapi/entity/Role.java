@@ -1,4 +1,4 @@
-package com.phsz.roleplayservice.roleplayserviceprovider.entity;
+package com.phsz.roleplayservice.roleplayserviceapi.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.Data;
 @Table(name = "role",schema = "public")
 public class Role {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
+    private Long id;
 
     private String roleName;
     private String description;
