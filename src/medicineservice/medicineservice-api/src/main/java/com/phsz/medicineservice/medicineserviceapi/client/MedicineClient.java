@@ -10,18 +10,18 @@ import java.util.List;
 @FeignClient(value = "medicineservice-provider")
 public interface MedicineClient {
 
-    @GetMapping("/medicines")
+    @GetMapping("/api/medicines")
     Result getAllMedicines(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
-    @GetMapping("/medicine/{medicine_id}")
+    @GetMapping("/api/medicine/{medicine_id}")
     Result getMedicineById(@PathVariable("medicine_id") String medicineId);
 
-    @PostMapping("/medicine")
+    @PostMapping("/api/medicine")
     Result addMedicine(@RequestBody Medicine medicine);
 
-    @PutMapping("/medicine/{medicine_id}")
+    @PutMapping("/api/medicine/{medicine_id}")
     Result updateMedicine(@PathVariable("medicine_id") String medicineId, @RequestBody Medicine medicine);
 
-    @DeleteMapping("/medicine/{medicine_id}")
+    @DeleteMapping("/api/medicine/{medicine_id}")
     Result deleteMedicine(@PathVariable("medicine_id") String medicineId);
 }

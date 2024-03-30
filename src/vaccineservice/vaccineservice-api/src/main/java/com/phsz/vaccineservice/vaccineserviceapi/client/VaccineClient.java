@@ -10,18 +10,18 @@ import java.util.List;
 @FeignClient(value = "vaccineservice-provider")
 public interface VaccineClient {
 
-    @GetMapping("/vaccines")
+    @GetMapping("/api/vaccines")
     Result getAllVaccines(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
-    @GetMapping("/vaccine/{vaccine_id}")
+    @GetMapping("/api/vaccine/{vaccine_id}")
     Result getVaccineById(@PathVariable("vaccine_id") String vaccineId);
 
-    @PostMapping("/vaccine")
+    @PostMapping("/api/vaccine")
     Result addVaccine(@RequestBody Vaccine vaccine);
 
-    @PutMapping("/vaccine/{assay_id}")
+    @PutMapping("/api/vaccine/{assay_id}")
     Result updateVaccine(@PathVariable("assay_id") String assayId, @RequestBody Vaccine vaccine);
 
-    @DeleteMapping("/vaccine/{assay_id}")
+    @DeleteMapping("/api/vaccine/{assay_id}")
     Result deleteVaccine(@PathVariable("assay_id") String assayId);
 }
