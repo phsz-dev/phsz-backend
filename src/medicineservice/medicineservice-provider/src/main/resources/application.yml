@@ -1,12 +1,12 @@
 server:
-  port: 8090
+  port: 8093
 spring:
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
   application:
-    name: assayservice-provider
+    name: medicineservice-provider
   datasource:
     url: jdbc:postgresql://101.34.208.76:5432/phsz
     username: postgres

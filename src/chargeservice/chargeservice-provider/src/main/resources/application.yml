@@ -6,7 +6,7 @@ spring:
       discovery:
         server-addr: localhost:8848
   application:
-    name: vaccineservice-provider
+    name: chargeservice-provider
   datasource:
     url: jdbc:postgresql://101.34.208.76:5432/phsz
     username: postgres
