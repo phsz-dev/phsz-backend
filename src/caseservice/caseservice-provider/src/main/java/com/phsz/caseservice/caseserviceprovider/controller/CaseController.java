@@ -1,6 +1,7 @@
 package com.phsz.caseservice.caseserviceprovider.controller;
 
 import com.phsz.caseservice.caseserviceprovider.pojo.Case;
+import com.phsz.caseservice.caseserviceprovider.pojo.CaseInfo;
 import com.phsz.caseservice.caseserviceprovider.pojo.Result;
 import com.phsz.caseservice.caseserviceprovider.service.Impl.CaseServiceImpl;
 import jakarta.annotation.Resource;
@@ -34,7 +35,7 @@ public class CaseController {
 	}
 	//添加病例
 	@PostMapping
-	Result addNewCase(@RequestBody Case case1) {
+	Result addNewCase(@RequestBody CaseInfo case1) {
 		String s = caseService.addNewCase(case1);
 		result.setData(s);
 		if(s==null){
@@ -63,7 +64,7 @@ public class CaseController {
 	}
 	//修改病例
 	@PutMapping
-	Result updateCaseById(@RequestBody Case case1){
+	Result updateCaseById(@RequestBody CaseInfo case1){
 		String s = caseService.updateCase(case1);
 		result.setData(s);
 		if (s==null){
@@ -78,7 +79,7 @@ public class CaseController {
 	//查找病例
 	@GetMapping("/{id}")
 	Result findCaseById(@PathVariable Long id){
-		Case aCase = caseService.findCase(id);
+		CaseInfo aCase = caseService.findCase(id);
 		if(aCase==null){
 			result.setCode(0);
 			result.setMessage("not found");

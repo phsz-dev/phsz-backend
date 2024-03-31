@@ -10,7 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/test/examination")
+@RequestMapping("/api/test/examinations")
 public class ExaminationController {
 	@Resource
 	ExaminationServiceImpl examinationService;

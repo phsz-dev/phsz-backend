@@ -8,6 +8,9 @@ import lombok.Data;
 @Table(name = "case_to_medicine")
 public class CaseToMedicine {
 	@Id
+	@Column
+	private Long CTMId;
+
 	@Column(name = "case_id")
 
 	private Long caseId;

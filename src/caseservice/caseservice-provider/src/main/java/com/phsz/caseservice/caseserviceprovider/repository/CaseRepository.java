@@ -14,4 +14,5 @@ public interface CaseRepository extends JpaRepository<Case,Long>, PagingAndSorti
 	Optional<Case> deleteCaseByCaseId(Long caseId);
 
 	Page<Case> findAllByIllnessId(Long illnessId, Pageable pageable);
+
 }

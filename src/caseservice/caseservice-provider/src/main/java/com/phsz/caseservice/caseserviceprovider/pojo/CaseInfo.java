@@ -11,10 +11,11 @@ public class CaseInfo {
 	private Illness illness;
 	private String caseDescription;
 	private String submitTime;
-	private List<Assay> assays;
+	private List<AssayInfo> assays;
 	private List<MedicineInfo> medicines;
-	private List<Vaccine> vaccines;
+	private List<VaccineInfo> vaccines;
+	private Long chargeId;
 	private float chargeValue;
-	private Long doctorId;
 	private String doctorName;
+
 }

@@ -1,7 +1,5 @@
 package com.phsz.medicineservice.medicineserviceprovider.controller;
 
-import jakarta.annotation.Resource;
-
 import com.phsz.medicineservice.medicineserviceprovider.pojo.Medicine;
 import com.phsz.medicineservice.medicineserviceprovider.pojo.Result;
 import com.phsz.medicineservice.medicineserviceprovider.service.Impl.MedicineServiceImpl;
@@ -88,5 +86,11 @@ public class MedicineController {
         result.setCode(1);
         result.setMessage("successfully");
         return result;
+    }
+
+    @GetMapping("/client/{medicine_id}")
+    public Medicine findMedicineByIdClient(@PathVariable Long medicine_id) {
+        Medicine medicineById = medicineService.findMedicineById(medicine_id);
+        return medicineById;
     }
 }

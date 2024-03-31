@@ -95,4 +95,9 @@ public class AssayController {
         result.setMessage("successfully");
         return result;
     }
+    @GetMapping("/client/{assayId}")
+    public Assay findAssayByIdClient(@PathVariable("assayId") Long assayId){
+        Optional<Assay> assayById = assayService.findAssayById(assayId);
+        return assayById.get();
+    }
 }

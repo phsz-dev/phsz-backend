@@ -19,15 +19,22 @@ public class Case {
 	private String caseDescription;
 	@Column(name = "submit_time")
 	private String submitTime;
-	@Column(name = "assay_id")
-	private Long assayId;
-	@Column(name = "medicines_id")
-	private String medicinesId;
-	@Column(name = "vaccine_id")
-	private Long vaccineId;
+//	@Column(name = "assay_id")
+//	private Long assayId;
+//	@Column(name = "medicines_id")
+//	private String medicinesId;
+//	@Column(name = "vaccine_id")
+//	private Long vaccineId;
 	@Column(name = "charge_id")
 	private Long chargeId;
-	@Column(name = "doctor_id")
-	private Long doctorId;
+	@Column(name = "doctor_name")
+	private String doctorName;
 
+	public Case CaseCons(CaseInfo caseInfo) {
+		this.caseName=caseInfo.getCaseName();
+		this.caseDescription=caseInfo.getCaseDescription();
+		this.submitTime=caseInfo.getSubmitTime();
+		this.doctorName=caseInfo.getDoctorName();
+		return this;
+	}
 }

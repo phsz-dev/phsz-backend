@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/play/responsibilities")
+@RequestMapping("/api/plays/responsibilities")
 public class ResponsibilityController {
 	@Resource
 	ResponsibilityServiceImpl responsibilityService;

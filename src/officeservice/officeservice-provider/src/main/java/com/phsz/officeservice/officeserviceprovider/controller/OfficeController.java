@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.phsz.common.Result;
 
 @RestController
-@RequestMapping("/offices")
+@RequestMapping("/api/offices")
 public class OfficeController {
     @Resource
     private final OfficeServiceImpl officeService;

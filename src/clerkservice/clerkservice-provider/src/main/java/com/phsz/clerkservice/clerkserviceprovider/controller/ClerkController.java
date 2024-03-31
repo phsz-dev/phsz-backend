@@ -7,7 +7,7 @@ import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/clerks")
+@RequestMapping("/api/clerks")
 public class ClerkController {
     @Resource
     private final ClerkServiceImpl clerkService;

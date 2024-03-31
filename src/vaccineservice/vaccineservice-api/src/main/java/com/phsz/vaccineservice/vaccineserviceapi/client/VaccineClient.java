@@ -5,16 +5,14 @@ import com.phsz.vaccineservice.vaccineserviceapi.pojo.Vaccine;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @FeignClient(value = "vaccineservice-provider")
 public interface VaccineClient {
 
     @GetMapping("/api/vaccines")
     Result getAllVaccines(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
-    @GetMapping("/api/vaccine/{vaccine_id}")
-    Result getVaccineById(@PathVariable("vaccine_id") Long vaccineId);
+    @GetMapping("/api/vaccines/client/{vaccine_id}")
+    Vaccine getVaccineById(@PathVariable("vaccine_id") Long vaccineId);
 
     @PostMapping("/api/vaccine")
     Result addVaccine(@RequestBody Vaccine vaccine);

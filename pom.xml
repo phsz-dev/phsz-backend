@@ -41,6 +41,7 @@
 		<module>src/medicineservice/medicineservice-provider</module>
 		<module>src/medicineservice/medicineservice-provider</module>
         <module>src/chargeservice/chargeservice-api</module>
+		<module>src/gateway</module>
     </modules>
 
 	<dependencyManagement>
@@ -94,10 +95,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-oauth2-client</artifactId>
 			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-starter-openfeign</artifactId>
-			</dependency>
+
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-starter-web-services</artifactId>

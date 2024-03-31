@@ -4,8 +4,6 @@ import com.phsz.medicineservice.medicineserviceprovider.pojo.Medicine;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
-
 public interface MedicineService {
     // 支持分页查询的方法
     Page<Medicine> findAllMedicines(Pageable pageable);

@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name = "Medicine",schema = "public")
 public class Medicine {
     @Id
-    @Column
+    @Column(name = "medicine_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long medicineId; // 将MedicineId修改为medicineId，符合Java命名规范
     private String medicineName; // 将name修改为medicineName

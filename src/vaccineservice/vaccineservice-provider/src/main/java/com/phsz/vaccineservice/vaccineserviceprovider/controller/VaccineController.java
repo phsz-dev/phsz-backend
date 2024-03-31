@@ -1,10 +1,7 @@
 package com.phsz.vaccineservice.vaccineserviceprovider.controller;
 
-import jakarta.annotation.Resource;
-
-
-import com.phsz.vaccineservice.vaccineserviceprovider.pojo.Vaccine;
 import com.phsz.vaccineservice.vaccineserviceprovider.pojo.Result;
+import com.phsz.vaccineservice.vaccineserviceprovider.pojo.Vaccine;
 import com.phsz.vaccineservice.vaccineserviceprovider.service.Impl.VaccineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -89,5 +86,9 @@ public class VaccineController {
         result.setCode(1);
         result.setMessage("successfully");
         return result;
+    }
+    @GetMapping("/client/{vaccineId}")
+    public Vaccine getVaccineByIdClient(@PathVariable("vaccineId") Long vaccineId){
+        return vaccineService.findVaccineById(vaccineId);
     }
 }

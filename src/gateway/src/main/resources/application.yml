@@ -1,0 +1,70 @@
+server:
+  port: 10010
+phsz:
+  jwt:
+    secret: Of0dtVLJL/iNa5tlASR8VXKRvAe7UEqETaC4s0EtePo=
+    expiration: 3600000
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      routes:
+        - id: assayservice-provider
+          uri:
+            lb://assayservice-provider
+          predicates:
+            - Path=/api/assays/**
+        - id: caseservice-provider
+          uri:
+            lb://caseservice-provider
+          predicates:
+            - Path=/api/cases/**
+        - id: chargeservice-provider
+          uri:
+            lb://chargeservice-provider
+          predicates:
+            - Path=/api/charges/**
+        - id: clerkservice-provider
+          uri:
+            lb://clerkservice-provider
+          predicates:
+            - Path=/api/clerks/**
+        - id: documentservice-provider
+          uri:
+            lb://documentservice-provider
+          predicates:
+            - Path=/api/documents/**
+        - id: hospitalizationservice-provider
+          uri:
+            lb://hospitalizationservice-provider
+          predicates:
+            - Path=/api/hospitalizations/**
+        - id: officeservice-provider
+          uri:
+            lb://officeservice-provider
+          predicates:
+            - Path=/api/offices/**
+        - id: playservice-provider
+          uri:
+            lb://playservice-provider
+          predicates:
+            - Path=/api/plays/**
+        - id: testservice-provider
+          uri:
+            lb://testservice-provider
+          predicates:
+            - Path=/api/tests/**
+        - id: userservice-provider
+          uri:
+            lb://userservice-provider
+          predicates:
+            - Path=/api/users/**
+        - id: vaccineservice-provider
+          uri:
+            lb://vaccineservice-provider
+          predicates:
+            - Path=/api/vaccines/**
