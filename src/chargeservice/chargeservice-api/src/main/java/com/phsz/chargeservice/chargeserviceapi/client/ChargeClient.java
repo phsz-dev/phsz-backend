@@ -12,14 +12,14 @@ public interface ChargeClient {
     Result getAllCharges(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
     @GetMapping("/api/charge/{charge_id}")
-    Result getChargeById(@PathVariable("charge_id") String chargeId);
+    Result getChargeById(@PathVariable("charge_id") Long chargeId);
 
     @PostMapping("/api/charge")
     Result addCharge(@RequestBody Charge charge);
 
     @PutMapping("/api/charge/{charge_id}")
-    Result updateCharge(@PathVariable("charge_id") String chargeId, @RequestBody Charge charge);
+    Result updateCharge(@PathVariable("charge_id") Long chargeId, @RequestBody Charge charge);
 
     @DeleteMapping("/api/charge/{charge_id}")
-    Result deleteCharge(@PathVariable("charge_id") String chargeId);
+    Result deleteCharge(@PathVariable("charge_id") Long chargeId);
 }

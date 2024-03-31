@@ -14,14 +14,14 @@ public interface VaccineClient {
     Result getAllVaccines(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
     @GetMapping("/api/vaccine/{vaccine_id}")
-    Result getVaccineById(@PathVariable("vaccine_id") String vaccineId);
+    Result getVaccineById(@PathVariable("vaccine_id") Long vaccineId);
 
     @PostMapping("/api/vaccine")
     Result addVaccine(@RequestBody Vaccine vaccine);
 
     @PutMapping("/api/vaccine/{assay_id}")
-    Result updateVaccine(@PathVariable("assay_id") String assayId, @RequestBody Vaccine vaccine);
+    Result updateVaccine(@PathVariable("assay_id") Long assayId, @RequestBody Vaccine vaccine);
 
     @DeleteMapping("/api/vaccine/{assay_id}")
-    Result deleteVaccine(@PathVariable("assay_id") String assayId);
+    Result deleteVaccine(@PathVariable("assay_id") Long assayId);
 }

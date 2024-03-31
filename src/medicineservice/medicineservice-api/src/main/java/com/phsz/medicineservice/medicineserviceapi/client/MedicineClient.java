@@ -14,14 +14,14 @@ public interface MedicineClient {
     Result getAllMedicines(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
     @GetMapping("/api/medicine/{medicine_id}")
-    Result getMedicineById(@PathVariable("medicine_id") String medicineId);
+    Result getMedicineById(@PathVariable("medicine_id") Long medicineId);
 
     @PostMapping("/api/medicine")
     Result addMedicine(@RequestBody Medicine medicine);
 
     @PutMapping("/api/medicine/{medicine_id}")
-    Result updateMedicine(@PathVariable("medicine_id") String medicineId, @RequestBody Medicine medicine);
+    Result updateMedicine(@PathVariable("medicine_id") Long medicineId, @RequestBody Medicine medicine);
 
     @DeleteMapping("/api/medicine/{medicine_id}")
-    Result deleteMedicine(@PathVariable("medicine_id") String medicineId);
+    Result deleteMedicine(@PathVariable("medicine_id") Long medicineId);
 }
