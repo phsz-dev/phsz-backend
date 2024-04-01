@@ -50,6 +50,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		appUser.setUsername(username);
 		appUser.setPassword(passwordEncoder.encode(password));
 		appUser.setEnabled(true);
+		appUser.setRolesBitmap(1);
 		userRepository.save(appUser);
 		return true;
 	}
