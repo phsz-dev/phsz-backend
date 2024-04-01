@@ -1,18 +1,13 @@
 package com.phsz.userservice.userserviceprovider.controller;
 
-import com.phsz.userservice.userserviceprovider.service.UserServiceImpl;
-import jakarta.annotation.Resource;
-import org.springframework.http.ResponseEntity;
+import com.phsz.common.Result;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
-	@Resource
-	private final UserServiceImpl userService;
-	public UserController(UserServiceImpl userService) {
-		this.userService = userService;
-	}
 
 	@GetMapping
 	public String getAll(){
@@ -20,8 +15,8 @@ public class UserController {
 	}
 
 	@GetMapping("/me")
-	public ResponseEntity<?> getCurrentUser() {
-		return ResponseEntity.ok(userService.getCurrentUser());
+	public Result getCurrentUser(@RequestHeader("Username") String username, @RequestHeader("Roles") List<String> roles){
+		return Result.success("OK", String.join(",", roles));
 	}
 
 }

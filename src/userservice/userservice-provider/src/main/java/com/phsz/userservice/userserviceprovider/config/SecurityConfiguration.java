@@ -1,6 +1,5 @@
 package com.phsz.userservice.userserviceprovider.config;
 
-import com.phsz.userservice.userserviceprovider.JwtTokenFilter;
 import com.phsz.userservice.userserviceprovider.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -28,12 +26,13 @@ public class SecurityConfiguration {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(c -> c.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider()), UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(authorize ->
-                        authorize
-                                .requestMatchers("/auth/**").permitAll()
-                                .anyRequest().authenticated()
-                );
+//                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider()), UsernamePasswordAuthenticationFilter.class)
+//                .authorizeHttpRequests(authorize ->
+//                        authorize
+//                                .requestMatchers("/auth/**").permitAll()
+//                                .anyRequest().authenticated()
+//                );
+        ;
         return http.build();
     }
 

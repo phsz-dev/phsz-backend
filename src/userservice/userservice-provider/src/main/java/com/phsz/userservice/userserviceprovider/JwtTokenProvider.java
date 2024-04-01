@@ -34,7 +34,7 @@ public class JwtTokenProvider {
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
         return Jwts.builder()
-                .claim("username", username)
+                .subject(username)
                 .claim("roles", roles)
                 .issuedAt(now)
                 .expiration(validity)
@@ -55,7 +55,7 @@ public class JwtTokenProvider {
         try {
             // 获取用户信息
             var payload = Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
-            var username = payload.get("username", String.class);
+            var username = payload.getSubject();
             var authorities = ((List<?>) payload.get("roles")).stream()
                     .map(authority -> new SimpleGrantedAuthority((String) authority))
                     .collect(Collectors.toList());

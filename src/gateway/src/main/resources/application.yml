@@ -11,6 +11,9 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+    loadbalancer:
+      ribbon:
+        enable: false
     gateway:
       routes:
         - id: assayservice-provider
@@ -62,9 +65,13 @@ spring:
           uri:
             lb://userservice-provider
           predicates:
-            - Path=/api/users/**
+            - Path=/api/users/**, /api/auth/**
         - id: vaccineservice-provider
           uri:
             lb://vaccineservice-provider
           predicates:
             - Path=/api/vaccines/**
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
