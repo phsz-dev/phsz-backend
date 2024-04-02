@@ -190,6 +190,7 @@ public class CaseServiceImpl implements CaseService {
 			Assay assayById = assayClient.getAssayById(caseToMedicine.getAssayId());
 			assayInfo.setAssayId(assayById.getId());
 			assayInfo.setAssayName(assayById.getName());
+			assayInfo.setResult(assayById.getResult());
 			assayInfos.add(assayInfo);
 		}
 		caseInfo.setAssays(assayInfos);
