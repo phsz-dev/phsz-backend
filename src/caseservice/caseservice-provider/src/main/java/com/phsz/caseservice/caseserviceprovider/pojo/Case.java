@@ -8,31 +8,23 @@ import lombok.Data;
 @Table(name = "Case" ,schema = "public")
 public class Case {
 	@Id
-	@Column(name = "case_id")
+	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long caseId;
-	@Column(name = "case_name")
-	private String caseName;
-	@Column(name = "illness_id")
-	private Long illnessId;
-	@Column(name = "case_description")
-	private String caseDescription;
+	private Long id;
+	@Column(name = "name")
+	private String name;
+	@Column(name = "description")
+	private String description;
 	@Column(name = "submit_time")
 	private String submitTime;
-//	@Column(name = "assay_id")
-//	private Long assayId;
-//	@Column(name = "medicines_id")
-//	private String medicinesId;
-//	@Column(name = "vaccine_id")
-//	private Long vaccineId;
 	@Column(name = "charge_id")
 	private Long chargeId;
 	@Column(name = "doctor_name")
 	private String doctorName;
 
 	public Case CaseCons(CaseInfo caseInfo) {
-		this.caseName=caseInfo.getCaseName();
-		this.caseDescription=caseInfo.getCaseDescription();
+		this.name=caseInfo.getName();
+		this.description=caseInfo.getDescription();
 		this.submitTime=caseInfo.getSubmitTime();
 		this.doctorName=caseInfo.getDoctorName();
 		return this;

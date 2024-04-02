@@ -1,7 +1,7 @@
 package com.phsz.medicineservice.medicineserviceprovider.controller;
 
+import com.phsz.common.Result;
 import com.phsz.medicineservice.medicineserviceprovider.pojo.Medicine;
-import com.phsz.medicineservice.medicineserviceprovider.pojo.Result;
 import com.phsz.medicineservice.medicineserviceprovider.service.Impl.MedicineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -15,17 +15,11 @@ public class MedicineController {
     @Autowired
     private MedicineServiceImpl medicineService;
 
-    @Autowired
-    Result result;
-
     // 获取所有药品
     @GetMapping
     public Result getAllMedicines(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        result.setData(medicineService.findAllMedicines(pageable));
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("get all medicine OK",medicineService.findAllMedicines(pageable));
     }
 
     // 添加新药品
@@ -33,14 +27,9 @@ public class MedicineController {
     public Result addNewMedicine(@RequestBody Medicine medicine) {
         Medicine newMedicine = medicineService.addNewMedicine(medicine);
         if (newMedicine == null) {
-            result.setCode(0);
-            result.setMessage("already exists");
-            return result;
+            return Result.error("add medicine failed");
         }
-        result.setData(newMedicine);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("add medicine successfully",null);
     }
 
     // 删除药品
@@ -48,14 +37,9 @@ public class MedicineController {
     public Result deleteMedicineById(@PathVariable Long medicine_id) {
         String message = medicineService.deleteMedicine(medicine_id);
         if (message == null) {
-            result.setCode(0);
-            result.setMessage("not found");
-            return result;
+            return Result.error("not found or error deleting");
         }
-        result.setData(message);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("delete medicine successfully",null);
     }
 
     // 修改药品信息
@@ -63,14 +47,9 @@ public class MedicineController {
     public Result updateMedicineById(@PathVariable Long medicine_id, @RequestBody Medicine medicine) {
         Medicine updatedMedicine = medicineService.updateMedicine(medicine_id, medicine);
         if (updatedMedicine == null) {
-            result.setCode(0);
-            result.setMessage("not found or error updating");
-            return result;
+            return Result.error("not found or error updating");
         }
-        result.setData(updatedMedicine);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("update medicine successfully",null);
     }
 
     // 获取单个药品信息
@@ -78,14 +57,9 @@ public class MedicineController {
     public Result findMedicineById(@PathVariable Long medicine_id) {
         Medicine medicine = medicineService.findMedicineById(medicine_id);
         if (medicine == null) {
-            result.setCode(0);
-            result.setMessage("not found");
-            return result;
+            return Result.error("not found");
         }
-        result.setData(medicine);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("find medicine successfully",medicine);
     }
 
     @GetMapping("/client/{medicine_id}")

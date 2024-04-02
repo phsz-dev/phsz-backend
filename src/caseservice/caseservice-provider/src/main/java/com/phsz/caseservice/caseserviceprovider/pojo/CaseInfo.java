@@ -6,10 +6,10 @@ import java.util.List;
 
 @Data
 public class CaseInfo {
-	private Long caseId;
-	private String caseName;
-	private Illness illness;
-	private String caseDescription;
+	private Long id;
+	private String name;
+	private List<Disease> diseaseList;
+	private String description;
 	private String submitTime;
 	private List<AssayInfo> assays;
 	private List<MedicineInfo> medicines;

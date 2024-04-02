@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class VaccineInfo {
-	private Long CTVId;
+	private Long id;
 	private Long vaccineId;
 	private String vaccineName;
 }

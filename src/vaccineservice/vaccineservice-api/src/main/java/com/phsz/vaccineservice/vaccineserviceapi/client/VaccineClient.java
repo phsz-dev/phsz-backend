@@ -1,6 +1,6 @@
 package com.phsz.vaccineservice.vaccineserviceapi.client;
 
-import com.phsz.vaccineservice.vaccineserviceapi.pojo.Result;
+import com.phsz.common.Result;
 import com.phsz.vaccineservice.vaccineserviceapi.pojo.Vaccine;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;

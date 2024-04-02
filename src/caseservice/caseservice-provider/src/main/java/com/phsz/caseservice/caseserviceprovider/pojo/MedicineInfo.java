@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 
 public class MedicineInfo {
-	private Long CTMId;
+	private Long id;
 	private Long medicineId;
 	private String medicineName;
 	private String medicineDosage;

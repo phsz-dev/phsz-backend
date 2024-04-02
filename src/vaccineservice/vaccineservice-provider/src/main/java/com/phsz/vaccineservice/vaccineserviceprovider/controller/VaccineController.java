@@ -1,6 +1,6 @@
 package com.phsz.vaccineservice.vaccineserviceprovider.controller;
 
-import com.phsz.vaccineservice.vaccineserviceprovider.pojo.Result;
+import com.phsz.common.Result;
 import com.phsz.vaccineservice.vaccineserviceprovider.pojo.Vaccine;
 import com.phsz.vaccineservice.vaccineserviceprovider.service.Impl.VaccineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,17 +15,11 @@ public class VaccineController {
     @Autowired
     private VaccineServiceImpl vaccineService;
 
-    @Autowired
-    Result result;
-
     // 获取所有疫苗
     @GetMapping
     public Result getAllVaccines(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        result.setData(vaccineService.findAllVaccines(pageable));
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("get all vaccine OK",vaccineService.findAllVaccines(pageable));
     }
 
     // 添加新疫苗
@@ -33,14 +27,9 @@ public class VaccineController {
     public Result addNewVaccine(@RequestBody Vaccine vaccine) {
         Vaccine newVaccine = vaccineService.addNewVaccine(vaccine);
         if (newVaccine == null) {
-            result.setCode(0);
-            result.setMessage("already exists");
-            return result;
+            return Result.error("add vaccine failed");
         }
-        result.setData(newVaccine);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("add vaccine successfully",null);
     }
 
     // 删除疫苗
@@ -48,14 +37,9 @@ public class VaccineController {
     public Result deleteVaccineById(@PathVariable Long vaccine_id) {
         String message = vaccineService.deleteVaccine(vaccine_id);
         if (message == null) {
-            result.setCode(0);
-            result.setMessage("not found");
-            return result;
+            return Result.error("not found or error deleting");
         }
-        result.setData(message);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("delete vaccine successfully",null);
     }
 
     // 修改疫苗信息
@@ -63,14 +47,9 @@ public class VaccineController {
     public Result updateVaccineById(@PathVariable Long vaccine_id, @RequestBody Vaccine vaccine) {
         Vaccine updatedVaccine = vaccineService.updateVaccine(vaccine_id, vaccine);
         if (updatedVaccine == null) {
-            result.setCode(0);
-            result.setMessage("not found or error updating");
-            return result;
+            return Result.error("not found or error updating");
         }
-        result.setData(updatedVaccine);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("update vaccine successfully",null);
     }
 
     // 获取单个疫苗信息
@@ -78,14 +57,9 @@ public class VaccineController {
     public Result findVaccineById(@PathVariable Long vaccine_id) {
         Vaccine vaccine = vaccineService.findVaccineById(vaccine_id);
         if (vaccine == null) {
-            result.setCode(0);
-            result.setMessage("not found");
-            return result;
+            return Result.error("not found");
         }
-        result.setData(vaccine);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("find vaccine successfully",vaccine);
     }
     @GetMapping("/client/{vaccineId}")
     public Vaccine getVaccineByIdClient(@PathVariable("vaccineId") Long vaccineId){

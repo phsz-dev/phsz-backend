@@ -5,11 +5,10 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "case_to_medicine")
 public class CaseToMedicine {
 	@Id
-	@Column
-	private Long CTMId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
 	@Column(name = "case_id")
 

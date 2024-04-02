@@ -1,13 +1,14 @@
 package com.phsz.assayservice.assayserviceprovider.controller;
 
+import com.phsz.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import com.phsz.assayservice.assayserviceprovider.pojo.Assay;
-import com.phsz.assayservice.assayserviceprovider.pojo.Result;
 import com.phsz.assayservice.assayserviceprovider.service.Impl.AssayServiceImpl;
+
 
 import java.util.Optional;
 
@@ -18,22 +19,16 @@ public class AssayController {
     @Autowired
     private AssayServiceImpl assayService;
 
-    @Autowired
-    Result result;
 
-    public AssayController(AssayServiceImpl assayService, Result result) {
+    public AssayController(AssayServiceImpl assayService) {
         this.assayService = assayService;
-        this.result = result;
     }
 
     // 获取所有化验
     @GetMapping
     public Result getAllAssays(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        result.setData(assayService.findAllAssays(pageable));
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("get all assay OK",assayService.findAllAssays(pageable));
     }
 
     // 添加新化验
@@ -41,14 +36,9 @@ public class AssayController {
     public Result addNewAssay(@RequestBody Assay assay) {
         Assay newAssay = assayService.addNewAssay(assay);
         if (newAssay == null) {
-            result.setCode(0);
-            result.setMessage("already exists");
-            return result;
+            return Result.error("add assay failed");
         }
-        result.setData(newAssay);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("add assay successfully",null);
     }
 
     // 删除化验
@@ -56,14 +46,9 @@ public class AssayController {
     public Result deleteAssayById(@PathVariable Long assay_id) {
         String message = assayService.deleteAssay(assay_id);
         if (message == null) {
-            result.setCode(0);
-            result.setMessage("not found");
-            return result;
+            return Result.error("not found or error deleting");
         }
-        result.setData(message);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("delete assay successfully",null);
     }
 
     // 修改化验信息
@@ -71,14 +56,9 @@ public class AssayController {
     public Result updateAssayById(@PathVariable Long assay_id, @RequestBody Assay assay) {
         Assay updatedAssay = assayService.updateAssay(assay_id, assay);
         if (updatedAssay == null) {
-            result.setCode(0);
-            result.setMessage("not found or error updating");
-            return result;
+            return Result.error("not found or error updating");
         }
-        result.setData(updatedAssay);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("update assay successfully",null);
     }
 
     // 获取单个化验信息
@@ -86,14 +66,9 @@ public class AssayController {
     public Result findAssayById(@PathVariable Long assay_id) {
         Optional<Assay> assayById = assayService.findAssayById(assay_id);
         if (assayById.isEmpty()) {
-            result.setCode(0);
-            result.setMessage("not found");
-            return result;
+            return Result.error("not found");
         }
-        result.setData(assayById.get());
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("get assay successfully",assayById.get());
     }
     @GetMapping("/client/{assayId}")
     public Assay findAssayByIdClient(@PathVariable("assayId") Long assayId){

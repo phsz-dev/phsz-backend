@@ -1,10 +1,8 @@
 package com.phsz.chargeservice.chargeserviceprovider.controller;
 
-import jakarta.annotation.Resource;
-
 import com.phsz.chargeservice.chargeserviceprovider.pojo.Charge;
-import com.phsz.chargeservice.chargeserviceprovider.pojo.Result;
 import com.phsz.chargeservice.chargeserviceprovider.service.Impl.ChargeServiceImpl;
+import com.phsz.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,47 +15,32 @@ public class ChargeController {
     @Autowired
     private ChargeServiceImpl chargeService;
 
-    @Autowired
-    Result result;
 
     // 获取所有收费信息
     @GetMapping
     public Result getAllCharges(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        result.setData(chargeService.findAllCharges(pageable));
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("get all charge OK",chargeService.findAllCharges(pageable));
     }
 
     // 添加新收费记录
     @PostMapping
     public Result addNewCharge(@RequestBody Charge charge) {
         Charge newCharge = chargeService.addNewCharge(charge);
-        if (newCharge == null) {
-            result.setCode(0);
-            result.setMessage("already exists");
-            return result;
+        if(newCharge == null){
+            return Result.error("add charge failed");
         }
-        result.setData(newCharge);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("add charge successfully",null);
     }
 
     // 删除收费记录
     @DeleteMapping("/{charge_id}")
     public Result deleteChargeById(@PathVariable Long charge_id) {
         String message = chargeService.deleteCharge(charge_id);
-        if (message == null) {
-            result.setCode(0);
-            result.setMessage("not found");
-            return result;
+        if(message == null){
+            return Result.error("not found or error deleting");
         }
-        result.setData(message);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("delete charge successfully",null);
     }
 
     // 修改收费信息
@@ -65,14 +48,9 @@ public class ChargeController {
     public Result updateChargeById(@PathVariable Long charge_id, @RequestBody Charge charge) {
         Charge updatedCharge = chargeService.updateCharge(charge_id, charge);
         if (updatedCharge == null) {
-            result.setCode(0);
-            result.setMessage("not found or error updating");
-            return result;
+            return Result.error("not found or error updating");
         }
-        result.setData(updatedCharge);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("update charge successfully",null);
     }
 
     // 获取单个收费记录信息
@@ -80,13 +58,8 @@ public class ChargeController {
     public Result findChargeById(@PathVariable Long charge_id) {
         Charge charge = chargeService.findChargeById(charge_id);
         if (charge == null) {
-            result.setCode(0);
-            result.setMessage("not found");
-            return result;
+            return Result.error("not found");
         }
-        result.setData(charge);
-        result.setCode(1);
-        result.setMessage("successfully");
-        return result;
+        return Result.success("find charge successfully",charge);
     }
 }

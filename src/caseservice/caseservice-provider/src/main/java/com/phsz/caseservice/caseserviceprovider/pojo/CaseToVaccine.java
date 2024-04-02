@@ -1,20 +1,16 @@
 package com.phsz.caseservice.caseserviceprovider.pojo;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "case_to_assay",schema = "public")
 public class CaseToVaccine {
 	@Id
-	@Column
-	private Long CTVId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	@Column(name = "case_id")
 	private Long caseId;
-	@Column
+	@Column(name = "vaccine_id")
 	private Long vaccineId;
 }

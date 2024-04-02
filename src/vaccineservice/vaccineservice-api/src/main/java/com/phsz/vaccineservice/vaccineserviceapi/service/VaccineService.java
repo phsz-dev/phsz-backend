@@ -1,10 +1,10 @@
 package com.phsz.vaccineservice.vaccineserviceapi.service;
 
+import com.phsz.common.Result;
 import com.phsz.vaccineservice.vaccineserviceapi.client.VaccineClient;
-import com.phsz.vaccineservice.vaccineserviceapi.pojo.Result;
-import com.phsz.vaccineservice.vaccineserviceapi.pojo.Vaccine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class VaccineService {
