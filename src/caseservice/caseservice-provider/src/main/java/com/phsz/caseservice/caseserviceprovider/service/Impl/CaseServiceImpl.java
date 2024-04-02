@@ -76,14 +76,14 @@ public class CaseServiceImpl implements CaseService {
 			 ) {
 			CaseToMedicine caseToMedicine = new CaseToMedicine();
 			caseToMedicine.setCaseId(save.getId());
-			caseToMedicine.setMedicineId(medicineInfo.getMedicineId());
+			caseToMedicine.setMedicineId(medicineInfo.getId());
 			caseToMedicineRepository.save(caseToMedicine);
 		}
 		for (AssayInfo assayInfo:case1.getAssays()
 			 ) {
 			CaseToAssay caseToAssay = new CaseToAssay();
 			caseToAssay.setCaseId(save.getId());
-			caseToAssay.setAssayId(assayInfo.getAssayId());
+			caseToAssay.setAssayId(assayInfo.getId());
 			caseToAssayRepository.save(caseToAssay);
 		}
 		for (VaccineInfo vaccineInfo:case1.getVaccines()
@@ -91,7 +91,7 @@ public class CaseServiceImpl implements CaseService {
 
 			CaseToVaccine caseToVaccine = new CaseToVaccine();
 			caseToVaccine.setCaseId(save.getId());
-			caseToVaccine.setVaccineId(vaccineInfo.getVaccineId());
+			caseToVaccine.setVaccineId(vaccineInfo.getId());
 			caseToVaccineRepository.save(caseToVaccine);
 		}
 		return save.getId().toString();
@@ -122,7 +122,7 @@ public class CaseServiceImpl implements CaseService {
 		) {
 			CaseToMedicine caseToMedicine = new CaseToMedicine();
 			caseToMedicine.setCaseId(save.getId());
-			caseToMedicine.setMedicineId(medicineInfo.getMedicineId());
+			caseToMedicine.setMedicineId(medicineInfo.getId());
 			caseToMedicineRepository.save(caseToMedicine);
 		}
 		caseToAssayRepository.deleteAllByCaseId(save.getId());
@@ -130,7 +130,7 @@ public class CaseServiceImpl implements CaseService {
 		) {
 			CaseToAssay caseToAssay = new CaseToAssay();
 			caseToAssay.setCaseId(save.getId());
-			caseToAssay.setAssayId(assayInfo.getAssayId());
+			caseToAssay.setAssayId(assayInfo.getId());
 			caseToAssayRepository.save(caseToAssay);
 		}
 		caseToVaccineRepository.deleteAllByCaseId(save.getId());
@@ -139,7 +139,7 @@ public class CaseServiceImpl implements CaseService {
 
 			CaseToVaccine caseToVaccine = new CaseToVaccine();
 			caseToVaccine.setCaseId(save.getId());
-			caseToVaccine.setVaccineId(vaccineInfo.getVaccineId());
+			caseToVaccine.setVaccineId(vaccineInfo.getId());
 			caseToVaccineRepository.save(caseToVaccine);
 		}
 		caseToDiseaseRepository.deleteAllByCaseId(save.getId());
@@ -188,8 +188,9 @@ public class CaseServiceImpl implements CaseService {
 			 ) {
 			AssayInfo assayInfo = new AssayInfo();
 			Assay assayById = assayClient.getAssayById(caseToMedicine.getAssayId());
-			assayInfo.setAssayId(assayById.getId());
-			assayInfo.setAssayName(assayById.getName());
+			assayInfo.setId(assayById.getId());
+			assayInfo.setName(assayById.getName());
+			assayInfo.setDate(assayById.getDate());
 			assayInfo.setResult(assayById.getResult());
 			assayInfos.add(assayInfo);
 		}
@@ -202,8 +203,8 @@ public class CaseServiceImpl implements CaseService {
 		) {
 			VaccineInfo vaccineInfo = new VaccineInfo();
 			Vaccine vaccineById = vaccineClient.getVaccineById(caseToVaccine.getVaccineId());
-			vaccineInfo.setVaccineId(caseToVaccine.getVaccineId());
-			vaccineInfo.setVaccineName(vaccineById.getName());
+			vaccineInfo.setId(caseToVaccine.getVaccineId());
+			vaccineInfo.setName(vaccineById.getName());
 			vaccineInfos.add(vaccineInfo);
 		}
 		caseInfo.setVaccines(vaccineInfos);

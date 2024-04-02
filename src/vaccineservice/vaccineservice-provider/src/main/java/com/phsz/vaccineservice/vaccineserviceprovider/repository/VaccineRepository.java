@@ -10,5 +10,5 @@ import java.util.Optional;
 public interface VaccineRepository extends JpaRepository<Vaccine, Long> {
     // 这里可以根据需要添加自定义查询方法
     // 例如根据疫苗名称查找：List<Vaccine> findByName(String name);
-    Optional<Vaccine> deleteVaccineByVaccineId(Long VaccineId);
+    Optional<Vaccine> deleteVaccineById(Long VaccineId);
 }

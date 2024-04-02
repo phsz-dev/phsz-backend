@@ -5,6 +5,7 @@ import com.phsz.caseservice.caseserviceprovider.pojo.CaseInfo;
 import com.phsz.caseservice.caseserviceprovider.service.Impl.CaseServiceImpl;
 import com.phsz.common.Result;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +15,9 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/api/cases")
 public class CaseController {
-	@Resource
-	private CaseServiceImpl caseService;
+	private final CaseServiceImpl caseService;
 
+	@Autowired
 	public CaseController(CaseServiceImpl caseService) {
 		this.caseService = caseService;
 	}

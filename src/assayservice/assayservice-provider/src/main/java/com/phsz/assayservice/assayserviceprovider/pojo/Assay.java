@@ -9,17 +9,17 @@ import java.util.Date;
 @Table(name = "assay" ,schema = "public")
 public class Assay {
     @Id
-    @Column(name = "assay_id")
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long assayId;
-    @Column(name = "assay_name")
-    private String assayName;
-    @Column(name = "type")
+    private Long id;
+    @Column
+    private String name;
+    @Column
     private String type;
-    @Column(name = "description")
+    @Column
     private String description;
-    @Column(name = "price")
-    private Date price;
+    @Column
+    private Date date;
 
 
 

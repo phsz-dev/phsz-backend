@@ -11,5 +11,5 @@ public interface AssayRepository extends JpaRepository<Assay, Long> {
     // 这里可以根据需要添加自定义查询方法
     // 例如根据疫苗名称查找：List<Vaccine> findByName(String name);
 
-    Optional<Assay> deleteAssayByAssayId(Long id);
+    Optional<Assay> deleteAssayById(Long id);
 }

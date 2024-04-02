@@ -50,8 +50,8 @@ public class AssayServiceImpl implements AssayService {
         if(byId.isEmpty()){
             return null;
         }
-        Optional<Assay> assay = assayRepository.deleteAssayByAssayId(id);
-        return assay.get().getAssayId().toString();
+        Optional<Assay> assay = assayRepository.deleteAssayById(id);
+        return assay.get().getId().toString();
 
     }
 }

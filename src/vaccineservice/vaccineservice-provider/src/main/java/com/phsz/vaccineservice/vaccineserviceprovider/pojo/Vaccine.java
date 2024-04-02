@@ -9,10 +9,10 @@ import java.util.Date;
 @Table(name = "Vaccine",schema = "public")
 public class Vaccine {
     @Id
-    @Column(name = "vaccine_id")
+    @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long vaccineId;
-    private String vaccineName;
+    private Long id;
+    private String name;
     private String manufacturer;
     private Date expiryDate;
 

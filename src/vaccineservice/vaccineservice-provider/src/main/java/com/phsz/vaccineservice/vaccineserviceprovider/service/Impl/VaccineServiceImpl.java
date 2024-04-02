@@ -28,10 +28,7 @@ public class VaccineServiceImpl implements VaccineService {
     @Override
     public Vaccine findVaccineById(Long id) {
         Optional<Vaccine> byId = vaccineRepository.findById(id);
-        if(byId.isEmpty()){
-            return null;
-        }
-        return byId.get();
+        return byId.orElse(null);
     }
 
     @Override
@@ -43,7 +40,7 @@ public class VaccineServiceImpl implements VaccineService {
     public Vaccine updateVaccine(Long id, Vaccine vaccineDetails) {
         Vaccine vaccine = vaccineRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Vaccine not found for this id :: " + id));
-        vaccine.setVaccineName(vaccineDetails.getVaccineName());
+        vaccine.setName(vaccineDetails.getName());
         vaccine.setManufacturer(vaccineDetails.getManufacturer());
         // 更多属性更新...
         return vaccineRepository.save(vaccine);
@@ -55,7 +52,7 @@ public class VaccineServiceImpl implements VaccineService {
         if(byId.isEmpty()){
             return null;
         }
-        Optional<Vaccine> vaccine = vaccineRepository.deleteVaccineByVaccineId(id);
-        return vaccine.get().getVaccineId().toString();
+        Optional<Vaccine> vaccine = vaccineRepository.deleteVaccineById(id);
+        return vaccine.get().getId().toString();
     }
 }
