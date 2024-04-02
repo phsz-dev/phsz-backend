@@ -2,6 +2,7 @@ package com.phsz.caseservice.caseserviceprovider.service;
 
 import com.phsz.caseservice.caseserviceprovider.pojo.Case;
 import com.phsz.caseservice.caseserviceprovider.pojo.CaseInfo;
+import com.phsz.caseservice.caseserviceprovider.pojo.RoughCaseInfo;
 import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
@@ -20,5 +21,5 @@ public interface CaseService {
 	//根据病例名查找病例
 	Page<Case> findAllByCaseNameLike(String caseName, org.springframework.data.domain.Pageable pageable);
 
-	Page<Case> findAllByIllnessId(Long illnessId, org.springframework.data.domain.Pageable pageable);
+	Page<RoughCaseInfo> findRoughCaseListByIllnessId(Long illnessId, org.springframework.data.domain.Pageable pageable);
 }

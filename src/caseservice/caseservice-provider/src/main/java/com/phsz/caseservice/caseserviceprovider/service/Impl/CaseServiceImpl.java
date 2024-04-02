@@ -10,6 +10,7 @@ import com.phsz.medicineservice.medicineserviceapi.pojo.Medicine;
 import com.phsz.vaccineservice.vaccineserviceapi.client.VaccineClient;
 import com.phsz.vaccineservice.vaccineserviceapi.pojo.Vaccine;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,27 +23,26 @@ import java.util.Optional;
 
 @Service
 public class CaseServiceImpl implements CaseService {
-	@Resource
+
 	private final CaseRepository caseRepository;
-	@Resource
+
 	private final CaseToMedicineRepository caseToMedicineRepository;
-	@Resource
+
 	private final DiseaseRepository diseaseRepository;
-	@Resource
+
 	private final CaseToAssayRepository caseToAssayRepository;
-	@Resource
+
 	private final CaseToVaccineRepository caseToVaccineRepository;
-	@Resource
+
 	private final CaseToDiseaseRepository caseToDiseaseRepository;
 
-	@Resource
-	final MedicineClient medicineClient;
-	@Resource
-	final VaccineClient vaccineClient;
 
-	@Resource
-	final AssayClient assayClient;
+	private final MedicineClient medicineClient;
+	private final VaccineClient vaccineClient;
 
+	private final AssayClient assayClient;
+
+	@Autowired
 	public CaseServiceImpl(CaseRepository caseRepository, CaseToMedicineRepository caseToMedicineRepository, DiseaseRepository diseaseRepository, CaseToAssayRepository caseToAssayRepository, CaseToVaccineRepository caseToVaccineRepository, CaseToDiseaseRepository caseToDiseaseRepository, MedicineClient medicineClient, VaccineClient vaccineClient, AssayClient assayClient) {
 		this.caseRepository = caseRepository;
 		this.caseToMedicineRepository = caseToMedicineRepository;
@@ -99,7 +99,7 @@ public class CaseServiceImpl implements CaseService {
 
 	@Override
 	public String deleteCase(Long caseId) {
-		Optional<Case> aCase = caseRepository.deleteCaseByCaseId(caseId);
+		Optional<Case> aCase = caseRepository.deleteCaseById(caseId);
 		caseToAssayRepository.deleteById(caseId);
 		caseToMedicineRepository.deleteById(caseId);
 		caseToVaccineRepository.deleteById(caseId);
@@ -219,11 +219,11 @@ public class CaseServiceImpl implements CaseService {
 
 	@Override
 	public Page<Case> findAllByCaseNameLike(String caseName, org.springframework.data.domain.Pageable pageable) {
-		return caseRepository.findAllByCaseNameLike(caseName, pageable);
+		return caseRepository.findAllByNameLike(caseName, pageable);
 	}
 
 	@Override
-	public Page<Case> findAllByIllnessId(Long illnessId, Pageable pageable) {
-		return caseRepository.findAllByIllnessId(illnessId, pageable);
+	public Page<RoughCaseInfo> findRoughCaseListByIllnessId(Long illnessId, Pageable pageable) {
+		return caseToDiseaseRepository.findRoughCaseInfoByDiseaseId(illnessId, pageable);
 	}
 }

@@ -9,8 +9,8 @@ public class CaseToAssay {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "case_id")
+	@Column
 	private Long caseId;
-	@Column(name = "assay_id")
+	@Column
 	private Long assayId;
 }

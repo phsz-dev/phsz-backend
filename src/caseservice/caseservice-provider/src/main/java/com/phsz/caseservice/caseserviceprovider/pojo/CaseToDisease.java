@@ -10,10 +10,10 @@ public class CaseToDisease {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "case_id")
+    @Column
     private Long caseId;
 
-    @Column(name = "disease_id")
+    @Column
     private Long diseaseId;
 
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "Case" ,schema = "public")
+@Table(name = "app_case" ,schema = "public")
 public class Case {
 	@Id
 	@Column(name = "id")

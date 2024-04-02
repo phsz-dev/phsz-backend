@@ -13,7 +13,6 @@ public interface MedicineClient {
 
     @GetMapping("/api/medicines/client/{medicine_id}")
     Medicine getMedicineById(@PathVariable("medicine_id") Long medicine_id);
-//
 //    @PostMapping("/api/medicine")
 //    Result addMedicine(@RequestBody Medicine medicine);
 //

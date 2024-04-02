@@ -77,6 +77,6 @@ public class CaseController {
 	@GetMapping("/illness")
 	public Result findCaseByIllnessId(@RequestParam("illnessId") Long illnessId,@RequestParam("pageSize") int pageSize,@RequestParam("pageNum") int pageNum){
 		Pageable pageable= PageRequest.of(pageNum,pageSize);
-		return Result.success("find case by illnessId successfully",caseService.findAllByIllnessId(illnessId,pageable));
+		return Result.success("find case by illnessId successfully",caseService.findRoughCaseListByIllnessId(illnessId,pageable));
 	}
 }

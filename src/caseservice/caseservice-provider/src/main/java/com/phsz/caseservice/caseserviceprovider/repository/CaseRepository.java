@@ -9,10 +9,9 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.Optional;
 
 public interface CaseRepository extends JpaRepository<Case,Long>, PagingAndSortingRepository<Case,Long> {
-	Page<Case> findAllByCaseNameLike(String caseName, Pageable pageable);
+	Page<Case> findAllByNameLike(String name, Pageable pageable);
 
-	Optional<Case> deleteCaseByCaseId(Long caseId);
+	Optional<Case> deleteCaseById(Long caseId);
 
-	Page<Case> findAllByIllnessId(Long illnessId, Pageable pageable);
 
 }
