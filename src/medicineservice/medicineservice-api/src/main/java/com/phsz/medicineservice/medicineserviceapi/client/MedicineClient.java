@@ -12,7 +12,7 @@ public interface MedicineClient {
 //    Result getAllMedicines(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize);
 
     @GetMapping("/api/medicines/client/{medicine_id}")
-    Medicine getMedicineById(@PathVariable("medicine_id") Long medicineId);
+    Medicine getMedicineById(@PathVariable("medicine_id") Long medicine_id);
 //
 //    @PostMapping("/api/medicine")
 //    Result addMedicine(@RequestBody Medicine medicine);

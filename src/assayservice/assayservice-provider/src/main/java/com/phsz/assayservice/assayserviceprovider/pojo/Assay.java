@@ -1,23 +1,27 @@
 package com.phsz.assayservice.assayserviceprovider.pojo;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
-
 @Data
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "assay" ,schema = "public")
 public class Assay {
     @Id
+    @Column(name = "assay_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String manufacturer;
-    private Date expiryDate;
-    private String result;
+    private Long assayId;
+    @Column(name = "assay_name")
+    private String assayName;
+    @Column(name = "type")
+    private String type;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "price")
+    private Date price;
+
+
+
+
 }

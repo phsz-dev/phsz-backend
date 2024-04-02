@@ -37,12 +37,11 @@ public class AssayServiceImpl implements AssayService {
 
     @Override
     public Assay updateAssay(Long id, Assay assayDetails) {
-        Assay assay = assayRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Assay not found for this id :: " + id));
-        assay.setName(assayDetails.getName());
-        assay.setManufacturer(assayDetails.getManufacturer());
-        // 更多属性更新...
-        return assayRepository.save(assay);
+        Optional<Assay> assay = assayRepository.findById(id);
+        if(assay.isEmpty()){
+            return null;
+        }
+        return assayRepository.save(assayDetails);
     }
 
     @Override
@@ -51,8 +50,8 @@ public class AssayServiceImpl implements AssayService {
         if(byId.isEmpty()){
             return null;
         }
-        Optional<Assay> assay = assayRepository.deleteAssayById(id);
-        return assay.get().getId().toString();
+        Optional<Assay> assay = assayRepository.deleteAssayByAssayId(id);
+        return assay.get().getAssayId().toString();
 
     }
 }
