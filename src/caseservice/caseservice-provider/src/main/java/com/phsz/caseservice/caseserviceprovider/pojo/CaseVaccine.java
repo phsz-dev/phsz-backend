@@ -5,12 +5,12 @@ import lombok.Data;
 
 @Data
 @Entity
-public class CaseToAssay {
+public class CaseVaccine {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column
+	@Column(name = "case_id")
 	private Long caseId;
-	@Column
-	private Long assayId;
+	@Column(name = "vaccine_id")
+	private Long vaccineId;
 }

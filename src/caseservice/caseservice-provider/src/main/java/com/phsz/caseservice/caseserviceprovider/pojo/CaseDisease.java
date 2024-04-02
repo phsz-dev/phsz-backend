@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class CaseToDisease {
+public class CaseDisease {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

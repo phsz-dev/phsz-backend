@@ -7,5 +7,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface DiseaseRepository extends JpaRepository<Disease, Long>, PagingAndSortingRepository<Disease, Long>{
-    List<Disease> findByKindId(Long diseaseTypeId);
+    List<Disease> findByTypeId(Long diseaseTypeId);
 }

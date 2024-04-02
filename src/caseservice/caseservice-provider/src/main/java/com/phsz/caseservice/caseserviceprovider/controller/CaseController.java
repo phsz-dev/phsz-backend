@@ -4,7 +4,6 @@ import com.phsz.caseservice.caseserviceprovider.pojo.Case;
 import com.phsz.caseservice.caseserviceprovider.pojo.CaseInfo;
 import com.phsz.caseservice.caseserviceprovider.service.Impl.CaseServiceImpl;
 import com.phsz.common.Result;
-import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -75,9 +74,9 @@ public class CaseController {
 		return Result.success("find case by name successfully",caseService.findAllByCaseNameLike(caseName,pageable));
 	}
 	//根据疾病名称查询病例
-	@GetMapping("/illness")
-	public Result findCaseByIllnessId(@RequestParam("illnessId") Long illnessId,@RequestParam("pageSize") int pageSize,@RequestParam("pageNum") int pageNum){
+	@GetMapping("/disease")
+	public Result findCaseByDiseaseId(@RequestParam("diseaseId") Long diseaseId, @RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum){
 		Pageable pageable= PageRequest.of(pageNum,pageSize);
-		return Result.success("find case by illnessId successfully",caseService.findRoughCaseListByIllnessId(illnessId,pageable));
+		return Result.success("find case by diseaseId successfully",caseService.findRoughCaseListByDiseaseId(diseaseId,pageable));
 	}
 }

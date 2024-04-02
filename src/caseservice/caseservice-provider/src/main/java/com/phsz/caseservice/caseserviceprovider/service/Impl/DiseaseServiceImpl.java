@@ -30,7 +30,7 @@ public class DiseaseServiceImpl implements DiseaseService {
         List<DiseaseResponse> diseaseResponses = null;
         List<DiseaseType> diseaseTypes = diseaseTypeRepository.findAll();
         for (DiseaseType diseaseType : diseaseTypes) {
-            List<Disease> diseases = diseaseRepository.findByKindId(diseaseType.getId());
+            List<Disease> diseases = diseaseRepository.findByTypeId(diseaseType.getId());
             DiseaseResponse diseaseResponse = new DiseaseResponse();
             diseaseResponse.setDiseaseType(diseaseType);
             diseaseResponse.setDiseaseList(diseases);

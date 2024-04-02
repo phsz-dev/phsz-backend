@@ -15,6 +15,6 @@ public class Disease {
 	private String name;
 	@Column(name = "description")
 	private String description;
-	@Column(name = "kind_id")
-	private Long kindId;
+	@Column(name = "type_id")
+	private Long typeId;
 }
