@@ -43,7 +43,7 @@ public class VaccineServiceImpl implements VaccineService {
     public Vaccine updateVaccine(Long id, Vaccine vaccineDetails) {
         Vaccine vaccine = vaccineRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Vaccine not found for this id :: " + id));
-        vaccine.setName(vaccineDetails.getName());
+        vaccine.setVaccineName(vaccineDetails.getVaccineName());
         vaccine.setManufacturer(vaccineDetails.getManufacturer());
         // 更多属性更新...
         return vaccineRepository.save(vaccine);

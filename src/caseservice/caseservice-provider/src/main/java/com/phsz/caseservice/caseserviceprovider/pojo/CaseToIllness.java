@@ -5,14 +5,15 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "case_to_assay",schema = "public")
-public class CaseToAssay {
+@Table(name = "case_to_illness" ,schema = "public")
+public class CaseToIllness {
 	@Id
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long CTAId;
+	private Long CTIId;
+
 	@Column(name = "case_id")
 	private Long caseId;
-	@Column(name = "assay_id")
-	private Long assayId;
+	@Column(name = "illness_id")
+	private Long illnessId;
 }

@@ -32,7 +32,8 @@ public class CaseServiceImpl implements CaseService {
 	private final CaseToAssayRepository caseToAssayRepository;
 	@Resource
 	private final CaseToVaccineRepository caseToVaccineRepository;
-
+	@Resource
+	private final CaseToIllnessRepository caseToIllnessRepository;
 	@Resource
 	final MedicineClient medicineClient;
 	@Resource
@@ -41,12 +42,13 @@ public class CaseServiceImpl implements CaseService {
 	@Resource
 	final AssayClient assayClient;
 
-	public CaseServiceImpl(CaseRepository caseRepository, CaseToMedicineRepository caseToMedicineRepository, IllnessRepository illnessRepository, CaseToAssayRepository caseToAssayRepository, CaseToVaccineRepository caseToVaccineRepository, MedicineClient medicineClient, VaccineClient vaccineClient, AssayClient assayClient) {
+	public CaseServiceImpl(CaseRepository caseRepository, CaseToMedicineRepository caseToMedicineRepository, IllnessRepository illnessRepository, CaseToAssayRepository caseToAssayRepository, CaseToVaccineRepository caseToVaccineRepository, CaseToIllnessRepository caseToIllnessRepository, MedicineClient medicineClient, VaccineClient vaccineClient, AssayClient assayClient) {
 		this.caseRepository = caseRepository;
 		this.caseToMedicineRepository = caseToMedicineRepository;
 		this.illnessRepository = illnessRepository;
 		this.caseToAssayRepository = caseToAssayRepository;
 		this.caseToVaccineRepository = caseToVaccineRepository;
+		this.caseToIllnessRepository = caseToIllnessRepository;
 		this.medicineClient = medicineClient;
 		this.vaccineClient = vaccineClient;
 		this.assayClient = assayClient;
@@ -60,9 +62,16 @@ public class CaseServiceImpl implements CaseService {
 		}
 		Case aCase = new Case();
 		aCase.CaseCons(case1);
-		aCase.setIllnessId(case1.getIllness().getIllnessId());
+//		aCase.setIllnessId(case1.getIllness().getIllnessId());
 		aCase.setChargeId(case1.getChargeId());
 		Case save = caseRepository.save(aCase);
+		for (Illness illnessInfo: case1.getIllness()
+			 ) {
+			CaseToIllness caseToIllness = new CaseToIllness();
+			caseToIllness.setIllnessId(illnessInfo.getIllnessId());
+			caseToIllness.setCaseId(save.getCaseId());
+			caseToIllnessRepository.save(caseToIllness);
+		}
 		for (MedicineInfo medicineInfo:case1.getMedicines()
 			 ) {
 			CaseToMedicine caseToMedicine = new CaseToMedicine();
@@ -91,9 +100,10 @@ public class CaseServiceImpl implements CaseService {
 	@Override
 	public String deleteCase(Long caseId) {
 		Optional<Case> aCase = caseRepository.deleteCaseByCaseId(caseId);
-		caseToAssayRepository.deleteById(caseId);
-		caseToMedicineRepository.deleteById(caseId);
-		caseToVaccineRepository.deleteById(caseId);
+		caseToAssayRepository.deleteAllByCaseId(caseId);
+		caseToMedicineRepository.deleteAllByCaseId(caseId);
+		caseToVaccineRepository.deleteAllByCaseId(caseId);
+		caseToIllnessRepository.deleteAllByCaseId(caseId);
 		return aCase.map(aCase1 -> aCase1.getCaseId().toString()).orElse(null);
 	}
 
@@ -106,7 +116,7 @@ public class CaseServiceImpl implements CaseService {
 		Case aCase = new Case();
 		aCase.setCaseId(case1.getCaseId());
 		aCase.CaseCons(case1);
-		aCase.setIllnessId(case1.getIllness().getIllnessId());
+//		aCase.setIllnessId(case1.getIllness().getIllnessId());
 		aCase.setChargeId(case1.getChargeId());
 		Case save = caseRepository.save(aCase);
 		caseToMedicineRepository.deleteAllByCaseId(save.getCaseId());
@@ -134,6 +144,14 @@ public class CaseServiceImpl implements CaseService {
 			caseToVaccine.setVaccineId(vaccineInfo.getVaccineId());
 			caseToVaccineRepository.save(caseToVaccine);
 		}
+		caseToIllnessRepository.deleteAllByCaseId(save.getCaseId());
+		for (Illness illness: case1.getIllness()
+			 ) {
+			CaseToIllness caseToIllness = new CaseToIllness();
+			caseToIllness.setCaseId(save.getCaseId());
+			caseToIllness.setIllnessId(illness.getIllnessId());
+			caseToIllnessRepository.save(caseToIllness);
+		}
 		return save.getCaseId().toString();
 	}
 
@@ -143,12 +161,21 @@ public class CaseServiceImpl implements CaseService {
 		if(aCase.isEmpty()){
 			return null;
 		}
-		CaseInfo caseInfo = new CaseInfo();
-		Long illnessId = aCase.get().getIllnessId();
-		illnessRepository.findById(illnessId).ifPresent(caseInfo::setIllness);
-		Long caseId1 = aCase.get().getCaseId();
 		Pageable pageable= PageRequest.of(0,10);
-//
+		CaseInfo caseInfo = new CaseInfo();
+//		Long illnessId = aCase.get().getIllnessId();
+//		illnessRepository.findById(illnessId).ifPresent(caseInfo::setIllness);
+		Page<CaseToIllness> allByCaseId3 = caseToIllnessRepository.findAllByCaseId(caseId,pageable);
+		List<CaseToIllness> content3 = allByCaseId3.getContent();
+		ArrayList<Illness> illnessInfos = new ArrayList<>();
+		for (CaseToIllness caseToIllness: content3
+			 ) {
+			Optional<Illness> byId = illnessRepository.findById(caseToIllness.getIllnessId());
+			illnessInfos.add(byId.get());
+		}
+		caseInfo.setIllness(illnessInfos);
+		Long caseId1 = aCase.get().getCaseId();
+//找到该病例id对应的药品，并转成info类装配到caseInfo中
 		Page<CaseToMedicine> allByCaseId = caseToMedicineRepository.findAllByCaseId(caseId1, pageable);
 		List<CaseToMedicine> content = allByCaseId.getContent();
 		ArrayList<MedicineInfo> medicineInfos = new ArrayList<>();

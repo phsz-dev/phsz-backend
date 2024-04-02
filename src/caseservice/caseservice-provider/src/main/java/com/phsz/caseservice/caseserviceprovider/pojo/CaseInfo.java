@@ -8,9 +8,9 @@ import java.util.List;
 public class CaseInfo {
 	private Long caseId;
 	private String caseName;
-	private Illness illness;
+	private List<Illness> illness;
 	private String caseDescription;
-	private String submitTime;
+	private Long submitTime;
 	private List<AssayInfo> assays;
 	private List<MedicineInfo> medicines;
 	private List<VaccineInfo> vaccines;

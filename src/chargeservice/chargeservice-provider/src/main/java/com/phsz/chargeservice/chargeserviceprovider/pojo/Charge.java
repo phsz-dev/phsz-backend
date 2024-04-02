@@ -10,7 +10,7 @@ import java.util.Date;
 @Table(name = "Charge", schema = "public")
 public class Charge {
     @Id
-    @Column
+    @Column(name = "charge_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long chargeId;
     private String name; // 你可能需要根据收费记录的实际需求调整字段

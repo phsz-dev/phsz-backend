@@ -13,12 +13,12 @@ public class Case {
 	private Long caseId;
 	@Column(name = "case_name")
 	private String caseName;
-	@Column(name = "illness_id")
-	private Long illnessId;
+//	@Column(name = "illness_id")
+//	private Long illnessId;
 	@Column(name = "case_description")
 	private String caseDescription;
 	@Column(name = "submit_time")
-	private String submitTime;
+	private Long submitTime;
 //	@Column(name = "assay_id")
 //	private Long assayId;
 //	@Column(name = "medicines_id")

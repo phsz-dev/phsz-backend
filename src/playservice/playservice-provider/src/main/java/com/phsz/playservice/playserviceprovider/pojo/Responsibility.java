@@ -10,7 +10,7 @@ public class Responsibility {
 	@Id
 	@Column(name = "responsibility_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long ResponsibilityId;
+	private Long responsibilityId;
 	@Column(name = "responsibility_name")
 	private String responsibilityName;
 	@Column(name = "role")
