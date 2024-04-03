@@ -1,11 +1,9 @@
 package com.phsz.playservice.playserviceprovider.service;
 
-import com.phsz.playservice.playserviceprovider.pojo.Procedure;
 import com.phsz.playservice.playserviceprovider.pojo.Responsibility;
 import com.phsz.playservice.playserviceprovider.pojo.ResponsibilityResponseItem;
-import com.phsz.playservice.playserviceprovider.repository.ProcedureRepository;
+import com.phsz.playservice.playserviceprovider.pojo.Role;
 import com.phsz.playservice.playserviceprovider.repository.ResponsibilityRepository;
-import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,19 +18,16 @@ public class ResponsibilityServiceImpl {
 
 	ResponsibilityRepository responsibilityRepository;
 
-	ProcedureRepository procedureRepository;
-
 	@Autowired
-	public ResponsibilityServiceImpl(ResponsibilityRepository responsibilityRepository, ProcedureRepository procedureRepository) {
+	public ResponsibilityServiceImpl(ResponsibilityRepository responsibilityRepository) {
 		this.responsibilityRepository = responsibilityRepository;
-		this.procedureRepository = procedureRepository;
 	}
 
 	public Responsibility getResponsibilityById(Long id) {
 		return responsibilityRepository.findById(id).orElse(null);
 	}
 
-	public Page<Responsibility> getResponsibilityByRole(String role, Pageable pageable) {
+	public Page<Responsibility> getResponsibilityByRole(Role role, Pageable pageable) {
 		return responsibilityRepository.findAllByRole(role, pageable);
 	}
 
@@ -63,14 +58,14 @@ public class ResponsibilityServiceImpl {
 	}
 
 
-	public List<ResponsibilityResponseItem> getFullResponsibilityByRole(String role) {
+	public List<ResponsibilityResponseItem> getFullResponsibilityByRole(Role role) {
 		List<ResponsibilityResponseItem> fullResponsibilityByRole = new ArrayList<>();
 		List<Responsibility> responsibilityList = responsibilityRepository.findAllByRole(role);
 		for (Responsibility responsibility : responsibilityList) {
 			ResponsibilityResponseItem responsibilityResponseItem = new ResponsibilityResponseItem();
 			responsibilityResponseItem.setResponsibility(responsibility);
-			List<Procedure> procedureList = procedureRepository.findAllByResponsibilityId(responsibility.getId());
-			responsibilityResponseItem.setProcedures(procedureList);
+//			List<Procedure> procedureList = procedureRepository.findAllByResponsibilityId(responsibility.getId());
+//			responsibilityResponseItem.setProcedures(procedureList);
 			fullResponsibilityByRole.add(responsibilityResponseItem);
 		}
 		return fullResponsibilityByRole;

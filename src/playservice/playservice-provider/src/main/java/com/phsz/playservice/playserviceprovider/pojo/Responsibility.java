@@ -1,8 +1,8 @@
 package com.phsz.playservice.playserviceprovider.pojo;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
 import lombok.Data;
-
 @Data
 @Entity
 public class Responsibility {
@@ -12,7 +12,7 @@ public class Responsibility {
 	@Column
 	private String name;
 	@Column
-	private String role;
-	@Column
-	private String description;
+	private Role role;
+	@Column(columnDefinition = "jsonb")
+	private String content;
 }

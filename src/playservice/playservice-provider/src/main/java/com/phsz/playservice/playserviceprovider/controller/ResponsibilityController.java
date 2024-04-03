@@ -3,6 +3,7 @@ package com.phsz.playservice.playserviceprovider.controller;
 import com.phsz.common.Result;
 import com.phsz.playservice.playserviceprovider.pojo.Responsibility;
 import com.phsz.playservice.playserviceprovider.pojo.ResponsibilityResponseItem;
+import com.phsz.playservice.playserviceprovider.pojo.Role;
 import com.phsz.playservice.playserviceprovider.service.ResponsibilityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +34,7 @@ public class ResponsibilityController {
 	}
 
 	@GetMapping("/full/{role}")
-	public Result getFullResponsibilityById(@PathVariable String role) {
+	public Result getFullResponsibilityById(@PathVariable Role role) {
 		List<ResponsibilityResponseItem> fullResponsibilityById = responsibilityService.getFullResponsibilityByRole(role);
 		if (fullResponsibilityById == null) {
 			return Result.error("not found");
@@ -43,7 +44,7 @@ public class ResponsibilityController {
 	}
 
 	@GetMapping("/role")
-	public Result getResponsibilityByRole(@RequestParam String role,@RequestParam int pageNum,@RequestParam int PageSize) {
+	public Result getResponsibilityByRole(@RequestParam Role role, @RequestParam int pageNum, @RequestParam int PageSize) {
 		Pageable pageable = PageRequest.of(pageNum, PageSize);
 		Page<Responsibility> responsibilityByRole = responsibilityService.getResponsibilityByRole(role, pageable);
 		if (responsibilityByRole == null) {
