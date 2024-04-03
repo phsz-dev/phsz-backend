@@ -5,8 +5,6 @@ import com.phsz.userservice.userserviceprovider.entity.AppUser;
 import com.phsz.userservice.userserviceprovider.repository.UserRepository;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -55,8 +53,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return true;
 	}
 
-	@PreAuthorize("hasRole('USER')")
+	@Override
 	public String getCurrentUser() {
-		return (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		return null;
+	}
+
+	public AppUser getUserByName(String username) {
+        return userRepository.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("No user found with username: " + username));
 	}
 }
