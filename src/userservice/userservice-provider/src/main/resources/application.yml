@@ -25,3 +25,6 @@ phsz:
   jwt:
     secret: Of0dtVLJL/iNa5tlASR8VXKRvAe7UEqETaC4s0EtePo=
     expiration: 3600000
+logging:
+    level:
+        root: trace

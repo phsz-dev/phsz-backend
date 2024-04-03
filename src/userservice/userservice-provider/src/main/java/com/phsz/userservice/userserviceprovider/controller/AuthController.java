@@ -49,7 +49,7 @@ public class AuthController {
             model.put("token", token);
             return Result.success("Login successful", model);
         } catch (AuthenticationException e) {
-            throw new BadCredentialsException("Invalid username/password supplied");
+            return Result.error("Invalid username/password supplied");
         }
     }
 
@@ -58,7 +58,7 @@ public class AuthController {
         try {
             boolean registered = userService.register(user.getUsername(), user.getPassword());
             if (registered) {
-                return Result.success("User registered successfully",null);
+                return Result.success("User registered successfully");
             } else {
                 return Result.error("User already exists");
             }
