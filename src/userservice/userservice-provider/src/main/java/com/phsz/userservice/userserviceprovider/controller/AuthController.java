@@ -1,5 +1,6 @@
 package com.phsz.userservice.userserviceprovider.controller;
 
+import com.phsz.common.Result;
 import com.phsz.userservice.userserviceprovider.JwtTokenProvider;
 import com.phsz.userservice.userserviceprovider.entity.AppUser;
 import com.phsz.userservice.userserviceprovider.service.UserServiceImpl;
@@ -32,7 +33,7 @@ public class AuthController {
     private UserServiceImpl userService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AppUser user) {
+    public Result login(@RequestBody AppUser user) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
@@ -46,23 +47,23 @@ public class AuthController {
             Map<Object, Object> model = new HashMap<>();
             model.put("username", user.getUsername());
             model.put("token", token);
-            return ResponseEntity.ok(model);
+            return Result.success("Login successful", model);
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username/password supplied");
         }
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUserAccount(@RequestBody AppUser user) {
+    public Result registerUserAccount(@RequestBody AppUser user) {
         try {
             boolean registered = userService.register(user.getUsername(), user.getPassword());
             if (registered) {
-                return ResponseEntity.ok("User registered successfully");
+                return Result.success("User registered successfully",null);
             } else {
-                return ResponseEntity.badRequest().body("User already exists");
+                return Result.error("User already exists");
             }
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return Result.error(e.getMessage());
         }
     }
 }

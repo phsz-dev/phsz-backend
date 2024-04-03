@@ -25,7 +25,7 @@ spring:
           uri:
             lb://caseservice-provider
           predicates:
-            - Path=/api/cases/**
+            - Path=/api/cases/**,/api/diseases/**
         - id: chargeservice-provider
           uri:
             lb://chargeservice-provider

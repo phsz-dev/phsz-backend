@@ -1,21 +1,31 @@
 package com.phsz.playservice.playserviceprovider.service;
 
+import com.phsz.playservice.playserviceprovider.pojo.Procedure;
 import com.phsz.playservice.playserviceprovider.pojo.Responsibility;
+import com.phsz.playservice.playserviceprovider.pojo.ResponsibilityResponseItem;
+import com.phsz.playservice.playserviceprovider.repository.ProcedureRepository;
 import com.phsz.playservice.playserviceprovider.repository.ResponsibilityRepository;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class ResponsibilityServiceImpl {
 
-	@Resource
 	ResponsibilityRepository responsibilityRepository;
-	public ResponsibilityServiceImpl(ResponsibilityRepository responsibilityRepository) {
+
+	ProcedureRepository procedureRepository;
+
+	@Autowired
+	public ResponsibilityServiceImpl(ResponsibilityRepository responsibilityRepository, ProcedureRepository procedureRepository) {
 		this.responsibilityRepository = responsibilityRepository;
+		this.procedureRepository = procedureRepository;
 	}
 
 	public Responsibility getResponsibilityById(Long id) {
@@ -27,12 +37,12 @@ public class ResponsibilityServiceImpl {
 	}
 
 	public String addResponsibility(Responsibility responsibility) {
-		Optional<Responsibility> byId = responsibilityRepository.findById(responsibility.getResponsibilityId());
+		Optional<Responsibility> byId = responsibilityRepository.findById(responsibility.getId());
 		if(byId.isEmpty()) {
 			return null;
 		}
 		Responsibility save = responsibilityRepository.save(responsibility);
-		return save.getResponsibilityId().toString();
+		return save.getId().toString();
 	}
 
 	public String deleteResponsibility(Long id) {
@@ -40,15 +50,29 @@ public class ResponsibilityServiceImpl {
 		if(byId.isEmpty()) {
 			return null;
 		}
-		Optional<Responsibility> responsibility = responsibilityRepository.deleteResponsibilityByResponsibilityId(id);
-		return responsibility.get().getResponsibilityId().toString();
+		Optional<Responsibility> responsibility = responsibilityRepository.deleteResponsibilityById(id);
+		return responsibility.get().getId().toString();
 	}
 	public String updateResponsibility(Responsibility responsibility) {
-		Optional<Responsibility> byId = responsibilityRepository.findById(responsibility.getResponsibilityId());
+		Optional<Responsibility> byId = responsibilityRepository.findById(responsibility.getId());
 		if (byId.isEmpty()) {
 			return null;
 		}
 		Responsibility save = responsibilityRepository.save(responsibility);
-		return save.getResponsibilityId().toString();
+		return save.getId().toString();
+	}
+
+
+	public List<ResponsibilityResponseItem> getFullResponsibilityByRole(String role) {
+		List<ResponsibilityResponseItem> fullResponsibilityByRole = new ArrayList<>();
+		List<Responsibility> responsibilityList = responsibilityRepository.findAllByRole(role);
+		for (Responsibility responsibility : responsibilityList) {
+			ResponsibilityResponseItem responsibilityResponseItem = new ResponsibilityResponseItem();
+			responsibilityResponseItem.setResponsibility(responsibility);
+			List<Procedure> procedureList = procedureRepository.findAllByResponsibilityId(responsibility.getId());
+			responsibilityResponseItem.setProcedures(procedureList);
+			fullResponsibilityByRole.add(responsibilityResponseItem);
+		}
+		return fullResponsibilityByRole;
 	}
 }

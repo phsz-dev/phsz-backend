@@ -26,12 +26,12 @@ public class ProcedureServiceImpl {
 		return procedureRepository.findAllByResponsibilityId(responsibility, pageable);
 	}
 	public String addProcedure(Procedure procedure) {
-		Optional<Procedure> byId = procedureRepository.findById(procedure.getProcedureId());
+		Optional<Procedure> byId = procedureRepository.findById(procedure.getId());
 		if(byId.isEmpty()){
 			return null;
 		}
 		Procedure save = procedureRepository.save(procedure);
-		return save.getProcedureId().toString();
+		return save.getId().toString();
 	}
 
 	public String deleteProcedure(Long id) {
@@ -39,18 +39,18 @@ public class ProcedureServiceImpl {
 		if(byId.isEmpty()){
 			return null;
 		}
-		Optional<Procedure> procedure = procedureRepository.deleteProcedureByProcedureId(id);
-		return procedure.get().getProcedureId().toString();
+		Optional<Procedure> procedure = procedureRepository.deleteProcedureById(id);
+		return procedure.get().getId().toString();
 	}
 	public Page<Procedure> getProcedureByName(String name, Pageable pageable){
-		return procedureRepository.findAllByProcedureNameLike(name, pageable);
+		return procedureRepository.findAllByNameLike(name, pageable);
 	}
 	public String updateProcedure(Procedure procedure) {
-		Optional<Procedure> byId = procedureRepository.findById(procedure.getProcedureId());
+		Optional<Procedure> byId = procedureRepository.findById(procedure.getId());
 		if(byId.isEmpty()){
 			return null;
 		}
 		Procedure save = procedureRepository.save(procedure);
-		return save.getProcedureId().toString();
+		return save.getId().toString();
 	}
 }

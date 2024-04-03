@@ -9,6 +9,7 @@ import com.phsz.caseservice.caseserviceprovider.service.DiseaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,7 +28,7 @@ public class DiseaseServiceImpl implements DiseaseService {
 
     @Override
     public List<DiseaseResponse> getAllDisease() {
-        List<DiseaseResponse> diseaseResponses = null;
+        List<DiseaseResponse> diseaseResponses = new ArrayList<>();
         List<DiseaseType> diseaseTypes = diseaseTypeRepository.findAll();
         for (DiseaseType diseaseType : diseaseTypes) {
             List<Disease> diseases = diseaseRepository.findByTypeId(diseaseType.getId());
