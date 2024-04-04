@@ -26,7 +26,7 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public Question deleteQuestionByQuestionId(Long questionId) {
-		return questionRepository.deleteQuestionByQuestionId(questionId).orElse(null);
+		return questionRepository.deleteQuestionById(questionId).orElse(null);
 	}
 
 	@Override
@@ -36,12 +36,12 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public String addQuestion(Question question) {
-		Long questionId = question.getQuestionId();
+		Long questionId = question.getId();
 		if (questionRepository.findById(questionId).isPresent()){
 			return null;
 		}
 		Question save = questionRepository.save(question);
-		return save.getQuestionId().toString();
+		return save.getId().toString();
 	}
 
 	@Override
@@ -51,11 +51,11 @@ public class QuestionServiceImpl implements QuestionService {
 
 	@Override
 	public String updateQuestion(Question question) {
-		Long questionId = question.getQuestionId();
+		Long questionId = question.getId();
 		if (questionRepository.findById(questionId).isEmpty()){
 			return null;
 		}
 		Question save = questionRepository.save(question);
-		return save.getQuestionId().toString();
+		return save.getId().toString();
 	}
 }

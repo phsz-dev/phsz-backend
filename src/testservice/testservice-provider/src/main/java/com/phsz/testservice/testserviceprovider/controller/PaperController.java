@@ -1,10 +1,8 @@
 package com.phsz.testservice.testserviceprovider.controller;
 
+import com.phsz.common.Result;
 import com.phsz.testservice.testserviceprovider.pojo.Paper;
-import com.phsz.testservice.testserviceprovider.pojo.PaperInfo;
-import com.phsz.testservice.testserviceprovider.pojo.Result;
 import com.phsz.testservice.testserviceprovider.service.Impl.PaperServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -17,74 +15,50 @@ public class PaperController {
 	public PaperController(PaperServiceImpl paperService) {
 		this.paperService = paperService;
 	}
-	@Autowired
-	Result result;
 	@GetMapping("/{id}")
 	public Result getPaperById(@PathVariable Long id) {
-		PaperInfo paperById = paperService.getPaperById(id);
-		result.setData(paperById);
-		if(paperById==null){
-			result.setCode(0);
-			result.setMessage("not found");
-			return result;
+		Paper paperById = paperService.getPaperById(id);
+		if (paperById == null) {
+			return Result.error("not found");
 		}
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		return Result.success("success", paperById);
 	}
 	@GetMapping
 	public Result getAllPaper(@RequestParam() int pageSize, @RequestParam int pageNum) {
 		Pageable pageable = PageRequest.of(pageNum, pageSize);
-		result.setData(paperService.getAllPapers(pageable));
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		return Result.success("success", paperService.getAllPapers(pageable));
 	}
 	@PostMapping
 	public Result addPaper(@RequestBody Paper paper) {
-		String s = paperService.addPaper(paper);
-		result.setData(s);
-		if(s==null){
-			result.setCode(0);
-			result.setMessage("already exists");
-			return result;
+		Long resId = paperService.addPaper(paper);
+		if (resId == null) {
+			return Result.error("already exists");
 		}
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		return Result.success("success", resId);
 	}
 	@PutMapping
 	public Result updatePaper(@RequestBody Paper paper) {
-		Long paperId = paper.getPaperId();
-		if(paperService.getPaperById(paperId)==null){
-			result.setCode(0);
-			result.setMessage("not found");
-			return result;
+		Long paperId = paper.getId();
+		if (paperService.getPaperById(paperId) == null) {
+			return Result.error("not found");
 		}
-		result.setData(paperService.updatePaper(paper));
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		Long resId = paperService.updatePaper(paper);
+		if (resId == null) {
+			return Result.error("not found");
+		}
+		return Result.success("success", resId);
 	}
 	@DeleteMapping("/{id}")
 	public Result deletePaper(@PathVariable Long id) {
-		String s = paperService.deletePaper(id);
-		result.setData(s);
-		if(s==null){
-			result.setCode(0);
-			result.setMessage("not found");
-			return result;
+		Long s = paperService.deletePaper(id);
+		if (s == null) {
+			return Result.error("not found");
 		}
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		return Result.success("success", s);
 	}
 	@GetMapping("/name")
 	public Result getPaperByName(@RequestParam String name, @RequestParam int pageSize, @RequestParam int pageNum) {
 		Pageable pageable = PageRequest.of(pageNum, pageSize);
-		result.setData(paperService.getPapersByName(name, pageable));
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		return Result.success("success", paperService.getPapersByName(name, pageable));
 	}
 }

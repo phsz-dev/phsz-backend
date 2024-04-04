@@ -3,22 +3,23 @@ package com.phsz.testservice.testserviceprovider.pojo;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 @Entity
-@Table(name = "examination",schema = "public")
 public class Examination {
 	@Id
-	@Column(name = "examination_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long examinationId;
-	@Column(name = "examination_name")
+	private Long id;
+	@Column
 	private String examinationName;
-	@Column(name = "examination_Status")
+	@Column
 	private String examinationStatus;
-	@Column(name = "paper_id")
-	private Long paperId;
-	@Column(name = "start_time")
-	private String startTime;
-	@Column(name = "examination_user")
+	@Column
+	private Date startTime;
+	@Column
 	private String examinationUser;
+	@ManyToOne
+	@JoinColumn(name = "paper_id")
+	private Paper paper;
 }

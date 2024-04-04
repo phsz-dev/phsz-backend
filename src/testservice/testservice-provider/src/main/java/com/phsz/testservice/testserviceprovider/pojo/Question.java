@@ -1,22 +1,26 @@
 package com.phsz.testservice.testserviceprovider.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
-@Table(name = "question",schema = "public")
 public class Question {
 	@Id
-	@Column(name = "question_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long questionId;
-	@Column(name = "type")
+	private Long id;
+	@Column
 	private String type;
-	@Column(name = "content")
+	@Column
 	private String content;
-	@Column(name = "answer")
+	@Column
 	private String answer;
-	@Column(name = "score")
+	@Column
 	private float score;
+	@ManyToMany(mappedBy = "questions")
+	@JsonIgnore
+	private List<Paper> papers;
 }

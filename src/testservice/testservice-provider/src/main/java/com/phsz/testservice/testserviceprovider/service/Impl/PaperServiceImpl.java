@@ -28,22 +28,19 @@ public class PaperServiceImpl implements PaperService {
 	}
 
 	@Override
-	public PaperInfo getPaperById(Long paperId) {
-		Paper paper = paperRepository.findById(paperId).orElse(null);
-		if(paper == null) {
-			return null;
-		}
-		String[] split = paper.getContent().split(";");
-
-		ArrayList<Question> questions = new ArrayList<>();
-		for (String s : split) {
-
-			Optional<Question> question = questionRepository.findById(Long.valueOf(s));
-			question.ifPresent(questions::add);
-		}
-		PaperInfo paperInfo	=new PaperInfo();
-		paperInfo.PaperInfoCons(paper, questions);
-		return paperInfo;
+	public Paper getPaperById(Long paperId) {
+        return paperRepository.findById(paperId).orElse(null);
+//		String[] split = paper.getContent().split(";");
+//
+//		ArrayList<Question> questions = new ArrayList<>();
+//		for (String s : split) {
+//
+//			Optional<Question> question = questionRepository.findById(Long.valueOf(s));
+//			question.ifPresent(questions::add);
+//		}
+//		PaperInfo paperInfo	=new PaperInfo();
+//		paperInfo.PaperInfoCons(paper, questions);
+//		return paperInfo;
 	}
 
 	@Override
@@ -67,29 +64,29 @@ public class PaperServiceImpl implements PaperService {
 	}
 
 	@Override
-	public String addPaper(Paper paper) {
-		Long paperId = paper.getPaperId();
+	public Long addPaper(Paper paper) {
+		Long paperId = paper.getId();
 		Optional<Paper> paperById = paperRepository.findById(paperId);
 		if(paperById.isPresent()) {
 			return null;
 		}
 		Paper save = paperRepository.save(paper);
-		return save.getPaperId().toString();
+		return save.getId();
 	}
 
 	@Override
-	public String updatePaper(Paper paper) {
-		Long paperId = paper.getPaperId();
+	public Long updatePaper(Paper paper) {
+		Long paperId = paper.getId();
 		Optional<Paper> paperById = paperRepository.findById(paperId);
 		if(paperById.isEmpty()) {
 			return null;
 		}
-		return paperRepository.save(paper).getPaperId().toString();
+		return paperRepository.save(paper).getId();
 	}
 
 	@Override
-	public String  deletePaper(Long paperId) {
-		Optional<Paper> paper = paperRepository.deletePaperByPaperId(paperId);
-		return paper.map(value -> value.getPaperId().toString()).orElse(null);
+	public Long deletePaper(Long paperId) {
+		Optional<Paper> paper = paperRepository.deletePaperById(paperId);
+		return paper.map(Paper::getId).orElse(null);
 	}
 }

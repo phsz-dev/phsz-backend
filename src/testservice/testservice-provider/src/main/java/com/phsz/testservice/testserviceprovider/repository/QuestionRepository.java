@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface QuestionRepository extends JpaRepository<Question, Long> , PagingAndSortingRepository<Question,Long> {
 	Page<Question> findAllByContentLike(String content, Pageable pageable);
 	Page<Question> findAllByType(String type, Pageable pageable);
-	Optional<Question> deleteQuestionByQuestionId(Long questionId);
+	Optional<Question> deleteQuestionById(Long questionId);
 }

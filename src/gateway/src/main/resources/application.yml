@@ -60,7 +60,7 @@ spring:
           uri:
             lb://testservice-provider
           predicates:
-            - Path=/api/tests/**
+            - Path=/api/test/**
         - id: userservice-provider
           uri:
             lb://userservice-provider

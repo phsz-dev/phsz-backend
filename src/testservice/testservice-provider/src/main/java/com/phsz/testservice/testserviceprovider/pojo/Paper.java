@@ -3,20 +3,27 @@ package com.phsz.testservice.testserviceprovider.pojo;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
-@Table(name = "paper",schema = "public")
 public class Paper {
 	@Id
-	@Column(name = "paper_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long paperId;
-	@Column(name = "paper_name")
+	private Long id;
+	@Column
 	private String paperName;
-	@Column(name = "content")
+	@Column
 	private String content;
-	@Column(name = "total_score")
+	@Column
 	private float totalScore;
-	@Column(name = "time_limit")
+	@Column
 	private String timeLimit;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "paper_question",
+			joinColumns = @JoinColumn(name = "paper_id"),
+			inverseJoinColumns = @JoinColumn(name = "question_id")
+	)
+	private List<Question> questions;
 }

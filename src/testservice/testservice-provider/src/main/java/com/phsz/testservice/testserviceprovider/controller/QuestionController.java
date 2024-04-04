@@ -1,10 +1,9 @@
 package com.phsz.testservice.testserviceprovider.controller;
 
+import com.phsz.common.Result;
 import com.phsz.testservice.testserviceprovider.pojo.Question;
-import com.phsz.testservice.testserviceprovider.pojo.Result;
 import com.phsz.testservice.testserviceprovider.service.Impl.QuestionServiceImpl;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -17,83 +16,52 @@ public class QuestionController {
 	public QuestionController(QuestionServiceImpl questionService) {
 		this.questionService = questionService;
 	}
-	@Autowired
-	Result result;
 	@GetMapping
 	public Result findAll(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
 		Pageable pageable = PageRequest.of(pageNum, pageSize);
-		result.setData(questionService.findAll(pageable));
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		return Result.success("success", questionService.findAll(pageable));
 	}
 	@GetMapping("/{id}")
 	public Result findById(@PathVariable("id") Long id) {
 		Question question = questionService.getQuestionByQuestionId(id);
-		result.setData(question);
-		if (question==null){
-			result.setCode(0);
-			result.setMessage("not found");
-			return result;
+		if(question == null){
+			return Result.error("not found");
 		}
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		return Result.success("success", question);
 	}
 	@PostMapping
 	public Result addQuestion(@RequestBody Question question) {
 		String s = questionService.addQuestion(question);
-		result.setData(s);
 		if(s == null){
-			result.setCode(0);
-			result.setMessage("already exists");
-			return result;
+			return Result.error("already exists");
 		}
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		return Result.success("success", s);
 	}
 
 	@PutMapping
 	public Result updateQuestion(@RequestBody Question question) {
 		String s = questionService.updateQuestion(question);
-		result.setData(s);
-		if (s == null){
-			result.setCode(0);
-			result.setMessage("not found");
-			return result;
+		if(s == null){
+			return Result.error("not found");
 		}
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		return Result.success("success", s);
 	}
 	@DeleteMapping("/{id}")
 	public Result deleteQuestion(@PathVariable("id") Long id) {
 		Question question = questionService.deleteQuestionByQuestionId(id);
-		result.setData(question);
-		if(question==null){
-			result.setCode(0);
-			result.setMessage("not found");
-			return result;
+		if(question == null){
+			return Result.error("not found");
 		}
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		return Result.success("success", question);
 	}
 	@GetMapping("/content")
 	public Result getQuestionByContent(@RequestParam("content") String content,@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum){
 		Pageable pageable = PageRequest.of(pageNum, pageSize);
-		result.setData(questionService.findAllByContentLike(content,pageable));
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		return Result.success("success", questionService.findAllByContentLike(content,pageable));
 	}
 	@GetMapping("/type")
 	public Result getQuestionByType(@RequestParam("type") String type,@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum){
 		Pageable pageable = PageRequest.of(pageNum, pageSize);
-		result.setData(questionService.findAllByType(type,pageable));
-		result.setCode(1);
-		result.setMessage("successfully");
-		return result;
+		return Result.success("success", questionService.findAllByType(type,pageable));
 	}
 }

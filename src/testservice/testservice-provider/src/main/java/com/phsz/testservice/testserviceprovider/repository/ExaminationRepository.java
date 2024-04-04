@@ -8,8 +8,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.Optional;
 
-public interface ExaminationRepository extends JpaRepository<Examination, Long>, PagingAndSortingRepository<Examination, Long>{
+public interface ExaminationRepository extends JpaRepository<Examination, Long>, PagingAndSortingRepository<Examination, Long> {
 	Page<Examination> findAllByExaminationNameLike(String examinationName, Pageable pageable);
-	Optional<Examination> deleteExaminationByExaminationId(Long examinationId);
+	Optional<Examination> deleteExaminationById(Long examinationId);
 
 }
