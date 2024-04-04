@@ -71,7 +71,7 @@ public class JwtAuthenticationFilter implements GlobalFilter {
 	}
 
 	private boolean permitAll(String path) {
-		return path.startsWith("/api/auth/");
+		return !path.startsWith("/api/users");
 	}
 
 	private String extractJwtFromRequest(ServerHttpRequest request) {
