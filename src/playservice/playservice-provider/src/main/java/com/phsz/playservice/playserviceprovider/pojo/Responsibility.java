@@ -1,8 +1,14 @@
 package com.phsz.playservice.playserviceprovider.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import java.util.List;
+
 @Data
 @Entity
 public class Responsibility {
@@ -13,6 +19,9 @@ public class Responsibility {
 	private String name;
 	@Column
 	private Role role;
-	@Column(columnDefinition = "jsonb")
-	private String content;
+
+	@OneToMany(mappedBy = "responsibility",fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+	@JsonIgnoreProperties(value = {"responsibility"})
+	@Fetch(FetchMode.SUBSELECT)
+	private List<SubResponsibility> subResponsibilities;
 }

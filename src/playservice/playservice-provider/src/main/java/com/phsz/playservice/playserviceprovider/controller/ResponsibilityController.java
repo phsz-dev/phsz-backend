@@ -34,8 +34,9 @@ public class ResponsibilityController {
 	}
 
 	@GetMapping("/full/{role}")
-	public Result getFullResponsibilityById(@PathVariable Role role) {
-		List<ResponsibilityResponseItem> fullResponsibilityById = responsibilityService.getFullResponsibilityByRole(role);
+	public Result getFullResponsibilityById(@PathVariable int role) {
+		Role inRole = Role.values()[role];
+		List<Responsibility> fullResponsibilityById = responsibilityService.getFullResponsibilityByRole(inRole);
 		if (fullResponsibilityById == null) {
 			return Result.error("not found");
 		} else {

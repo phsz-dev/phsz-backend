@@ -58,16 +58,7 @@ public class ResponsibilityServiceImpl {
 	}
 
 
-	public List<ResponsibilityResponseItem> getFullResponsibilityByRole(Role role) {
-		List<ResponsibilityResponseItem> fullResponsibilityByRole = new ArrayList<>();
-		List<Responsibility> responsibilityList = responsibilityRepository.findAllByRole(role);
-		for (Responsibility responsibility : responsibilityList) {
-			ResponsibilityResponseItem responsibilityResponseItem = new ResponsibilityResponseItem();
-			responsibilityResponseItem.setResponsibility(responsibility);
-//			List<Procedure> procedureList = procedureRepository.findAllByResponsibilityId(responsibility.getId());
-//			responsibilityResponseItem.setProcedures(procedureList);
-			fullResponsibilityByRole.add(responsibilityResponseItem);
-		}
-		return fullResponsibilityByRole;
+	public List<Responsibility> getFullResponsibilityByRole(Role role) {
+        return responsibilityRepository.findByRole(role);
 	}
 }
