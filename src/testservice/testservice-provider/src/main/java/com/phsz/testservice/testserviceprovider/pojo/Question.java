@@ -1,10 +1,7 @@
 package com.phsz.testservice.testserviceprovider.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @Entity
@@ -20,7 +17,4 @@ public class Question {
 	private String answer;
 	@Column
 	private float score;
-	@ManyToMany(mappedBy = "questions")
-	@JsonIgnore
-	private List<Paper> papers;
 }
