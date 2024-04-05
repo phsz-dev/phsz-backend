@@ -1,17 +1,20 @@
 server:
   port: 8089
 spring:
+  application:
+    name: vaccineservice-provider
   cloud:
     nacos:
       discovery:
         server-addr: localhost:8848
-  application:
-    name: vaccineservice-provider
-  datasource:
-    url: jdbc:postgresql://101.34.208.76:5432/phsz
-    username: postgres
-    password: postgre
-    driver-class-name: org.postgresql.Driver
+      config:
+        server-addr: 101.34.208.76:8848
+        username: nacos
+        password: phsz
+        file-extension: yml
+  config:
+    import:
+      - nacos:datasource?refresh=true
   jpa:
     database: postgresql
     show-sql: true

@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/test/papers")
+@RequestMapping("/api/test/paper")
 public class PaperController {
 	PaperServiceImpl paperService;
 
@@ -26,7 +26,7 @@ public class PaperController {
 	@GetMapping
 	public Result getAllPaper(@RequestParam() int pageSize, @RequestParam int pageNum) {
 		Pageable pageable = PageRequest.of(pageNum, pageSize);
-		return Result.success("success", paperService.getAllPapers(pageable));
+		return Result.success("success", paperService.getAllPapers(pageable).getContent());
 	}
 	@PostMapping
 	public Result addPaper(@RequestBody Paper paper) {

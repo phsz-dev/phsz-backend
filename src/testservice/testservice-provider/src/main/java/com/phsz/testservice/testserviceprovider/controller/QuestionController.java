@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/test/questions")
+@RequestMapping("/api/test/question")
 public class QuestionController {
 	@Resource
 	QuestionServiceImpl questionService;
@@ -19,7 +19,7 @@ public class QuestionController {
 	@GetMapping
 	public Result findAll(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
 		Pageable pageable = PageRequest.of(pageNum, pageSize);
-		return Result.success("success", questionService.findAll(pageable));
+		return Result.success("success", questionService.findAll(pageable).getContent());
 	}
 	@GetMapping("/{id}")
 	public Result findById(@PathVariable("id") Long id) {
