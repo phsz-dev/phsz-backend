@@ -13,4 +13,6 @@ public class CaseAssay {
 	private Long caseId;
 	@Column
 	private Long assayId;
+	@Column
+	private String result;
 }

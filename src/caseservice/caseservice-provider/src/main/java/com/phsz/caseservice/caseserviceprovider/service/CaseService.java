@@ -2,7 +2,7 @@ package com.phsz.caseservice.caseserviceprovider.service;
 
 import com.phsz.caseservice.caseserviceprovider.pojo.Case;
 import com.phsz.caseservice.caseserviceprovider.pojo.CaseInfo;
-import com.phsz.caseservice.caseserviceprovider.pojo.RoughCaseInfo;
+import com.phsz.caseservice.caseserviceprovider.pojo.RoughCaseInfoDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -22,5 +22,5 @@ public interface CaseService {
 	//根据病例名查找病例
 	Page<Case> findAllByCaseNameLike(String caseName, Pageable pageable);
 
-	Page<RoughCaseInfo> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable);
+	Page<RoughCaseInfoDto> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable);
 }

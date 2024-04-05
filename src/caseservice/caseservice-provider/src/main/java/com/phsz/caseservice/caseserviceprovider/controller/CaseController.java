@@ -73,6 +73,7 @@ public class CaseController {
 		Pageable pageable= PageRequest.of(pageNum,pageSize);
 		return Result.success("find case by name successfully",caseService.findAllByCaseNameLike(caseName,pageable));
 	}
+
 	//根据疾病名称查询病例
 	@GetMapping("/disease")
 	public Result findCaseByDiseaseId(@RequestParam("diseaseId") Long diseaseId, @RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum){

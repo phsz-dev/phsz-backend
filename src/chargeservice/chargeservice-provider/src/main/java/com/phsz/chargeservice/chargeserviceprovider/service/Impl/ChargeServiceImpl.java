@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,7 +44,6 @@ public class ChargeServiceImpl implements ChargeService {
     public Charge updateCharge(Long id, Charge chargeDetails) {
         Charge charge = chargeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Charge not found for this id :: " + id));
-        charge.setName(chargeDetails.getName());
 
         // 更多属性更新...
         return chargeRepository.save(charge);
@@ -57,5 +57,10 @@ public class ChargeServiceImpl implements ChargeService {
         }
         chargeRepository.deleteById(id); // 假设有对应的方法deleteById
         return id.toString(); // 假设ID是要返回的正确类型
+    }
+
+    @Override
+    public List<Charge> findChargeByIds(List<Long> chargeIds) {
+        return chargeRepository.findChargeByChargeIdIn(chargeIds);
     }
 }

@@ -3,6 +3,7 @@ package com.phsz.assayservice.assayserviceprovider.pojo;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
 @Data
 @Entity
@@ -20,8 +21,6 @@ public class Assay {
     private String description;
     @Column
     private Date date;
-
-
-
-
+    @Column
+    private BigDecimal price;
 }

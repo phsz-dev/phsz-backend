@@ -10,17 +10,17 @@ import java.util.Date;
 public class MedicineInfo {
 	private Long id;
 	private String name;
-	private String type;
 	private String usage;
 	private Date validity;
-	private String batchNumber;
 	private String medicineDosage;
-	private BigDecimal price;
 
 	public MedicineInfo MedicineInfoCons(Medicine medicine, String medicineDosage) {
 		this.setId(medicine.getId());
 		this.setName(medicine.getName());
 		this.setMedicineDosage(medicineDosage);
+		this.setUsage(medicine.getUsage());
+		this.setValidity(medicine.getValidity());
+
 		return this;
 	}
 

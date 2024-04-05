@@ -159,6 +159,12 @@ public class CaseServiceImpl implements CaseService {
 			return null;
 		}
 		CaseInfo caseInfo = new CaseInfo();
+		caseInfo.setDescription(aCase.get().getDescription());
+		caseInfo.setDoctorName(aCase.get().getDoctorName());
+		caseInfo.setName(aCase.get().getName());
+		caseInfo.setSubmitTime(aCase.get().getSubmitTime());
+		caseInfo.setId(aCase.get().getId());
+		caseInfo.setChargeId(aCase.get().getChargeId());
 		List<CaseDisease> diseaseList = caseDiseaseRepository.findAllByCaseId(caseId);
 		ArrayList<Disease> diseaseResList = new ArrayList<>();
 		for(CaseDisease caseDisease :diseaseList){
@@ -190,7 +196,7 @@ public class CaseServiceImpl implements CaseService {
 			assayInfo.setId(assayById.getId());
 			assayInfo.setName(assayById.getName());
 			assayInfo.setDate(assayById.getDate());
-			assayInfo.setResult(assayById.getResult());
+			assayInfo.setResult(caseToMedicine.getResult());
 			assayInfos.add(assayInfo);
 		}
 		caseInfo.setAssays(assayInfos);
@@ -204,6 +210,8 @@ public class CaseServiceImpl implements CaseService {
 			Vaccine vaccineById = vaccineClient.getVaccineById(caseVaccine.getVaccineId());
 			vaccineInfo.setId(caseVaccine.getVaccineId());
 			vaccineInfo.setName(vaccineById.getName());
+			vaccineInfo.setManufacturer(vaccineById.getManufacturer());
+			vaccineInfo.setExpiryDate(vaccineById.getExpiryDate());
 			vaccineInfos.add(vaccineInfo);
 		}
 		caseInfo.setVaccines(vaccineInfos);
@@ -224,7 +232,9 @@ public class CaseServiceImpl implements CaseService {
 	}
 
 	@Override
-	public Page<RoughCaseInfo> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable) {
-		return caseDiseaseRepository.findRoughCaseInfoByDiseaseId(diseaseId, pageable);
+	public Page<RoughCaseInfoDto> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable) {
+		Page<RoughCaseInfoDto> pg = caseDiseaseRepository.findRoughCaseInfoByDiseaseId(diseaseId, pageable);
+		System.out.println(pg);
+		return pg;
 	}
 }

@@ -15,8 +15,10 @@ public class Case {
 	private String name;
 	@Column(name = "description")
 	private String description;
+	@Column
+	private String brief;
 	@Column(name = "submit_time")
-	private String submitTime;
+	private Long submitTime;
 	@Column(name = "charge_id")
 	private Long chargeId;
 	@Column(name = "doctor_name")
@@ -27,6 +29,7 @@ public class Case {
 		this.description=caseInfo.getDescription();
 		this.submitTime=caseInfo.getSubmitTime();
 		this.doctorName=caseInfo.getDoctorName();
+		this.brief=caseInfo.getBrief();
 		return this;
 	}
 }

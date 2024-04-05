@@ -71,6 +71,11 @@ spring:
             lb://vaccineservice-provider
           predicates:
             - Path=/api/vaccines/**
+        - id: medicineservice-provider
+          uri:
+            lb://medicineservice-provider
+          predicates:
+            - Path=/api/medicines/**
 
 logging:
   level:

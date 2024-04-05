@@ -22,4 +22,5 @@ public interface ChargeClient {
 
     @DeleteMapping("/api/charge/{charge_id}")
     Result deleteCharge(@PathVariable("charge_id") Long chargeId);
+
 }

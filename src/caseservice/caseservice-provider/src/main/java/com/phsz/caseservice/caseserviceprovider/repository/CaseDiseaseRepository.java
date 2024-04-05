@@ -1,7 +1,7 @@
 package com.phsz.caseservice.caseserviceprovider.repository;
 
 import com.phsz.caseservice.caseserviceprovider.pojo.CaseDisease;
-import com.phsz.caseservice.caseserviceprovider.pojo.RoughCaseInfo;
+import com.phsz.caseservice.caseserviceprovider.pojo.RoughCaseInfoDto;
 import feign.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,7 +15,8 @@ public interface CaseDiseaseRepository extends CrudRepository<CaseDisease, Long>
 
     Long deleteAllByCaseId(Long id);
 
-    @Query(value = "SELECT id, name, description, submit_time FROM `app_case` WHERE id IN (SELECT case_id FROM case_disease WHERE disease_id = :diseaseId)", nativeQuery = true)
-    Page<RoughCaseInfo> findRoughCaseInfoByDiseaseId(@Param("diseaseId") Long diseaseId, Pageable pageable);
+    @Query(value = "SELECT id, name, brief, submit_time as submitTime FROM app_case WHERE id IN (SELECT case_id FROM case_disease WHERE disease_id = :diseaseId)", nativeQuery = true)
+    Page<RoughCaseInfoDto> findRoughCaseInfoByDiseaseId(@Param("diseaseId") Long diseaseId, Pageable pageable);
+
 
 }

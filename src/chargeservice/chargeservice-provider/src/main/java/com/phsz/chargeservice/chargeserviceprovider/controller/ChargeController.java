@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/charges")
 public class ChargeController {
@@ -61,5 +63,15 @@ public class ChargeController {
             return Result.error("not found");
         }
         return Result.success("find charge successfully",charge);
+    }
+
+    // 批量获取收费记录信息
+    @PostMapping("/batch")
+    public Result findChargeByIds(@RequestBody List<Long> chargeIds) {
+        List<Charge> charges = chargeService.findChargeByIds(chargeIds);
+        if (charges == null) {
+            return Result.error("not found");
+        }
+        return Result.success("find charge successfully",charges);
     }
 }
