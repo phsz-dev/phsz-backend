@@ -40,12 +40,16 @@ public class JwtAuthenticationFilter implements GlobalFilter {
 		String path = exchange.getRequest().getURI().getPath();
 		// 从HTTP请求中获取JWT
 		String token = extractJwtFromRequest(exchange.getRequest());
+		System.out.println(1);
 		if (token != null && validateJwt(token)) {
+			System.out.println(2);
 			JWTClaimsSet claims = getClaimsFromJwt(token);
 			if (claims != null) {
+				System.out.println(3);
 				try {
+					System.out.println(claims.getLongClaim("userid"));
 					ServerHttpRequest request = exchange.getRequest().mutate()
-							.header("UserId", claims.getStringClaim("userid"))
+							.header("UserId", String.valueOf(claims.getLongClaim("userid")))
 							.header("Username", claims.getSubject())
 							.header("Roles", String.join(",", claims.getStringListClaim("roles")))
 							.build();

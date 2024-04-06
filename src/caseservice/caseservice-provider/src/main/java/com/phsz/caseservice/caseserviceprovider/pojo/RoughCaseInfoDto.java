@@ -5,6 +5,6 @@ public interface RoughCaseInfoDto {
     Long getId();
     String getName();
     String getBrief();
-    String getSubmitTime();
+    Long getSubmitTime();
 
 }

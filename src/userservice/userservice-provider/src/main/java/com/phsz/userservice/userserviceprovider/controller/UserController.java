@@ -15,8 +15,8 @@ public class UserController {
 	private UserServiceImpl userService;
 
 	@GetMapping
-	public String getAll(){
-		return "getAll";
+	public Result getAll(){
+		return Result.success("Get all users successful", userService.getAll());
 	}
 
 	@GetMapping("/me")

@@ -35,6 +35,8 @@ public class CaseServiceImpl implements CaseService {
 
 	private final CaseDiseaseRepository caseDiseaseRepository;
 
+	private final CollectedCaseRepository collectedCaseRepository;
+
 
 	private final MedicineClient medicineClient;
 	private final VaccineClient vaccineClient;
@@ -42,7 +44,7 @@ public class CaseServiceImpl implements CaseService {
 	private final AssayClient assayClient;
 
 	@Autowired
-	public CaseServiceImpl(CaseRepository caseRepository, CaseMedicineRepository caseMedicineRepository, DiseaseRepository diseaseRepository, CaseAssayRepository caseAssayRepository, CaseVaccineRepository caseVaccineRepository, CaseDiseaseRepository caseDiseaseRepository, MedicineClient medicineClient, VaccineClient vaccineClient, AssayClient assayClient) {
+	public CaseServiceImpl(CaseRepository caseRepository, CaseMedicineRepository caseMedicineRepository, DiseaseRepository diseaseRepository, CaseAssayRepository caseAssayRepository, CaseVaccineRepository caseVaccineRepository, CaseDiseaseRepository caseDiseaseRepository, MedicineClient medicineClient, VaccineClient vaccineClient, AssayClient assayClient, CollectedCaseRepository collectedCaseRepository) {
 		this.caseRepository = caseRepository;
 		this.caseMedicineRepository = caseMedicineRepository;
 		this.diseaseRepository = diseaseRepository;
@@ -52,6 +54,7 @@ public class CaseServiceImpl implements CaseService {
 		this.medicineClient = medicineClient;
 		this.vaccineClient = vaccineClient;
 		this.assayClient = assayClient;
+		this.collectedCaseRepository = collectedCaseRepository;
 	}
 
 	@Override
@@ -236,5 +239,23 @@ public class CaseServiceImpl implements CaseService {
 		Page<RoughCaseInfoDto> pg = caseDiseaseRepository.findRoughCaseInfoByDiseaseId(diseaseId, pageable);
 		System.out.println(pg);
 		return pg;
+	}
+
+	@Override
+	public CollectedCase addNewCollectCase(Long caseId, Long userId) {
+		CollectedCase ccase = new CollectedCase();
+		ccase.setCaseId(caseId);
+		ccase.setUserId(userId);
+		return collectedCaseRepository.save(ccase);
+	}
+
+	@Override
+	public List<RoughCaseInfoDto> getMyCollectedCases(Long userId, Pageable pageable) {
+		Page<CollectedCase> pcc = collectedCaseRepository.findCollectedCaseByUserId(userId, pageable);
+		List<Long> ids = new ArrayList<>();
+		for(CollectedCase cc : pcc.getContent()){
+			ids.add(cc.getCaseId());
+		}
+        return caseRepository.findRoughCaseInfoByIdList(ids);
 	}
 }

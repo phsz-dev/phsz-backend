@@ -2,14 +2,20 @@ package com.phsz.caseservice.caseserviceprovider.controller;
 
 import com.phsz.caseservice.caseserviceprovider.pojo.Case;
 import com.phsz.caseservice.caseserviceprovider.pojo.CaseInfo;
+import com.phsz.caseservice.caseserviceprovider.pojo.CollectedCase;
+import com.phsz.caseservice.caseserviceprovider.pojo.RoughCaseInfoDto;
 import com.phsz.caseservice.caseserviceprovider.service.Impl.CaseServiceImpl;
 import com.phsz.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cases")
@@ -80,4 +86,29 @@ public class CaseController {
 		Pageable pageable= PageRequest.of(pageNum,pageSize);
 		return Result.success("find case by diseaseId successfully",caseService.findRoughCaseListByDiseaseId(diseaseId,pageable));
 	}
+
+	@GetMapping("/collect/{id}")
+	public Result collectCaseById(@PathVariable("id") Long caseId, @RequestHeader("UserId") String userId){
+		Long userID = Long.parseLong(userId);
+		CollectedCase ccas = caseService.addNewCollectCase(caseId,userID);
+		if(ccas.getId()>0){
+			return Result.success();
+		}else{
+			return Result.error("收藏失败");
+		}
+	}
+
+	@GetMapping("/collect/mine/{pageNum}/{pageSize}")
+	public Result getMyCollectCases(@RequestHeader("UserId") String userId,@PathVariable("pageNum") int pageNum,@PathVariable("pageSize") int pageSize){
+		Long userID = Long.parseLong(userId);
+		Pageable pageable= PageRequest.of(pageNum,pageSize);
+		List<RoughCaseInfoDto> ccasList = caseService.getMyCollectedCases(userID,pageable);
+		if(ccasList==null){
+			return Result.error("请求我的收藏病例失败");
+		}else{
+			return Result.success("请求我的收藏病例成功",ccasList);
+		}
+	}
+
+
 }
