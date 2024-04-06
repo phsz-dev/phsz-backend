@@ -40,6 +40,7 @@ public class AuthController {
             );
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             String token = jwtTokenProvider.createToken(
+                    user.getId(),
                     user.getUsername(),
                     userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList()
             );

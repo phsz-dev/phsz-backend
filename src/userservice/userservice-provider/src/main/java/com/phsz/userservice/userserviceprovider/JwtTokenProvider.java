@@ -28,7 +28,7 @@ public class JwtTokenProvider {
         key = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretString));
     }
 
-    public String createToken(String username, List<String> roles) {
+    public String createToken(Long userid, String username, List<String> roles) {
 
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
@@ -36,6 +36,7 @@ public class JwtTokenProvider {
         return Jwts.builder()
                 .subject(username)
                 .claim("roles", roles)
+                .claim("userid", userid)
                 .issuedAt(now)
                 .expiration(validity)
                 .signWith(key)
