@@ -165,6 +165,7 @@ public class CaseServiceImpl implements CaseService {
 		caseInfo.setSubmitTime(aCase.get().getSubmitTime());
 		caseInfo.setId(aCase.get().getId());
 		caseInfo.setChargeId(aCase.get().getChargeId());
+		caseInfo.setBrief(aCase.get().getBrief());
 		List<CaseDisease> diseaseList = caseDiseaseRepository.findAllByCaseId(caseId);
 		ArrayList<Disease> diseaseResList = new ArrayList<>();
 		for(CaseDisease caseDisease :diseaseList){
