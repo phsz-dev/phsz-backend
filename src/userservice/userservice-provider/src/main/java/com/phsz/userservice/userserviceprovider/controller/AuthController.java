@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,8 +40,9 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
             );
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            AppUser appUser = userService.getUserByUsername(userDetails.getUsername());
             String token = jwtTokenProvider.createToken(
-                    user.getId(),
+                    appUser.getId(),
                     user.getUsername(),
                     userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList()
             );

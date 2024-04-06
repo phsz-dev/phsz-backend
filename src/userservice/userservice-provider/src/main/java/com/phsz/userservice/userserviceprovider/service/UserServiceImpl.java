@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 		return builder.build();
 	}
 
+	public AppUser getUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("No user found with username: " + username));
+	}
+
 	public boolean register(String username, String password) {
 		if (userRepository.findByUsername(username).isPresent()) {
 			return false;
