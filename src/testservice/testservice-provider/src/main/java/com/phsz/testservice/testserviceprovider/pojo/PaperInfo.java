@@ -17,7 +17,7 @@ public class PaperInfo {
 		this.paperId=paper.getId();
 		this.paperName=paper.getPaperName();
 		this.totalScore=paper.getTotalScore();
-		this.timeLimit=paper.getTimeLimit();
+		this.timeLimit=paper.getDurationSeconds().toString();
 		this.content=content;
 		return this;
 	}

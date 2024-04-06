@@ -18,6 +18,8 @@ public class Examination {
 	@Column
 	private Date startTime;
 	@Column
+	private Date endTime;
+	@Column
 	private String examinationUser;
 	@ManyToOne
 	@JoinColumn(name = "paper_id")

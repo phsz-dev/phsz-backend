@@ -68,7 +68,15 @@ public class JwtAuthenticationFilter implements GlobalFilter {
 			// 使用writeWith方法返回错误消息
 			return exchange.getResponse().writeWith(Mono.just(buffer));
 		}
-		return chain.filter(exchange);
+		// 清除Header中的UserId, Username, Roles
+		ServerHttpRequest request = exchange.getRequest().mutate()
+				.headers(httpHeaders -> {
+					httpHeaders.remove("UserId");
+					httpHeaders.remove("Username");
+					httpHeaders.remove("Roles");
+				})
+				.build();
+		return chain.filter(exchange.mutate().request(request).build());
 	}
 
 	private boolean permitAll(String path) {

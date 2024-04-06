@@ -13,7 +13,5 @@ public interface ExaminationService {
 	String updateExamination(Examination examination);
 	String deleteExamination(Long examinationId);
 
-
-
-
+	Examination startExamination(String username, Long paperId);
 }

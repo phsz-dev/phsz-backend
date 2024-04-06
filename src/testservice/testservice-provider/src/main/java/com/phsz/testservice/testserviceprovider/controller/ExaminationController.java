@@ -36,12 +36,13 @@ public class ExaminationController {
 		return Result.success("success", examinationService.getExaminationsByName(examinationName, pageable).getContent());
 	}
 	@PostMapping
-	public Result addExamination(@RequestBody Examination examination) {
-		String s = examinationService.addExamination(examination);
-		if(s == null){
-			return Result.error("already exists");
+	public Result addExamination(@RequestHeader("Username") String username, @RequestBody Long paperId) {
+		try {
+			Examination examination = examinationService.startExamination(username, paperId);
+			return Result.success("success", examination);
+		} catch (Exception e) {
+			return Result.error(e.getMessage());
 		}
-		return Result.success("success", s);
 	}
 	@PutMapping
 	public Result updateExamination(@RequestBody Examination examination) {

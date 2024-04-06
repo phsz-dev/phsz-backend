@@ -18,7 +18,7 @@ public class Paper {
     @Column
     private float totalScore;
     @Column
-    private String timeLimit;
+    private Long durationSeconds;
     @OneToMany(mappedBy = "paper", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<PaperQuestion> paperQuestions;
 }
