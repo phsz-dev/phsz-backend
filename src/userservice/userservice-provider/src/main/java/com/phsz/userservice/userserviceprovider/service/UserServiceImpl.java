@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -66,5 +67,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 	public AppUser getUserByName(String username) {
         return userRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("No user found with username: " + username));
+	}
+
+	public List<AppUser> getAll() {
+		return userRepository.findAll();
 	}
 }
