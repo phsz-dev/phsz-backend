@@ -6,7 +6,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
+
 public interface CaseVaccineRepository extends JpaRepository<CaseVaccine, Long>, PagingAndSortingRepository<CaseVaccine, Long>{
-	Page<CaseVaccine> findAllByCaseId(Long CaseId, Pageable pageable);
+	Page<CaseVaccine> findByCaseId(Long CaseId, Pageable pageable);
+
+	List<CaseVaccine> findByCaseId(Long caseId);
 	Long deleteAllByCaseId(Long vaccineId);
 }

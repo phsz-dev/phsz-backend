@@ -165,6 +165,7 @@ public class CaseServiceImpl implements CaseService {
 		caseInfo.setSubmitTime(aCase.get().getSubmitTime());
 		caseInfo.setId(aCase.get().getId());
 		caseInfo.setChargeId(aCase.get().getChargeId());
+		caseInfo.setBrief(aCase.get().getBrief());
 		List<CaseDisease> diseaseList = caseDiseaseRepository.findAllByCaseId(caseId);
 		ArrayList<Disease> diseaseResList = new ArrayList<>();
 		for(CaseDisease caseDisease :diseaseList){
@@ -201,8 +202,7 @@ public class CaseServiceImpl implements CaseService {
 		}
 		caseInfo.setAssays(assayInfos);
 //
-		Page<CaseVaccine> allByCaseId2 = caseVaccineRepository.findAllByCaseId(caseId1, pageable);
-		List<CaseVaccine> content2 = allByCaseId2.getContent();
+		List<CaseVaccine> content2 = caseVaccineRepository.findByCaseId(caseId1);
 		ArrayList<VaccineInfo> vaccineInfos = new ArrayList<>();
 		for (CaseVaccine caseVaccine :content2
 		) {
