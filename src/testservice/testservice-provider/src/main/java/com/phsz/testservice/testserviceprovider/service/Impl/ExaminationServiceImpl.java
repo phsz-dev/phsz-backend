@@ -12,52 +12,52 @@ import java.util.Optional;
 
 @Service
 public class ExaminationServiceImpl implements ExaminationService {
-	@Resource
-	private final ExaminationRepository repository;
+    @Resource
+    private final ExaminationRepository repository;
 
-	public ExaminationServiceImpl(ExaminationRepository repository) {
-		this.repository = repository;
-	}
+    public ExaminationServiceImpl(ExaminationRepository repository) {
+        this.repository = repository;
+    }
 
-	@Override
-	public Examination getExaminationById(Long examinationId) {
-		return repository.findById(examinationId).orElse(null);
-	}
+    @Override
+    public Examination getExaminationById(Long examinationId) {
+        return repository.findById(examinationId).orElse(null);
+    }
 
-	@Override
-	public Page<Examination> getAllExaminations(Pageable pageable) {
-		return repository.findAll(pageable);
-	}
+    @Override
+    public Page<Examination> getAllExaminations(Pageable pageable) {
+        return repository.findAll(pageable);
+    }
 
-	@Override
-	public Page<Examination> getExaminationsByName(String examinationName, Pageable pageable) {
-		return repository.findAllByExaminationNameLike(examinationName, pageable);
-	}
+    @Override
+    public Page<Examination> getExaminationsByName(String examinationName, Pageable pageable) {
+        return repository.findAllByExaminationNameLike(examinationName, pageable);
+    }
 
-	@Override
-	public String addExamination(Examination examination) {
-		Long examinationId = examination.getId();
-		if (repository.findById(examinationId).isPresent()) {
-			return null;
-		}
-		Examination save = repository.save(examination);
-		return save.getId().toString();
+    @Override
+    public String addExamination(Examination examination) {
+        Long examinationId = examination.getId();
+        if (repository.findById(examinationId).isPresent()) {
+            return null;
+        }
+        Examination save = repository.save(examination);
+        return save.getId().toString();
 
-	}
+    }
 
-	@Override
-	public String updateExamination(Examination examination) {
-		Long examinationId = examination.getId();
-		if (repository.findById(examinationId).isEmpty()) {
-			return null;
-		}
-		Examination save = repository.save(examination);
-		return save.getId().toString();
-	}
+    @Override
+    public String updateExamination(Examination examination) {
+        Long examinationId = examination.getId();
+        if (repository.findById(examinationId).isEmpty()) {
+            return null;
+        }
+        Examination save = repository.save(examination);
+        return save.getId().toString();
+    }
 
-	@Override
-	public String deleteExamination(Long examinationId) {
-		Optional<Examination> examination= repository.deleteExaminationById(examinationId);
-		return examination.map(value -> value.getId().toString()).orElse(null);
-	}
+    @Override
+    public String deleteExamination(Long examinationId) {
+        Optional<Examination> examination = repository.deleteExaminationById(examinationId);
+        return examination.map(value -> value.getId().toString()).orElse(null);
+    }
 }

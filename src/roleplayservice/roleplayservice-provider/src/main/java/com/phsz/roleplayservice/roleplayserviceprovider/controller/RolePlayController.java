@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class RolePlayController {
     @Resource
     private final RolePlayServiceImpl rolePlayService;
+
     public RolePlayController(RolePlayServiceImpl rolePlayService) {
         this.rolePlayService = rolePlayService;
     }

@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(value = "userservice-provider")
 
 public interface UserClient {
-	@PostMapping("/users/login")
-	String login(@RequestBody AppUser user);
+    @PostMapping("/users/login")
+    String login(@RequestBody AppUser user);
 }

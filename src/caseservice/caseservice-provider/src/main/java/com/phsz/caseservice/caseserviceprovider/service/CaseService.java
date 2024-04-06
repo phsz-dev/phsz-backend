@@ -11,22 +11,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface CaseService {
-	//增加新病例
-	String addNewCase(CaseInfo case1);
-	//删除病例
-	String deleteCase(Long caseId);
-	//修改病例
-	String updateCase(CaseInfo case1);
-	//查找病例
-	CaseInfo findCase(Long caseId);
-	//查找所有病例
-	ArrayList<Case> findAllCase(Pageable pageable);
-	//根据病例名查找病例
-	Page<Case> findAllByCaseNameLike(String caseName, Pageable pageable);
+    //增加新病例
+    String addNewCase(CaseInfo case1);
 
-	Page<RoughCaseInfoDto> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable);
+    //删除病例
+    String deleteCase(Long caseId);
 
-	CollectedCase addNewCollectCase(Long caseId, Long userId);
+    //修改病例
+    String updateCase(CaseInfo case1);
 
-	List<RoughCaseInfoDto> getMyCollectedCases(Long userId, Pageable pageable);
+    //查找病例
+    CaseInfo findCase(Long caseId);
+
+    //查找所有病例
+    ArrayList<Case> findAllCase(Pageable pageable);
+
+    //根据病例名查找病例
+    Page<Case> findAllByCaseNameLike(String caseName, Pageable pageable);
+
+    Page<RoughCaseInfoDto> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable);
+
+    CollectedCase addNewCollectCase(Long caseId, Long userId);
+
+    List<RoughCaseInfoDto> getMyCollectedCases(Long userId, Pageable pageable);
 }

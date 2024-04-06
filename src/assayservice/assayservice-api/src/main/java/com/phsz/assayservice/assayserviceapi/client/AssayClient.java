@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(value = "assayservice-provider")
 public interface AssayClient {
 
-	@GetMapping("/api/assays/client/{assayId}")
-	public Assay getAssayById(@PathVariable("assayId") Long assayId);
+    @GetMapping("/api/assays/client/{assayId}")
+    public Assay getAssayById(@PathVariable("assayId") Long assayId);
 
 }

@@ -3,25 +3,24 @@ package com.phsz.caseservice.caseserviceprovider.pojo;
 import com.phsz.medicineservice.medicineserviceapi.pojo.Medicine;
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
 public class MedicineInfo {
-	private Long id;
-	private String name;
-	private String usage;
-	private Date validity;
-	private String medicineDosage;
+    private Long id;
+    private String name;
+    private String usage;
+    private Date validity;
+    private String medicineDosage;
 
-	public MedicineInfo MedicineInfoCons(Medicine medicine, String medicineDosage) {
-		this.setId(medicine.getId());
-		this.setName(medicine.getName());
-		this.setMedicineDosage(medicineDosage);
-		this.setUsage(medicine.getUsage());
-		this.setValidity(medicine.getValidity());
+    public MedicineInfo MedicineInfoCons(Medicine medicine, String medicineDosage) {
+        this.setId(medicine.getId());
+        this.setName(medicine.getName());
+        this.setMedicineDosage(medicineDosage);
+        this.setUsage(medicine.getUsage());
+        this.setValidity(medicine.getValidity());
 
-		return this;
-	}
+        return this;
+    }
 
 }

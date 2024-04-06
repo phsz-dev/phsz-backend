@@ -1,7 +1,6 @@
 package com.phsz.playservice.playserviceprovider.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.hibernate.annotations.Fetch;
@@ -12,16 +11,16 @@ import java.util.List;
 @Data
 @Entity
 public class Responsibility {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column
-	private String name;
-	@Column
-	private Role role;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column
+    private String name;
+    @Column
+    private Role role;
 
-	@OneToMany(mappedBy = "responsibility",fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
-	@JsonIgnoreProperties(value = {"responsibility"})
-	@Fetch(FetchMode.SUBSELECT)
-	private List<SubResponsibility> subResponsibilities;
+    @OneToMany(mappedBy = "responsibility", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = {"responsibility"})
+    @Fetch(FetchMode.SUBSELECT)
+    private List<SubResponsibility> subResponsibilities;
 }

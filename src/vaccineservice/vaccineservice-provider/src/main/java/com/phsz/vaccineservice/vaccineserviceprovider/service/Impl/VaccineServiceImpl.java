@@ -49,7 +49,7 @@ public class VaccineServiceImpl implements VaccineService {
     @Override
     public String deleteVaccine(Long id) {
         Optional<Vaccine> byId = vaccineRepository.findById(id);
-        if(byId.isEmpty()){
+        if (byId.isEmpty()) {
             return null;
         }
         Optional<Vaccine> vaccine = vaccineRepository.deleteVaccineById(id);

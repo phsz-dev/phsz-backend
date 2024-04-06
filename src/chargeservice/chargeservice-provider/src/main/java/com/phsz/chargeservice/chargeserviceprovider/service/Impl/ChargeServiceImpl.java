@@ -29,7 +29,7 @@ public class ChargeServiceImpl implements ChargeService {
     @Override
     public Charge findChargeById(Long id) {
         Optional<Charge> byId = chargeRepository.findById(id);
-        if(byId.isEmpty()){
+        if (byId.isEmpty()) {
             return null;
         }
         return byId.get();
@@ -52,7 +52,7 @@ public class ChargeServiceImpl implements ChargeService {
     @Override
     public String deleteCharge(Long id) {
         Optional<Charge> byId = chargeRepository.findById(id);
-        if(byId.isEmpty()){
+        if (byId.isEmpty()) {
             return null;
         }
         chargeRepository.deleteById(id); // 假设有对应的方法deleteById

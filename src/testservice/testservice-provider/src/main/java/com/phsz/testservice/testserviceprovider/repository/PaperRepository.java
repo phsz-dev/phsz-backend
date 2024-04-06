@@ -9,6 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.Optional;
 
 public interface PaperRepository extends JpaRepository<Paper, Long>, PagingAndSortingRepository<Paper, Long> {
-	Page<Paper> findAllByPaperNameLike(String paperName, Pageable pageable);
-	Optional<Paper> deletePaperById(Long paperId);
+    Page<Paper> findAllByPaperNameLike(String paperName, Pageable pageable);
+
+    Optional<Paper> deletePaperById(Long paperId);
 }

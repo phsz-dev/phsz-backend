@@ -8,9 +8,10 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface CaseVaccineRepository extends JpaRepository<CaseVaccine, Long>, PagingAndSortingRepository<CaseVaccine, Long>{
-	Page<CaseVaccine> findByCaseId(Long CaseId, Pageable pageable);
+public interface CaseVaccineRepository extends JpaRepository<CaseVaccine, Long>, PagingAndSortingRepository<CaseVaccine, Long> {
+    Page<CaseVaccine> findByCaseId(Long CaseId, Pageable pageable);
 
-	List<CaseVaccine> findByCaseId(Long caseId);
-	Long deleteAllByCaseId(Long vaccineId);
+    List<CaseVaccine> findByCaseId(Long caseId);
+
+    Long deleteAllByCaseId(Long vaccineId);
 }

@@ -38,16 +38,16 @@ public class AssayServiceImpl implements AssayService {
     @Override
     public Assay updateAssay(Long id, Assay assayDetails) {
         Optional<Assay> assay = assayRepository.findById(id);
-        if(assay.isEmpty()){
+        if (assay.isEmpty()) {
             return null;
         }
         return assayRepository.save(assayDetails);
     }
 
     @Override
-    public String  deleteAssay(Long id) {
+    public String deleteAssay(Long id) {
         Optional<Assay> byId = assayRepository.findById(id);
-        if(byId.isEmpty()){
+        if (byId.isEmpty()) {
             return null;
         }
         Optional<Assay> assay = assayRepository.deleteAssayById(id);

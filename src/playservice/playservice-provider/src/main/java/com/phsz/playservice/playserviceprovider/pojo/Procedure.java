@@ -7,21 +7,21 @@ import lombok.Data;
 @Data
 @Entity
 public class Procedure {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@Column
-	private String name;
+    @Column
+    private String name;
 
-	@ManyToOne
-	@JsonIgnoreProperties(value = {"procedures"})
-	@JoinColumn(name = "sub_responsibility_id")
-	private SubResponsibility subResponsibility;
+    @ManyToOne
+    @JsonIgnoreProperties(value = {"procedures"})
+    @JoinColumn(name = "sub_responsibility_id")
+    private SubResponsibility subResponsibility;
 
-	@Column
-	private String content;
+    @Column
+    private String content;
 
-	@Column
-	private Integer rank;
+    @Column
+    private Integer rank;
 }

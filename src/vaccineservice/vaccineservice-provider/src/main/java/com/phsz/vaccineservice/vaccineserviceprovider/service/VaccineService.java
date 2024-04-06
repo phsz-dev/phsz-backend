@@ -4,8 +4,6 @@ import com.phsz.vaccineservice.vaccineserviceprovider.pojo.Vaccine;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
-
 public interface VaccineService {
     // 支持分页查询的方法
     Page<Vaccine> findAllVaccines(Pageable pageable);

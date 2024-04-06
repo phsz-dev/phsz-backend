@@ -19,7 +19,7 @@ public class VaccineController {
     @GetMapping
     public Result getAllVaccines(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("get all vaccine OK",vaccineService.findAllVaccines(pageable));
+        return Result.success("get all vaccine OK", vaccineService.findAllVaccines(pageable));
     }
 
     // 添加新疫苗
@@ -29,7 +29,7 @@ public class VaccineController {
         if (newVaccine == null) {
             return Result.error("add vaccine failed");
         }
-        return Result.success("add vaccine successfully",null);
+        return Result.success("add vaccine successfully", null);
     }
 
     // 删除疫苗
@@ -39,7 +39,7 @@ public class VaccineController {
         if (message == null) {
             return Result.error("not found or error deleting");
         }
-        return Result.success("delete vaccine successfully",null);
+        return Result.success("delete vaccine successfully", null);
     }
 
     // 修改疫苗信息
@@ -49,7 +49,7 @@ public class VaccineController {
         if (updatedVaccine == null) {
             return Result.error("not found or error updating");
         }
-        return Result.success("update vaccine successfully",null);
+        return Result.success("update vaccine successfully", null);
     }
 
     // 获取单个疫苗信息
@@ -59,10 +59,11 @@ public class VaccineController {
         if (vaccine == null) {
             return Result.error("not found");
         }
-        return Result.success("find vaccine successfully",vaccine);
+        return Result.success("find vaccine successfully", vaccine);
     }
+
     @GetMapping("/client/{vaccineId}")
-    public Vaccine getVaccineByIdClient(@PathVariable("vaccineId") Long vaccineId){
+    public Vaccine getVaccineByIdClient(@PathVariable("vaccineId") Long vaccineId) {
         return vaccineService.findVaccineById(vaccineId);
     }
 }

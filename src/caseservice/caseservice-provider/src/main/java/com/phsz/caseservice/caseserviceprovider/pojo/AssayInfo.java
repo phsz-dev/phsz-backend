@@ -6,8 +6,8 @@ import java.util.Date;
 
 @Data
 public class AssayInfo {
-	private Long id;
-	private String name;
-	private Date date;
-	private String result;
+    private Long id;
+    private String name;
+    private Date date;
+    private String result;
 }

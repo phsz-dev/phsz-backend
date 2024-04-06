@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 返回结果实体类
+ *
  * @author 墨枫逸尘
  */
 @Data

@@ -1,17 +1,17 @@
 package com.phsz.officeservice.officeserviceprovider.controller;
 
+import com.phsz.common.Result;
 import com.phsz.officeservice.officeserviceapi.entity.Office;
 import com.phsz.officeservice.officeserviceprovider.service.OfficeServiceImpl;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.*;
-
-import com.phsz.common.Result;
 
 @RestController
 @RequestMapping("/api/offices")
 public class OfficeController {
     @Resource
     private final OfficeServiceImpl officeService;
+
     public OfficeController(OfficeServiceImpl officeService) {
         this.officeService = officeService;
     }

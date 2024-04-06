@@ -7,7 +7,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 public class TestServiceProviderApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(TestServiceProviderApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TestServiceProviderApplication.class, args);
+    }
 }

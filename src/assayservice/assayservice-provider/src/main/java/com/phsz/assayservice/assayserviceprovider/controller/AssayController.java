@@ -1,14 +1,12 @@
 package com.phsz.assayservice.assayserviceprovider.controller;
 
+import com.phsz.assayservice.assayserviceprovider.pojo.Assay;
+import com.phsz.assayservice.assayserviceprovider.service.Impl.AssayServiceImpl;
 import com.phsz.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
-import com.phsz.assayservice.assayserviceprovider.pojo.Assay;
-import com.phsz.assayservice.assayserviceprovider.service.Impl.AssayServiceImpl;
-
 
 import java.util.Optional;
 
@@ -28,7 +26,7 @@ public class AssayController {
     @GetMapping
     public Result getAllAssays(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("get all assay OK",assayService.findAllAssays(pageable));
+        return Result.success("get all assay OK", assayService.findAllAssays(pageable));
     }
 
     // 添加新化验
@@ -38,7 +36,7 @@ public class AssayController {
         if (newAssay == null) {
             return Result.error("add assay failed");
         }
-        return Result.success("add assay successfully",null);
+        return Result.success("add assay successfully", null);
     }
 
     // 删除化验
@@ -48,7 +46,7 @@ public class AssayController {
         if (message == null) {
             return Result.error("not found or error deleting");
         }
-        return Result.success("delete assay successfully",null);
+        return Result.success("delete assay successfully", null);
     }
 
     // 修改化验信息
@@ -58,7 +56,7 @@ public class AssayController {
         if (updatedAssay == null) {
             return Result.error("not found or error updating");
         }
-        return Result.success("update assay successfully",null);
+        return Result.success("update assay successfully", null);
     }
 
     // 获取单个化验信息
@@ -68,10 +66,11 @@ public class AssayController {
         if (assayById.isEmpty()) {
             return Result.error("not found");
         }
-        return Result.success("get assay successfully",assayById.get());
+        return Result.success("get assay successfully", assayById.get());
     }
+
     @GetMapping("/client/{assayId}")
-    public Assay findAssayByIdClient(@PathVariable("assayId") Long assayId){
+    public Assay findAssayByIdClient(@PathVariable("assayId") Long assayId) {
         Optional<Assay> assayById = assayService.findAssayById(assayId);
         return assayById.get();
     }

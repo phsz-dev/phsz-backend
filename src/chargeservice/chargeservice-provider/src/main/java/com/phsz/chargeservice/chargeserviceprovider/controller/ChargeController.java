@@ -22,27 +22,27 @@ public class ChargeController {
     @GetMapping
     public Result getAllCharges(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("get all charge OK",chargeService.findAllCharges(pageable));
+        return Result.success("get all charge OK", chargeService.findAllCharges(pageable));
     }
 
     // 添加新收费记录
     @PostMapping
     public Result addNewCharge(@RequestBody Charge charge) {
         Charge newCharge = chargeService.addNewCharge(charge);
-        if(newCharge == null){
+        if (newCharge == null) {
             return Result.error("add charge failed");
         }
-        return Result.success("add charge successfully",null);
+        return Result.success("add charge successfully", null);
     }
 
     // 删除收费记录
     @DeleteMapping("/{charge_id}")
     public Result deleteChargeById(@PathVariable Long charge_id) {
         String message = chargeService.deleteCharge(charge_id);
-        if(message == null){
+        if (message == null) {
             return Result.error("not found or error deleting");
         }
-        return Result.success("delete charge successfully",null);
+        return Result.success("delete charge successfully", null);
     }
 
     // 修改收费信息
@@ -52,7 +52,7 @@ public class ChargeController {
         if (updatedCharge == null) {
             return Result.error("not found or error updating");
         }
-        return Result.success("update charge successfully",null);
+        return Result.success("update charge successfully", null);
     }
 
     // 获取单个收费记录信息
@@ -62,7 +62,7 @@ public class ChargeController {
         if (charge == null) {
             return Result.error("not found");
         }
-        return Result.success("find charge successfully",charge);
+        return Result.success("find charge successfully", charge);
     }
 
     // 批量获取收费记录信息
@@ -72,6 +72,6 @@ public class ChargeController {
         if (charges == null) {
             return Result.error("not found");
         }
-        return Result.success("find charge successfully",charges);
+        return Result.success("find charge successfully", charges);
     }
 }

@@ -19,7 +19,7 @@ public class MedicineController {
     @GetMapping
     public Result getAllMedicines(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("get all medicine OK",medicineService.findAllMedicines(pageable));
+        return Result.success("get all medicine OK", medicineService.findAllMedicines(pageable));
     }
 
     // 添加新药品
@@ -29,7 +29,7 @@ public class MedicineController {
         if (newMedicine == null) {
             return Result.error("add medicine failed");
         }
-        return Result.success("add medicine successfully",null);
+        return Result.success("add medicine successfully", null);
     }
 
     // 删除药品
@@ -39,7 +39,7 @@ public class MedicineController {
         if (message == null) {
             return Result.error("not found or error deleting");
         }
-        return Result.success("delete medicine successfully",null);
+        return Result.success("delete medicine successfully", null);
     }
 
     // 修改药品信息
@@ -49,7 +49,7 @@ public class MedicineController {
         if (updatedMedicine == null) {
             return Result.error("not found or error updating");
         }
-        return Result.success("update medicine successfully",null);
+        return Result.success("update medicine successfully", null);
     }
 
     // 获取单个药品信息
@@ -59,7 +59,7 @@ public class MedicineController {
         if (medicine == null) {
             return Result.error("not found");
         }
-        return Result.success("find medicine successfully",medicine);
+        return Result.success("find medicine successfully", medicine);
     }
 
     @GetMapping("/client/{medicine_id}")

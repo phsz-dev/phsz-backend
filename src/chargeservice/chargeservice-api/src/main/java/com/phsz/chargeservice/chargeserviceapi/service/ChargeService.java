@@ -7,9 +7,14 @@ import java.util.Optional;
 
 public interface ChargeService {
     List<Charge> findAll();
+
     Optional<Charge> findById(Long chargeId);
+
     Optional<Charge> findByName(String chargeName);
+
     String save(Charge charge);
+
     String update(Charge charge);
+
     String deleteById(Long chargeId);
 }

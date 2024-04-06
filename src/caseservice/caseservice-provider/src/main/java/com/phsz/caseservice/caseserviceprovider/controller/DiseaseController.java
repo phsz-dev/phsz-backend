@@ -1,7 +1,5 @@
 package com.phsz.caseservice.caseserviceprovider.controller;
 
-import com.phsz.caseservice.caseserviceprovider.repository.DiseaseRepository;
-import com.phsz.caseservice.caseserviceprovider.service.Impl.CaseServiceImpl;
 import com.phsz.caseservice.caseserviceprovider.service.Impl.DiseaseServiceImpl;
 import com.phsz.common.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +20,11 @@ public class DiseaseController {
 
     /**
      * 查找疾病序列
+     *
      * @return Result
      */
     @GetMapping
     public Result getAllDisease() {
-        return Result.success("查找疾病序列成功",diseaseService.getAllDisease());
+        return Result.success("查找疾病序列成功", diseaseService.getAllDisease());
     }
 }

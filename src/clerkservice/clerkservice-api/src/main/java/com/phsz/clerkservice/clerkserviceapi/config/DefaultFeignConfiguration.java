@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 
 public class DefaultFeignConfiguration {
     @Bean
-    public Logger.Level level(){
+    public Logger.Level level() {
         return Logger.Level.BASIC;
     }
 }

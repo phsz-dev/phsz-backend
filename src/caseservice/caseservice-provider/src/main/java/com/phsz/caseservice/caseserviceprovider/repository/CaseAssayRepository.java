@@ -6,7 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface CaseAssayRepository extends JpaRepository<CaseAssay, Long>, PagingAndSortingRepository<CaseAssay, Long>{
-	Page<CaseAssay> findAllByCaseId(Long CaseId, Pageable pageable);
-	Long deleteAllByCaseId(Long assayId);
+public interface CaseAssayRepository extends JpaRepository<CaseAssay, Long>, PagingAndSortingRepository<CaseAssay, Long> {
+    Page<CaseAssay> findAllByCaseId(Long CaseId, Pageable pageable);
+
+    Long deleteAllByCaseId(Long assayId);
 }

@@ -5,9 +5,10 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.Date;
+
 @Data
 @Entity
-@Table(name = "assay" ,schema = "public")
+@Table(name = "assay", schema = "public")
 public class Assay {
     @Id
     @Column

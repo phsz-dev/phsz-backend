@@ -4,8 +4,6 @@ import com.phsz.documentservice.documentserviceprovider.pojo.Document;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
-
 public interface DocumentService {
     // 支持分页查询的方法
     Page<Document> findAllDocuments(Pageable pageable);

@@ -5,9 +5,10 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "office",schema = "public")
+@Table(name = "office", schema = "public")
 public class Office {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;

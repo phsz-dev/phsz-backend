@@ -24,7 +24,7 @@ public class SubResponsibility {
     private Responsibility responsibility;
 
     // 建立与Procedure的一对多关系
-    @OneToMany(mappedBy = "subResponsibility",fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "subResponsibility", fetch = FetchType.EAGER, orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonIgnoreProperties(value = {"subResponsibility"})
     @Fetch(FetchMode.SUBSELECT)
     private List<Procedure> procedures;

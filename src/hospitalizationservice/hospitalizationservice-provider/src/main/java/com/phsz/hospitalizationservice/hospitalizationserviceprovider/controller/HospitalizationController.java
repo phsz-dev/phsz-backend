@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class HospitalizationController {
     @Resource
     private final HospitalizationServiceImpl hospitalizationService;
+
     public HospitalizationController(HospitalizationServiceImpl hospitalizationService) {
         this.hospitalizationService = hospitalizationService;
     }

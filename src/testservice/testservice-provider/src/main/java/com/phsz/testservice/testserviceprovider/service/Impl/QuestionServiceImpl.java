@@ -7,55 +7,58 @@ import jakarta.annotation.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 @Service
 public class QuestionServiceImpl implements QuestionService {
-	@Resource
-	QuestionRepository questionRepository;
-	public QuestionServiceImpl(QuestionRepository questionRepository) {
-		this.questionRepository = questionRepository;
-	}
-	@Override
-	public Page<Question> findAllByContentLike(String content, Pageable pageable) {
-		return questionRepository.findAllByContentLike(content, pageable);
-	}
+    @Resource
+    QuestionRepository questionRepository;
 
-	@Override
-	public Page<Question> findAllByType(String type, Pageable pageable) {
-		return questionRepository.findAllByType(type, pageable);
-	}
+    public QuestionServiceImpl(QuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
+    }
 
-	@Override
-	public Question deleteQuestionByQuestionId(Long questionId) {
-		return questionRepository.deleteQuestionById(questionId).orElse(null);
-	}
+    @Override
+    public Page<Question> findAllByContentLike(String content, Pageable pageable) {
+        return questionRepository.findAllByContentLike(content, pageable);
+    }
 
-	@Override
-	public Question getQuestionByQuestionId(Long questionId) {
-		return questionRepository.findById(questionId).orElse(null);
-	}
+    @Override
+    public Page<Question> findAllByType(String type, Pageable pageable) {
+        return questionRepository.findAllByType(type, pageable);
+    }
 
-	@Override
-	public String addQuestion(Question question) {
-		Long questionId = question.getId();
-		if (questionRepository.findById(questionId).isPresent()){
-			return null;
-		}
-		Question save = questionRepository.save(question);
-		return save.getId().toString();
-	}
+    @Override
+    public Question deleteQuestionByQuestionId(Long questionId) {
+        return questionRepository.deleteQuestionById(questionId).orElse(null);
+    }
 
-	@Override
-	public Page<Question> findAll(Pageable pageable) {
-		return questionRepository.findAll(pageable);
-	}
+    @Override
+    public Question getQuestionByQuestionId(Long questionId) {
+        return questionRepository.findById(questionId).orElse(null);
+    }
 
-	@Override
-	public String updateQuestion(Question question) {
-		Long questionId = question.getId();
-		if (questionRepository.findById(questionId).isEmpty()){
-			return null;
-		}
-		Question save = questionRepository.save(question);
-		return save.getId().toString();
-	}
+    @Override
+    public String addQuestion(Question question) {
+        Long questionId = question.getId();
+        if (questionRepository.findById(questionId).isPresent()) {
+            return null;
+        }
+        Question save = questionRepository.save(question);
+        return save.getId().toString();
+    }
+
+    @Override
+    public Page<Question> findAll(Pageable pageable) {
+        return questionRepository.findAll(pageable);
+    }
+
+    @Override
+    public String updateQuestion(Question question) {
+        Long questionId = question.getId();
+        if (questionRepository.findById(questionId).isEmpty()) {
+            return null;
+        }
+        Question save = questionRepository.save(question);
+        return save.getId().toString();
+    }
 }

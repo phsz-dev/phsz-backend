@@ -1,6 +1,5 @@
 package com.phsz.documentservice.documentserviceprovider.controller;
 
-import jakarta.annotation.Resource;
 import com.phsz.documentservice.documentserviceprovider.pojo.Document;
 import com.phsz.documentservice.documentserviceprovider.pojo.Result;
 import com.phsz.documentservice.documentserviceprovider.service.Impl.DocumentServiceImpl;
@@ -14,10 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class DocumentController {
 
     @Autowired
-    private DocumentServiceImpl documentService;
-
-    @Autowired
     Result result;
+    @Autowired
+    private DocumentServiceImpl documentService;
 
     // 获取所有档案
     @GetMapping

@@ -28,7 +28,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public Document findDocumentById(Long id) {
         Optional<Document> byId = documentRepository.findById(id);
-        if(byId.isEmpty()){
+        if (byId.isEmpty()) {
             return null;
         }
         return byId.get();
@@ -52,7 +52,7 @@ public class DocumentServiceImpl implements DocumentService {
     @Override
     public String deleteDocument(Long id) {
         Optional<Document> byId = documentRepository.findById(id);
-        if(byId.isEmpty()){
+        if (byId.isEmpty()) {
             return null;
         }
         documentRepository.deleteById(id); // 假设deleteDocumentByDocumentId的功能可以用deleteById替代

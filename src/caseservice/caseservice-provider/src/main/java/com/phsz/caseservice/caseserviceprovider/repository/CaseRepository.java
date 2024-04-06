@@ -12,14 +12,14 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface CaseRepository extends JpaRepository<Case,Long>, PagingAndSortingRepository<Case,Long> {
-	Page<Case> findAllByNameLike(String name, Pageable pageable);
+public interface CaseRepository extends JpaRepository<Case, Long>, PagingAndSortingRepository<Case, Long> {
+    Page<Case> findAllByNameLike(String name, Pageable pageable);
 
-	Optional<Case> deleteCaseById(Long caseId);
+    Optional<Case> deleteCaseById(Long caseId);
 
 
-	@Query(value = "SELECT c.id, c.name, c.brief, c.submit_time AS submitTime FROM app_case c WHERE c.id IN :ids",nativeQuery = true)
-	List<RoughCaseInfoDto> findRoughCaseInfoByIdList(@Param("ids") List<Long> ids);
+    @Query(value = "SELECT c.id, c.name, c.brief, c.submit_time AS submitTime FROM app_case c WHERE c.id IN :ids", nativeQuery = true)
+    List<RoughCaseInfoDto> findRoughCaseInfoByIdList(@Param("ids") List<Long> ids);
 
 
 }
