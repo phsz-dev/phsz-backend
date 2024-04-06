@@ -38,9 +38,6 @@ public class JwtAuthenticationFilter implements GlobalFilter {
     @Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 		String path = exchange.getRequest().getURI().getPath();
-		if (permitAll(path)) {
-			return chain.filter(exchange);
-		}
 		// 从HTTP请求中获取JWT
 		String token = extractJwtFromRequest(exchange.getRequest());
 		if (token != null && validateJwt(token)) {
@@ -57,17 +54,20 @@ public class JwtAuthenticationFilter implements GlobalFilter {
 				}
 			}
         }
-		// 如果JWT无效，设置HTTP状态码为401
-		exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-		// 设置内容类型为application/json
-		exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
-		// 创建返回的错误消息
-		String errorMessage = "{\"error\": \"Unauthorized\", \"message\": \"Invalid JWT token\"}";
-		// 获取DataBufferFactory来创建DataBuffer
-		DataBufferFactory dataBufferFactory = exchange.getResponse().bufferFactory();
-		DataBuffer buffer = dataBufferFactory.wrap(errorMessage.getBytes());
-		// 使用writeWith方法返回错误消息
-		return exchange.getResponse().writeWith(Mono.just(buffer));
+		if(!permitAll(path)) {
+			// 如果JWT无效，设置HTTP状态码为401
+			exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
+			// 设置内容类型为application/json
+			exchange.getResponse().getHeaders().setContentType(MediaType.APPLICATION_JSON);
+			// 创建返回的错误消息
+			String errorMessage = "{\"error\": \"Unauthorized\", \"message\": \"Invalid JWT token\"}";
+			// 获取DataBufferFactory来创建DataBuffer
+			DataBufferFactory dataBufferFactory = exchange.getResponse().bufferFactory();
+			DataBuffer buffer = dataBufferFactory.wrap(errorMessage.getBytes());
+			// 使用writeWith方法返回错误消息
+			return exchange.getResponse().writeWith(Mono.just(buffer));
+		}
+		return chain.filter(exchange);
 	}
 
 	private boolean permitAll(String path) {
