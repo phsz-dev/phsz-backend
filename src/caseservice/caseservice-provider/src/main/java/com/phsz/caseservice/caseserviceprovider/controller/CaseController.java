@@ -6,6 +6,7 @@ import com.phsz.caseservice.caseserviceprovider.pojo.CollectedCase;
 import com.phsz.caseservice.caseserviceprovider.pojo.RoughCaseInfoDto;
 import com.phsz.caseservice.caseserviceprovider.service.Impl.CaseServiceImpl;
 import com.phsz.common.Result;
+import com.phsz.common.SimplePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -101,15 +102,15 @@ public class CaseController {
         }
     }
 
-    @GetMapping("/collect/mine/{pageNum}/{pageSize}")
-    public Result getMyCollectCases(@RequestHeader("UserId") String userId, @PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
+    @GetMapping("/collect/mine")
+    public Result getMyCollectCases(@RequestHeader("UserId") String userId, @RequestParam("pageNum") int pageNum, @RequestParam("pageSize") int pageSize) {
         Long userID = Long.parseLong(userId);
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        Map<String,Object> ccasList = caseService.getMyCollectedCases(userID, pageable);
-        if (ccasList == null) {
+        SimplePage<RoughCaseInfoDto> page = caseService.getMyCollectedCases(userID, pageable);
+        if (page == null) {
             return Result.error("请求我的收藏病例失败");
         } else {
-            return Result.success("请求我的收藏病例成功", ccasList);
+            return Result.success("请求我的收藏病例成功", page);
         }
     }
 

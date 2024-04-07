@@ -4,6 +4,7 @@ import com.phsz.caseservice.caseserviceprovider.pojo.Case;
 import com.phsz.caseservice.caseserviceprovider.pojo.CaseInfo;
 import com.phsz.caseservice.caseserviceprovider.pojo.CollectedCase;
 import com.phsz.caseservice.caseserviceprovider.pojo.RoughCaseInfoDto;
+import com.phsz.common.SimplePage;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -34,5 +35,5 @@ public interface CaseService {
 
     CollectedCase addNewCollectCase(Long caseId, Long userId);
 
-    Map<String,Object> getMyCollectedCases(Long userId, Pageable pageable);
+    SimplePage<RoughCaseInfoDto> getMyCollectedCases(Long userId, Pageable pageable);
 }

@@ -5,6 +5,7 @@ import com.phsz.assayservice.assayserviceapi.pojo.Assay;
 import com.phsz.caseservice.caseserviceprovider.pojo.*;
 import com.phsz.caseservice.caseserviceprovider.repository.*;
 import com.phsz.caseservice.caseserviceprovider.service.CaseService;
+import com.phsz.common.SimplePage;
 import com.phsz.medicineservice.medicineserviceapi.client.MedicineClient;
 import com.phsz.medicineservice.medicineserviceapi.pojo.Medicine;
 import com.phsz.vaccineservice.vaccineserviceapi.client.VaccineClient;
@@ -247,18 +248,8 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public Map<String,Object> getMyCollectedCases(Long userId, Pageable pageable) {
-        Page<CollectedCase> pcc = collectedCaseRepository.findCollectedCaseByUserId(userId, pageable);
-        List<Long> ids = new ArrayList<>();
-        for (CollectedCase cc : pcc.getContent()) {
-            ids.add(cc.getCaseId());
-        }
-        Map<String,Object> map = new HashMap<>();
-        List<RoughCaseInfoDto> rcid = caseRepository.findRoughCaseInfoByIdList(ids);
-        map.put("size",pcc.getNumberOfElements());
-        map.put("total",pcc.getTotalElements());
-        map.put("pageNum",pcc.getTotalPages());
-        map.put("roughCaseInfo",rcid);
-        return map;
+    public SimplePage<RoughCaseInfoDto> getMyCollectedCases(Long userId, Pageable pageable) {
+        Page<RoughCaseInfoDto> page = caseRepository.findRoughCaseInfoByUserId(userId, pageable);
+        return new SimplePage<>(page);
     }
 }
