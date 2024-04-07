@@ -12,4 +12,6 @@ public interface UserRepository extends CrudRepository<AppUser, Integer> {
     Optional<AppUser> findByUsername(String username);
 
     Page<AppUser> findAll(Pageable pageable);
+
+    AppUser save(AppUser appUser);
 }

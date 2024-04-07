@@ -73,4 +73,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public Page<AppUser> getAll(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
+
+    public void updateUser(AppUser appUser) {
+        userRepository.save(appUser);
+    }
 }

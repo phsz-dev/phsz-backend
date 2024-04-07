@@ -10,7 +10,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -20,11 +19,11 @@ public class UserController {
     private UserServiceImpl userService;
 
     @GetMapping
-    public Result getAll(@RequestParam(value = "page", defaultValue = "0") int page,
-                         @RequestParam(value = "size", defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public Result getAll(@RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
+                         @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<AppUser> users = userService.getAll(pageable);
-        List<UserInfo> userInfos = users.map(user -> new UserInfo(user.getId(), user.getUsername(), user.getEmail(), user.isEnabled(), user.getRoles())).getContent();
+        Page<UserInfo> userInfos = users.map(user -> new UserInfo(user.getId(), user.getUsername(), user.getEmail(), user.isEnabled(), user.getRoles()));
         return Result.success("Get all users successful", userInfos);
     }
 
@@ -35,4 +34,17 @@ public class UserController {
         return Result.success("Get current user successful", userInfo);
     }
 
+    @PutMapping
+    public Result updateUser(@RequestBody UserInfo userInfo) {
+        System.out.println(userInfo);
+           AppUser appUser = new AppUser();
+           appUser.setId(userInfo.getId());
+           appUser.setUsername(userInfo.getUsername());
+           appUser.setEmail(userInfo.getEmail());
+           appUser.setEnabled(userInfo.isEnabled());
+           appUser.setRolesBitmap(userInfo.getRolesBitmap(userInfo.getRoles()));
+           appUser.setPassword(userService.getUserByName(userInfo.getUsername()).getPassword());
+           userService.updateUser(appUser);
+           return Result.success("Update user successful", null);
+    }
 }
