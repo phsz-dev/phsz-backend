@@ -18,6 +18,8 @@ public class AppUser {
     private Long id;
     @Column(name = "username")
     private String username;
+    @Column
+    private String avatar;
     @Column(name = "password")
     private String password;
     @Column(name = "email")

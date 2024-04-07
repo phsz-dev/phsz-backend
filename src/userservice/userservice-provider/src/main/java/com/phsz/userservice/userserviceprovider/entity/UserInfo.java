@@ -9,14 +9,16 @@ public class UserInfo {
     private Long id;
     private String username;
     private String email;
+    private String avatar;
     private boolean enabled;
     private String[] roles;
 
-    public UserInfo(Long id, String username, String email, boolean enabled, String[] roles) {
+    public UserInfo(Long id, String username, String email, boolean enabled,String avatar, String[] roles) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.enabled = enabled;
+        this.avatar = avatar;
         this.roles = roles;
     }
 

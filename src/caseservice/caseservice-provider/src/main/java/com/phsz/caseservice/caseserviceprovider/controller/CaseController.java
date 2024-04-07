@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cases")
@@ -104,7 +105,7 @@ public class CaseController {
     public Result getMyCollectCases(@RequestHeader("UserId") String userId, @PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize) {
         Long userID = Long.parseLong(userId);
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        List<RoughCaseInfoDto> ccasList = caseService.getMyCollectedCases(userID, pageable);
+        Map<String,Object> ccasList = caseService.getMyCollectedCases(userID, pageable);
         if (ccasList == null) {
             return Result.error("请求我的收藏病例失败");
         } else {

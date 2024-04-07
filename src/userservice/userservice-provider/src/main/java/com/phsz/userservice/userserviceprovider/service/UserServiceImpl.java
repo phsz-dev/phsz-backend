@@ -1,5 +1,6 @@
 package com.phsz.userservice.userserviceprovider.service;
 
+import com.phsz.service.FileUploadServiceImpl;
 import com.phsz.userservice.userserviceapi.service.UserService;
 import com.phsz.userservice.userserviceprovider.entity.AppUser;
 import com.phsz.userservice.userserviceprovider.repository.UserRepository;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 
@@ -23,6 +25,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private FileUploadServiceImpl fileUploadService;
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -65,6 +70,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return null;
     }
 
+
+    public int updateUserNormal(AppUser appUser) {
+        return userRepository.updateUserNormalById(appUser.getId(), appUser.getEmail());
+    }
+
+
     public AppUser getUserByName(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("No user found with username: " + username));
@@ -76,5 +87,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     public void updateUser(AppUser appUser) {
         userRepository.save(appUser);
+    }
+
+    public int updateUserAvatar(MultipartFile file, String userId) {
+        if(file.isEmpty()) {
+            return 0;
+        }
+        String fileUrl = fileUploadService.uploadFile(file, "profile");
+        return userRepository.updateUserAvatarById(Long.parseLong(userId), fileUrl);
     }
 }

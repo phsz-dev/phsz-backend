@@ -9,7 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/users")
@@ -18,21 +18,46 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
+
     @GetMapping
     public Result getAll(@RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
                          @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<AppUser> users = userService.getAll(pageable);
-        Page<UserInfo> userInfos = users.map(user -> new UserInfo(user.getId(), user.getUsername(), user.getEmail(), user.isEnabled(), user.getRoles()));
+        Page<UserInfo> userInfos = users.map(user -> new UserInfo(user.getId(), user.getUsername(), user.getEmail(), user.isEnabled(),user.getAvatar(), user.getRoles()));
         return Result.success("Get all users successful", userInfos);
     }
 
     @GetMapping("/me")
     public Result getCurrentUser(@RequestHeader("Username") String username, @RequestHeader("Roles") String[] roles) {
         AppUser appUser = userService.getUserByName(username);
-        UserInfo userInfo = new UserInfo(appUser.getId(), appUser.getUsername(), appUser.getEmail(), appUser.isEnabled(), roles);
+        UserInfo userInfo = new UserInfo(appUser.getId(), appUser.getUsername(), appUser.getEmail(), appUser.isEnabled(), appUser.getAvatar(), roles);
         return Result.success("Get current user successful", userInfo);
     }
+
+    @PutMapping("/update/normal")
+    public Result updateUserNormal(@RequestBody UserInfo userInfo, @RequestHeader("UserId") String userId) {
+        AppUser appUser = new AppUser();
+        appUser.setId(Long.parseLong(userId));
+        appUser.setEmail(userInfo.getEmail());
+        int num = userService.updateUserNormal(appUser);
+        if(num == 0) {
+            return Result.error("Update user failed");
+        }
+        return Result.success("Revise user successful", null);
+    }
+
+    @PutMapping("/update/avatar")
+    public Result updateUserAvatar(@RequestParam("file") MultipartFile file, @RequestHeader("UserId") String userId) {
+        AppUser appUser = new AppUser();
+        int num = userService.updateUserAvatar(file, userId);
+        if(num == 0) {
+            return Result.error("Update user failed");
+        }
+        return Result.success("Revise user successful", null);
+    }
+
+
 
     @PutMapping
     public Result updateUser(@RequestBody UserInfo userInfo) {

@@ -15,10 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CaseServiceImpl implements CaseService {
@@ -250,12 +247,18 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public List<RoughCaseInfoDto> getMyCollectedCases(Long userId, Pageable pageable) {
+    public Map<String,Object> getMyCollectedCases(Long userId, Pageable pageable) {
         Page<CollectedCase> pcc = collectedCaseRepository.findCollectedCaseByUserId(userId, pageable);
         List<Long> ids = new ArrayList<>();
         for (CollectedCase cc : pcc.getContent()) {
             ids.add(cc.getCaseId());
         }
-        return caseRepository.findRoughCaseInfoByIdList(ids);
+        Map<String,Object> map = new HashMap<>();
+        List<RoughCaseInfoDto> rcid = caseRepository.findRoughCaseInfoByIdList(ids);
+        map.put("size",pcc.getNumberOfElements());
+        map.put("total",pcc.getTotalElements());
+        map.put("pageNum",pcc.getTotalPages());
+        map.put("roughCaseInfo",rcid);
+        return map;
     }
 }

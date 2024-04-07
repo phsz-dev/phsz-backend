@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public interface CaseService {
     //增加新病例
@@ -33,5 +34,5 @@ public interface CaseService {
 
     CollectedCase addNewCollectCase(Long caseId, Long userId);
 
-    List<RoughCaseInfoDto> getMyCollectedCases(Long userId, Pageable pageable);
+    Map<String,Object> getMyCollectedCases(Long userId, Pageable pageable);
 }
