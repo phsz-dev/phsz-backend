@@ -19,7 +19,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public Page<Question> findAllByContentLike(String content, Pageable pageable) {
-        return questionRepository.findAllByContentLike(content, pageable);
+        return questionRepository.findAllByTextLike(content, pageable);
     }
 
     @Override

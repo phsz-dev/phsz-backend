@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 public interface ExaminationRepository extends JpaRepository<Examination, Long>, PagingAndSortingRepository<Examination, Long> {
-    Page<Examination> findAllByExaminationNameLike(String examinationName, Pageable pageable);
+    Page<Examination> findAllByNameLike(String name, Pageable pageable);
 
     Optional<Examination> deleteExaminationById(Long examinationId);
 

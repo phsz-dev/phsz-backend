@@ -9,7 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.Optional;
 
 public interface QuestionRepository extends JpaRepository<Question, Long>, PagingAndSortingRepository<Question, Long> {
-    Page<Question> findAllByContentLike(String content, Pageable pageable);
+    Page<Question> findAllByTextLike(String content, Pageable pageable);
 
     Page<Question> findAllByType(String type, Pageable pageable);
 

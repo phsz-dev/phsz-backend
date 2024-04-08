@@ -50,7 +50,7 @@ public class PaperServiceImpl implements PaperService {
 
     @Override
     public Page<PaperInfo> getPapersByName(String paperName, Pageable pageable) {
-        return paperRepository.findAllByPaperNameLike(paperName, pageable).map(paper -> {
+        return paperRepository.findAllByNameLike(paperName, pageable).map(paper -> {
             String[] split = paper.getContent().split(";");
             ArrayList<Question> questions = new ArrayList<>();
             for (String s : split) {

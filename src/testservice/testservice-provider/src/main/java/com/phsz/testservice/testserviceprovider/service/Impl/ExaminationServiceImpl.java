@@ -36,7 +36,7 @@ public class ExaminationServiceImpl implements ExaminationService {
 
     @Override
     public Page<Examination> getExaminationsByName(String examinationName, Pageable pageable) {
-        return examinationRepository.findAllByExaminationNameLike(examinationName, pageable);
+        return examinationRepository.findAllByNameLike(examinationName, pageable);
     }
 
     @Override
