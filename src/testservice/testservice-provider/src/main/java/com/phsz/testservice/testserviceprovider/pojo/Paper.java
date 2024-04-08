@@ -12,7 +12,7 @@ public class Paper {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private String paperName;
+    private String name;
     @Column
     private String content;
     @Column
@@ -20,5 +20,5 @@ public class Paper {
     @Column
     private Long durationSeconds;
     @OneToMany(mappedBy = "paper", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<PaperQuestion> paperQuestions;
+    private List<PaperQuestion> questions;
 }

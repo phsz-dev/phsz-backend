@@ -44,9 +44,9 @@ public class ExaminationController {
     }
 
     @PostMapping
-    public Result addExamination(@RequestHeader("Username") String username, @RequestBody Long paperId) {
+    public Result addExamination(@RequestHeader("UserId") String userId, @RequestBody Long paperId) {
         try {
-            Examination examination = examinationService.startExamination(username, paperId);
+            Examination examination = examinationService.startExamination(Long.parseLong(userId), paperId);
             return Result.success("success", examination);
         } catch (Exception e) {
             return Result.error(e.getMessage());

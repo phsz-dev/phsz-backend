@@ -12,15 +12,15 @@ public class Examination {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private String examinationName;
+    private String name;
     @Column
-    private String examinationStatus;
+    private String status;
     @Column
     private Date startTime;
     @Column
     private Date endTime;
     @Column
-    private String examinationUser;
+    private Long userId;
     @ManyToOne
     @JoinColumn(name = "paper_id")
     private Paper paper;

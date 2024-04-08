@@ -67,21 +67,21 @@ public class ExaminationServiceImpl implements ExaminationService {
     }
 
     @Override
-    public Examination startExamination(String username, Long paperId) {
+    public Examination startExamination(Long userId, Long paperId) {
         Paper paper = paperService.getPaperById(paperId);
         if (paper == null) {
             throw new RuntimeException("paper not found");
         }
         // 检查是否有正在进行的考试
-        examinationRepository.updateExaminationStatus(username);
-        Examination running = examinationRepository.findExaminationByExaminationUserAndExaminationStatus(username, "start");
+        examinationRepository.updateExaminationStatus(userId);
+        Examination running = examinationRepository.findExaminationByUserIdAndStatus(userId, "start");
         if (running != null) {
             throw new RuntimeException("you have an examination not finished");
         }
         Examination examination = new Examination();
-        examination.setExaminationName(paper.getPaperName());
-        examination.setExaminationStatus("start");
-        examination.setExaminationUser(username);
+        examination.setName(paper.getName());
+        examination.setStatus("start");
+        examination.setUserId(userId);
         examination.setPaper(paper);
         Date date = new Date();
         examination.setStartTime(date);

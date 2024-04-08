@@ -16,11 +16,11 @@ public interface ExaminationRepository extends JpaRepository<Examination, Long>,
 
     Optional<Examination> deleteExaminationById(Long examinationId);
 
-    Examination findExaminationByExaminationUserAndExaminationStatus(String username, String start);
+    Examination findExaminationByUserIdAndStatus(Long userId, String start);
 
     // 把某username所有end_time小于当前时间的考试状态改为end
     @Transactional
     @Modifying
-    @Query("update Examination e set e.examinationStatus = 'end' where e.examinationUser = ?1 and e.endTime < current_timestamp")
-    int updateExaminationStatus(String username);
+    @Query("update Examination e set e.status = 'end' where e.userId = ?1 and e.endTime < current_timestamp")
+    int updateExaminationStatus(Long userId);
 }

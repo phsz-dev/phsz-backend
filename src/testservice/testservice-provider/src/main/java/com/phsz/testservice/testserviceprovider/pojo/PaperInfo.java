@@ -15,7 +15,7 @@ public class PaperInfo {
 
     public PaperInfo PaperInfoCons(Paper paper, List<Question> content) {
         this.paperId = paper.getId();
-        this.paperName = paper.getPaperName();
+        this.paperName = paper.getName();
         this.totalScore = paper.getTotalScore();
         this.timeLimit = paper.getDurationSeconds().toString();
         this.content = content;

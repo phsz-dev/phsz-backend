@@ -12,9 +12,9 @@ public class Question {
     @Column
     private String type;
     @Column
-    private String content;
+    private String text;
+    @Column
+    private String options;
     @Column
     private String answer;
-    @Column
-    private float score;
 }
