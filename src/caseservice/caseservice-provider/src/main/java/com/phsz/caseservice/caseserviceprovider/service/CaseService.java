@@ -31,7 +31,7 @@ public interface CaseService {
     //根据病例名查找病例
     Page<Case> findAllByCaseNameLike(String caseName, Pageable pageable);
 
-    Page<RoughCaseInfoDto> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable);
+    SimplePage<RoughCaseInfoDto> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable);
 
     CollectedCase addNewCollectCase(Long caseId, Long userId);
 

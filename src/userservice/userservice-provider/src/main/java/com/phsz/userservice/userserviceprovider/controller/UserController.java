@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.logging.Logger;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {

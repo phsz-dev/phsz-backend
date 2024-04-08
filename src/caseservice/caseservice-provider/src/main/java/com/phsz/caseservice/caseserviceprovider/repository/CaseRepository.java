@@ -18,11 +18,10 @@ public interface CaseRepository extends JpaRepository<Case, Long>, PagingAndSort
     Optional<Case> deleteCaseById(Long caseId);
 
 
-    @Query(value = "SELECT c.id, c.name, c.brief, c.submit_time AS submitTime FROM collected_case cc " +
-            "LEFT JOIN `case` c ON cc.case_id = c.id WHERE cc.user_id = :userId",
-            countQuery = "SELECT count(*) FROM collected_case cc WHERE cc.user_id = :userId",
-            nativeQuery = true)
-    Page<RoughCaseInfoDto> findRoughCaseInfoByUserId(@Param("userId") Long userId, Pageable pageable);
+     @Query(value = "SELECT cc.id as id, c.name as name, c.brief as brief, c.submitTime as submitTime FROM CollectedCase cc " +
+             "LEFT JOIN Case c ON cc.caseId = c.id WHERE cc.userId = :userId",
+                countQuery = "SELECT count(*) FROM CollectedCase WHERE userId = :userId")
+     Page<RoughCaseInfoDto> findRoughCaseInfoByUserId(@Param("userId") Long userId, Pageable pageable);
 
 
 }

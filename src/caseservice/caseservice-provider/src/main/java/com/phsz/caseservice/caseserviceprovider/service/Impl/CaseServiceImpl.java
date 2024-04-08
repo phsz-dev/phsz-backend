@@ -233,10 +233,9 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public Page<RoughCaseInfoDto> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable) {
+    public SimplePage<RoughCaseInfoDto> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable) {
         Page<RoughCaseInfoDto> pg = caseDiseaseRepository.findRoughCaseInfoByDiseaseId(diseaseId, pageable);
-        System.out.println(pg);
-        return pg;
+        return new SimplePage<>(pg);
     }
 
     @Override
