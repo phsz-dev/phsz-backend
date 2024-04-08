@@ -1,9 +1,11 @@
 package com.phsz.testservice.testserviceprovider.controller;
 
 import com.phsz.common.Result;
+import com.phsz.common.SimplePage;
 import com.phsz.testservice.testserviceprovider.pojo.Question;
 import com.phsz.testservice.testserviceprovider.service.Impl.QuestionServiceImpl;
 import jakarta.annotation.Resource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,7 @@ public class QuestionController {
     @GetMapping
     public Result findAll(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("success", questionService.findAll(pageable).getContent());
+        return Result.success("success", new SimplePage<>(questionService.findAll(pageable)));
     }
 
     @GetMapping("/{id}")
@@ -63,12 +65,14 @@ public class QuestionController {
     @GetMapping("/content")
     public Result getQuestionByContent(@RequestParam("content") String content, @RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("success", questionService.findAllByContentLike(content, pageable));
+        Page<Question> questions = questionService.findAllByContentLike(content, pageable);
+        return Result.success("success", new SimplePage<>(questions));
     }
 
     @GetMapping("/type")
     public Result getQuestionByType(@RequestParam("type") String type, @RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("success", questionService.findAllByType(type, pageable));
+        Page<Question> questions = questionService.findAllByType(type, pageable);
+        return Result.success("success", new SimplePage<>(questions));
     }
 }

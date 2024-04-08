@@ -20,7 +20,7 @@ public class Examination {
     @Column
     private Date endTime;
     @Column
-    private String examinationUser;2
+    private String examinationUser;
     @ManyToOne
     @JoinColumn(name = "paper_id")
     private Paper paper;

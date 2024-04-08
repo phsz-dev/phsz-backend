@@ -1,8 +1,11 @@
 package com.phsz.testservice.testserviceprovider.controller;
 
 import com.phsz.common.Result;
+import com.phsz.common.SimplePage;
 import com.phsz.testservice.testserviceprovider.pojo.Paper;
+import com.phsz.testservice.testserviceprovider.pojo.PaperInfo;
 import com.phsz.testservice.testserviceprovider.service.Impl.PaperServiceImpl;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
@@ -26,9 +29,9 @@ public class PaperController {
     }
 
     @GetMapping
-    public Result getAllPaper(@RequestParam() int pageSize, @RequestParam int pageNum) {
+    public Result getAllPapers(@RequestParam() int pageSize, @RequestParam int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("success", paperService.getAllPapers(pageable).getContent());
+        return Result.success("success", new SimplePage<>(paperService.getAllPapers(pageable)));
     }
 
     @PostMapping
@@ -65,6 +68,7 @@ public class PaperController {
     @GetMapping("/name")
     public Result getPaperByName(@RequestParam String name, @RequestParam int pageSize, @RequestParam int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("success", paperService.getPapersByName(name, pageable));
+        Page<PaperInfo> papersByName = paperService.getPapersByName(name, pageable);
+        return Result.success("success", new SimplePage<>(papersByName));
     }
 }

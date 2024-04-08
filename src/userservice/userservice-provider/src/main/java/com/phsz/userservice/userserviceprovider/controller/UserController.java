@@ -1,6 +1,7 @@
 package com.phsz.userservice.userserviceprovider.controller;
 
 import com.phsz.common.Result;
+import com.phsz.common.SimplePage;
 import com.phsz.userservice.userserviceprovider.entity.AppUser;
 import com.phsz.userservice.userserviceprovider.entity.UserInfo;
 import com.phsz.userservice.userserviceprovider.service.UserServiceImpl;
@@ -25,7 +26,7 @@ public class UserController {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<AppUser> users = userService.getAll(pageable);
         Page<UserInfo> userInfos = users.map(user -> new UserInfo(user.getId(), user.getUsername(), user.getEmail(), user.isEnabled(),user.getAvatar(), user.getRoles()));
-        return Result.success("Get all users successful", userInfos);
+        return Result.success("Get all users successful", new SimplePage<>(userInfos));
     }
 
     @GetMapping("/me")
