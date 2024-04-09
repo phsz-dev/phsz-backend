@@ -1,5 +1,6 @@
 package com.phsz.testservice.testserviceprovider.controller;
 
+import com.phsz.common.CodeException;
 import com.phsz.common.Result;
 import com.phsz.common.SimplePage;
 import com.phsz.testservice.testserviceprovider.pojo.Examination;
@@ -48,8 +49,8 @@ public class ExaminationController {
         try {
             Examination examination = examinationService.startExamination(Long.parseLong(userId), paperId);
             return Result.success("success", examination);
-        } catch (Exception e) {
-            return Result.error(e.getMessage());
+        } catch (CodeException e) {
+            return Result.error(e.getCode(), e.getMessage());
         }
     }
 

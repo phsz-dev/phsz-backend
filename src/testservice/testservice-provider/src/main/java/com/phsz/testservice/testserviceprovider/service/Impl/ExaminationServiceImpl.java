@@ -1,5 +1,6 @@
 package com.phsz.testservice.testserviceprovider.service.Impl;
 
+import com.phsz.common.CodeException;
 import com.phsz.testservice.testserviceprovider.pojo.Examination;
 import com.phsz.testservice.testserviceprovider.pojo.Paper;
 import com.phsz.testservice.testserviceprovider.repository.ExaminationRepository;
@@ -70,13 +71,13 @@ public class ExaminationServiceImpl implements ExaminationService {
     public Examination startExamination(Long userId, Long paperId) {
         Paper paper = paperService.getPaperById(paperId);
         if (paper == null) {
-            throw new RuntimeException("paper not found");
+            throw new CodeException(1, "not found");
         }
         // 检查是否有正在进行的考试
         examinationRepository.updateExaminationStatus(userId);
         Examination running = examinationRepository.findExaminationByUserIdAndStatus(userId, "start");
         if (running != null) {
-            throw new RuntimeException("you have an examination not finished");
+            throw new CodeException(2, "already has a running examination");
         }
         Examination examination = new Examination();
         examination.setName(paper.getName());
