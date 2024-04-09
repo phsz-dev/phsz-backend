@@ -65,8 +65,24 @@ public class PaperController {
         return Result.success("success", s);
     }
 
+    @GetMapping("/info/{id}")
+    public Result getPaperInfoById(@PathVariable Long id) {
+        PaperInfo paperInfoById = paperService.getPaperInfoById(id);
+        if (paperInfoById == null) {
+            return Result.error("not found");
+        }
+        return Result.success("success", paperInfoById);
+    }
+
+    @GetMapping("/info")
+    public Result getAllPaperInfo(@RequestParam int pageSize, @RequestParam int pageNum) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        Page<PaperInfo> allPaperInfo = paperService.getAllPaperInfo(pageable);
+        return Result.success("success", new SimplePage<>(allPaperInfo));
+    }
+
     @GetMapping("/name")
-    public Result getPaperByName(@RequestParam String name, @RequestParam int pageSize, @RequestParam int pageNum) {
+    public Result getPaperInfoByName(@RequestParam String name, @RequestParam int pageSize, @RequestParam int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         Page<PaperInfo> papersByName = paperService.getPapersByName(name, pageable);
         return Result.success("success", new SimplePage<>(papersByName));

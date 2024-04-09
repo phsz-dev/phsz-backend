@@ -10,6 +10,8 @@ public interface PaperService {
 
     Page<Paper> getAllPapers(Pageable pageable);
 
+    Page<PaperInfo> getAllPaperInfo(Pageable pageable);
+
     Page<PaperInfo> getPapersByName(String paperName, Pageable pageable);
 
     Long addPaper(Paper paper);

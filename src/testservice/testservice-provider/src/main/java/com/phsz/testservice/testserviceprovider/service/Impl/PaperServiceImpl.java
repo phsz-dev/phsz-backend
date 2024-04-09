@@ -2,7 +2,6 @@ package com.phsz.testservice.testserviceprovider.service.Impl;
 
 import com.phsz.testservice.testserviceprovider.pojo.Paper;
 import com.phsz.testservice.testserviceprovider.pojo.PaperInfo;
-import com.phsz.testservice.testserviceprovider.pojo.Question;
 import com.phsz.testservice.testserviceprovider.repository.PaperRepository;
 import com.phsz.testservice.testserviceprovider.repository.QuestionRepository;
 import com.phsz.testservice.testserviceprovider.service.PaperService;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -30,17 +28,10 @@ public class PaperServiceImpl implements PaperService {
     @Override
     public Paper getPaperById(Long paperId) {
         return paperRepository.findById(paperId).orElse(null);
-//		String[] split = paper.getContent().split(";");
-//
-//		ArrayList<Question> questions = new ArrayList<>();
-//		for (String s : split) {
-//
-//			Optional<Question> question = questionRepository.findById(Long.valueOf(s));
-//			question.ifPresent(questions::add);
-//		}
-//		PaperInfo paperInfo	=new PaperInfo();
-//		paperInfo.PaperInfoCons(paper, questions);
-//		return paperInfo;
+    }
+
+    public PaperInfo getPaperInfoById(Long paperId) {
+        return paperRepository.findPaperInfoById(paperId);
     }
 
     @Override
@@ -49,18 +40,13 @@ public class PaperServiceImpl implements PaperService {
     }
 
     @Override
+    public Page<PaperInfo> getAllPaperInfo(Pageable pageable) {
+        return paperRepository.findAllInfoBy(pageable);
+    }
+
+    @Override
     public Page<PaperInfo> getPapersByName(String paperName, Pageable pageable) {
-        return paperRepository.findAllByNameLike(paperName, pageable).map(paper -> {
-            String[] split = paper.getContent().split(";");
-            ArrayList<Question> questions = new ArrayList<>();
-            for (String s : split) {
-                Optional<Question> question = questionRepository.findById(Long.valueOf(s));
-                question.ifPresent(questions::add);
-            }
-            PaperInfo paperInfo = new PaperInfo();
-            paperInfo.PaperInfoCons(paper, questions);
-            return paperInfo;
-        });
+        return paperRepository.findAllInfoByNameLike(paperName, pageable);
     }
 
     @Override

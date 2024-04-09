@@ -1,24 +1,9 @@
 package com.phsz.testservice.testserviceprovider.pojo;
 
-import lombok.Data;
-
-import java.util.List;
-
-@Data
-public class PaperInfo {
-
-    private Long paperId;
-    private String paperName;
-    private List<Question> content;
-    private float totalScore;
-    private String timeLimit;
-
-    public PaperInfo PaperInfoCons(Paper paper, List<Question> content) {
-        this.paperId = paper.getId();
-        this.paperName = paper.getName();
-        this.totalScore = paper.getTotalScore();
-        this.timeLimit = paper.getDurationSeconds().toString();
-        this.content = content;
-        return this;
-    }
+public interface PaperInfo {
+    Long getId();
+    String getName();
+    String getContent();
+    float getTotalScore();
+    Long getDurationSeconds();
 }

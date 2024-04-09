@@ -16,7 +16,7 @@ public class Paper {
     @Column
     private String content;
     @Column
-    private float totalScore;
+    private Integer totalScore;
     @Column
     private Long durationSeconds;
     @OneToMany(mappedBy = "paper", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)

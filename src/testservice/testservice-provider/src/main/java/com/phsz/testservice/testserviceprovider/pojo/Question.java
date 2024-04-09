@@ -1,5 +1,6 @@
 package com.phsz.testservice.testserviceprovider.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.phsz.common.JsonbConverter;
 import jakarta.persistence.*;
@@ -19,5 +20,6 @@ public class Question {
     @Convert(converter = JsonbConverter.class)
     private JsonNode options;
     @Column(columnDefinition = "text")
+    @JsonIgnore
     private String answer;
 }
