@@ -1,6 +1,8 @@
 package com.phsz.userservice.userserviceprovider.service;
 
-import com.phsz.service.FileUploadServiceImpl;
+import com.phsz.fileuploadservice.fileuploadserviceapi.client.OSSClient;
+import com.phsz.fileuploadservice.fileuploadserviceapi.entity.OSSFile;
+import com.phsz.medicineservice.medicineserviceapi.client.MedicineClient;
 import com.phsz.userservice.userserviceapi.service.UserService;
 import com.phsz.userservice.userserviceprovider.entity.AppUser;
 import com.phsz.userservice.userserviceprovider.repository.UserRepository;
@@ -26,11 +28,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private FileUploadServiceImpl fileUploadService;
+    private final OSSClient ossClient;
 
-    public UserServiceImpl(UserRepository userRepository) {
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, OSSClient ossClient) {
         this.userRepository = userRepository;
+        this.ossClient = ossClient;
     }
 
     @Override
@@ -89,11 +92,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.save(appUser);
     }
 
-    public int updateUserAvatar(MultipartFile file, String userId) {
-        if(file.isEmpty()) {
-            return 0;
-        }
-        String fileUrl = fileUploadService.uploadFile(file, "profile");
+    public int updateUserAvatar(String fileUrl, String userId) {
+        // 调用fileuploadService，模块暴露的接口
         return userRepository.updateUserAvatarById(Long.parseLong(userId), fileUrl);
     }
 }

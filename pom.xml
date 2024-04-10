@@ -44,6 +44,7 @@
 		<module>src/gateway</module>
         <module>src/fileuploadservice</module>
         <module>src/fileuploadservice</module>
+        <module>src/fileuploadservice/fileuploadservice-provider</module>
     </modules>
 
 	<dependencyManagement>

@@ -9,8 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(defaultConfiguration = DefaultFeignConfiguration.class)
-@ComponentScan({"com.phsz"})
+@EnableFeignClients(basePackages = {"com.phsz.fileuploadservice.fileuploadserviceapi.client"})
 public class UserServiceProviderApplication {
     public static void main(String[] args) {
         SpringApplication.run(UserServiceProviderApplication.class, args);

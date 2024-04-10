@@ -1,4 +1,4 @@
-package com.phsz.config;
+package com.phsz.fileuploadservice.fileuploadserviceprovider.config;
 
 import com.aliyun.oss.ClientBuilderConfiguration;
 import com.aliyun.oss.OSS;

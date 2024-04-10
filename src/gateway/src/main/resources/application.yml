@@ -76,6 +76,11 @@ spring:
             lb://medicineservice-provider
           predicates:
             - Path=/api/medicines/**
+        - id: fileuploadservice-provider
+          uri:
+              lb://fileuploadservice-provider
+          predicates:
+              - Path=/oss/**
 
 logging:
   level:

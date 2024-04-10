@@ -51,9 +51,9 @@ public class UserController {
     }
 
     @PutMapping("/update/avatar")
-    public Result updateUserAvatar(@RequestParam("file") MultipartFile file, @RequestHeader("UserId") String userId) {
+    public Result updateUserAvatar(@RequestParam("avatar") String fileUrl, @RequestHeader("UserId") String userId) {
         AppUser appUser = new AppUser();
-        int num = userService.updateUserAvatar(file, userId);
+        int num = userService.updateUserAvatar(fileUrl, userId);
         if(num == 0) {
             return Result.error("Update user failed");
         }

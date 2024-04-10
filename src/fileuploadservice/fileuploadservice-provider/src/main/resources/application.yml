@@ -1,0 +1,13 @@
+server:
+  port: 8099
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  application:
+    name: fileuploadservice-provider
+
+logging:
+  level:
+    root: debug
