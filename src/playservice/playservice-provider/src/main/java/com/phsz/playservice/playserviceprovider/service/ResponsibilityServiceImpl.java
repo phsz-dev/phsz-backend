@@ -1,7 +1,9 @@
 package com.phsz.playservice.playserviceprovider.service;
 
+import com.phsz.playservice.playserviceprovider.pojo.LearnedSubResponsibility;
 import com.phsz.playservice.playserviceprovider.pojo.Responsibility;
 import com.phsz.playservice.playserviceprovider.pojo.Role;
+import com.phsz.playservice.playserviceprovider.repository.LearnedSubResponsibilityRepository;
 import com.phsz.playservice.playserviceprovider.repository.ResponsibilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,9 +18,12 @@ public class ResponsibilityServiceImpl {
 
     ResponsibilityRepository responsibilityRepository;
 
+    LearnedSubResponsibilityRepository learnedSubResponsibilityRepository;
+
     @Autowired
-    public ResponsibilityServiceImpl(ResponsibilityRepository responsibilityRepository) {
+    public ResponsibilityServiceImpl(ResponsibilityRepository responsibilityRepository, LearnedSubResponsibilityRepository learnedSubResponsibilityRepository) {
         this.responsibilityRepository = responsibilityRepository;
+        this.learnedSubResponsibilityRepository = learnedSubResponsibilityRepository;
     }
 
     public Responsibility getResponsibilityById(Long id) {
@@ -59,5 +64,11 @@ public class ResponsibilityServiceImpl {
 
     public List<Responsibility> getFullResponsibilityByRole(Role role) {
         return responsibilityRepository.findByRole(role);
+    }
+
+    public List<Long> getLearned(long l, Role inRole) {
+        // 判断该Responsibility下的subResponsibility是否已经都学习，都学习了就将该Responsibility的id加入列表
+        List<Long> res = responsibilityRepository.findLearnedResponsibility(l, inRole);
+        return res;
     }
 }

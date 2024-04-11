@@ -71,7 +71,7 @@ public class FileUploadServiceImpl {
         }else{
             fileType = originalFilename.substring(originalFilename.lastIndexOf("."));
         }
-        String newFileName = userId+fileType;
+        String newFileName = UUID.randomUUID()+userId+fileType;
         String filePath = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
         String uploadUrl = host+"/"+filePath+"/"+newFileName;
         InputStream inputStream = null;
