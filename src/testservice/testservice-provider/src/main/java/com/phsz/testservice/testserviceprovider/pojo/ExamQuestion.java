@@ -1,23 +1,16 @@
 package com.phsz.testservice.testserviceprovider.pojo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
 public class ExamQuestion {
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "examination_id")
-    private Examination examination;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "question_id")
-    private Question question;
+    @EmbeddedId
+    @JsonUnwrapped
+    private ExamQuestionPK id;
 
     private String answer;
 }

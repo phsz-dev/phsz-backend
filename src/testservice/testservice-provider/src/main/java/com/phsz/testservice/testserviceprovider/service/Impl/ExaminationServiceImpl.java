@@ -2,12 +2,11 @@ package com.phsz.testservice.testserviceprovider.service.Impl;
 
 import com.phsz.common.CodeException;
 import com.phsz.testservice.testserviceprovider.pojo.*;
+import com.phsz.testservice.testserviceprovider.repository.ExamQuestionRepository;
 import com.phsz.testservice.testserviceprovider.repository.ExaminationRepository;
 import com.phsz.testservice.testserviceprovider.service.ExaminationService;
 import com.phsz.testservice.testserviceprovider.service.PaperService;
 import jakarta.annotation.Resource;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,13 +16,15 @@ import java.util.*;
 
 @Service
 public class ExaminationServiceImpl implements ExaminationService {
-    @Resource
+
     private final ExaminationRepository examinationRepository;
+    private final ExamQuestionRepository examQuestionRepository;
     @Resource
     private PaperService paperService;
 
-    public ExaminationServiceImpl(ExaminationRepository examinationRepository) {
+    public ExaminationServiceImpl(ExaminationRepository examinationRepository, ExamQuestionRepository examQuestionRepository) {
         this.examinationRepository = examinationRepository;
+        this.examQuestionRepository = examQuestionRepository;
     }
 
     @Override
@@ -96,31 +97,23 @@ public class ExaminationServiceImpl implements ExaminationService {
     public Examination getCurrentExamination(Long userId) {
         Examination examination = examinationRepository.findExaminationByUserIdAndStatus(userId, "start");
         if (examination != null && examination.getEndTime().before(new Date())) {
-            endExamination(userId, examination.getId());
+            examination.setStatus("end");
+            calculateScore(examination);
             return null;
         }
         return examination;
     }
 
-    @Override
-    public Boolean endExamination(Long userId, Long examinationId) {
-        Examination examination = getCurrentExamination(userId);
-        if (examination == null || !examination.getId().equals(examinationId)) {
-            return false;
-        }
-        examination.setStatus("end");
-        // 计算分数
+//    结算分数
+    public Integer calculateScore(Examination examination) {
         int score = 0;
-        // 创建一个HashMap来存储Question ID和ExamQuestion的对应关系
         Map<Long, ExamQuestion> examQuestionMap = new HashMap<>();
         for (ExamQuestion examQuestion : examination.getQuestions()) {
-            examQuestionMap.put(examQuestion.getQuestion().getId(), examQuestion);
+            examQuestionMap.put(examQuestion.getId().getQuestion(), examQuestion);
         }
-        // 遍历所有的PaperQuestion
         List<PaperQuestion> questions = examination.getPaper().getQuestions();
         for (PaperQuestion paperQuestion : questions) {
             Question question = paperQuestion.getQuestion();
-            // 直接使用Question ID从Map中获取ExamQuestion
             ExamQuestion examQuestion = examQuestionMap.get(question.getId());
             if (examQuestion != null && examQuestion.getAnswer().equals(question.getAnswer())) {
                 score += paperQuestion.getScore();
@@ -128,11 +121,21 @@ public class ExaminationServiceImpl implements ExaminationService {
         }
         examination.setScore(score);
         examinationRepository.save(examination);
-        return true;
+        return score;
     }
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Override
+    public Integer endExamination(Long userId, Long examinationId) throws CodeException {
+        Examination examination = getCurrentExamination(userId);
+        if (examination == null) {
+            throw new CodeException(1, "no running examination");
+        }
+        if (!examination.getId().equals(examinationId)) {
+            throw new CodeException(2, "examination not match");
+        }
+        examination.setStatus("end");
+        return calculateScore(examination);
+    }
 
     @Override
     @Transactional
@@ -142,27 +145,23 @@ public class ExaminationServiceImpl implements ExaminationService {
         if (examination == null || !examination.getId().equals(examinationId)) {
             return false;
         }
-        ExamQuestion examQuestion = entityManager.createQuery("SELECT eq FROM ExamQuestion eq WHERE eq.examination.id = :examinationId AND eq.question.id = :questionId", ExamQuestion.class)
-                .setParameter("examinationId", examinationId)
-                .setParameter("questionId", questionId)
-                .getResultList()
-                .stream()
-                .findFirst()
-                .orElse(null);
 
-        if (examQuestion == null) {
-            // 没有找到，创建一个新的ExamQuestion实例
-            ExamQuestion newExamQuestion = new ExamQuestion();
-            newExamQuestion.setExamination(examination);
-            Question question = entityManager.find(Question.class, questionId);
-            newExamQuestion.setQuestion(question);
-            newExamQuestion.setAnswer(answer);
-            entityManager.persist(newExamQuestion);
-        } else {
-            // 找到了，更新它
-            examQuestion.setAnswer(answer);
-            entityManager.merge(examQuestion);
+        // 验证questionId是否在paper中
+        Paper paper = examination.getPaper();
+        List<PaperQuestion> questions = paper.getQuestions();
+        boolean exist = questions.stream()
+                .map(PaperQuestion::getQuestion)
+                .map(Question::getId)
+                .anyMatch(id -> id.equals(questionId));
+        if (!exist) {
+            return false;
         }
+
+        ExamQuestion examQuestion = new ExamQuestion();
+        examQuestion.setId(new ExamQuestionPK(examinationId, questionId));
+        examQuestion.setAnswer(answer);
+        examQuestionRepository.save(examQuestion);
+
         return true;
     }
 
