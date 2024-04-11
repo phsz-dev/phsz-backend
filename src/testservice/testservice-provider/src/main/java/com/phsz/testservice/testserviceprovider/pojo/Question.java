@@ -23,6 +23,5 @@ public class Question {
     @Convert(converter = JsonbConverter.class)
     private JsonNode options;
     @Column(columnDefinition = "text")
-    @JsonIgnore
     private String answer;
 }
