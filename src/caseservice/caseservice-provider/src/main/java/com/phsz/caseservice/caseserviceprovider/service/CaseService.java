@@ -26,14 +26,14 @@ public interface CaseService {
     CaseInfo findCase(Long caseId);
 
     //查找所有病例
-    ArrayList<Case> findAllCase(Pageable pageable);
+    Page<Case> findAllCase(Pageable pageable);
 
     //根据病例名查找病例
     Page<Case> findAllByCaseNameLike(String caseName, Pageable pageable);
 
-    SimplePage<RoughCaseInfoDto> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable);
+    Page<RoughCaseInfoDto> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable);
 
     CollectedCase addNewCollectCase(Long caseId, Long userId);
 
-    SimplePage<RoughCaseInfoDto> getMyCollectedCases(Long userId, Pageable pageable);
+    Page<RoughCaseInfoDto> getMyCollectedCases(Long userId, Pageable pageable);
 }

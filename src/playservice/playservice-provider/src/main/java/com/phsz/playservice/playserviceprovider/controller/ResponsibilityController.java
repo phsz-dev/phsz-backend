@@ -1,6 +1,7 @@
 package com.phsz.playservice.playserviceprovider.controller;
 
 import com.phsz.common.Result;
+import com.phsz.common.SimplePage;
 import com.phsz.playservice.playserviceprovider.pojo.Responsibility;
 import com.phsz.playservice.playserviceprovider.pojo.Role;
 import com.phsz.playservice.playserviceprovider.service.ResponsibilityServiceImpl;
@@ -50,7 +51,7 @@ public class ResponsibilityController {
         if (responsibilityByRole == null) {
             return Result.error("not found");
         } else {
-            return Result.success("getResponsibilityByRole successfully", responsibilityByRole);
+            return Result.success("getResponsibilityByRole successfully", new SimplePage<>(responsibilityByRole));
         }
     }
 

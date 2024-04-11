@@ -7,7 +7,6 @@ import com.phsz.testservice.testserviceprovider.pojo.AnswerRequest;
 import com.phsz.testservice.testserviceprovider.pojo.Examination;
 import com.phsz.testservice.testserviceprovider.service.Impl.ExaminationServiceImpl;
 import jakarta.annotation.Resource;
-import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

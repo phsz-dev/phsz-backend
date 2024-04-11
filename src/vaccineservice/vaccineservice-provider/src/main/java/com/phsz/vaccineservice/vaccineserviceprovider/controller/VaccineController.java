@@ -1,6 +1,7 @@
 package com.phsz.vaccineservice.vaccineserviceprovider.controller;
 
 import com.phsz.common.Result;
+import com.phsz.common.SimplePage;
 import com.phsz.vaccineservice.vaccineserviceprovider.pojo.Vaccine;
 import com.phsz.vaccineservice.vaccineserviceprovider.service.Impl.VaccineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class VaccineController {
     @GetMapping
     public Result getAllVaccines(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("get all vaccine OK", vaccineService.findAllVaccines(pageable));
+        return Result.success("get all vaccine OK", new SimplePage<>(vaccineService.findAllVaccines(pageable)));
     }
 
     // 添加新疫苗

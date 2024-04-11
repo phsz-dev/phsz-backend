@@ -1,6 +1,7 @@
 package com.phsz.medicineservice.medicineserviceprovider.controller;
 
 import com.phsz.common.Result;
+import com.phsz.common.SimplePage;
 import com.phsz.medicineservice.medicineserviceprovider.pojo.Medicine;
 import com.phsz.medicineservice.medicineserviceprovider.service.Impl.MedicineServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class MedicineController {
     @GetMapping
     public Result getAllMedicines(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("get all medicine OK", medicineService.findAllMedicines(pageable));
+        return Result.success("get all medicine OK", new SimplePage<>(medicineService.findAllMedicines(pageable)));
     }
 
     // 添加新药品

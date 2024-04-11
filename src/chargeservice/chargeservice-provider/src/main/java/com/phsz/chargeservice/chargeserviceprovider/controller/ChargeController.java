@@ -3,6 +3,7 @@ package com.phsz.chargeservice.chargeserviceprovider.controller;
 import com.phsz.chargeservice.chargeserviceprovider.pojo.Charge;
 import com.phsz.chargeservice.chargeserviceprovider.service.Impl.ChargeServiceImpl;
 import com.phsz.common.Result;
+import com.phsz.common.SimplePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,7 @@ public class ChargeController {
     @GetMapping
     public Result getAllCharges(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("get all charge OK", chargeService.findAllCharges(pageable));
+        return Result.success("get all charge OK", new SimplePage<>(chargeService.findAllCharges(pageable)));
     }
 
     // 添加新收费记录

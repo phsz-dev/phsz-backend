@@ -220,11 +220,8 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public ArrayList<Case> findAllCase(Pageable pageable) {
-        Page<Case> all = caseRepository.findAll(pageable);
-        Collection<Case> content = all.getContent();
-        return new ArrayList<>(content);
-
+    public Page<Case> findAllCase(Pageable pageable) {
+        return caseRepository.findAll(pageable);
     }
 
     @Override
@@ -233,9 +230,8 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public SimplePage<RoughCaseInfoDto> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable) {
-        Page<RoughCaseInfoDto> pg = caseDiseaseRepository.findRoughCaseInfoByDiseaseId(diseaseId, pageable);
-        return new SimplePage<>(pg);
+    public Page<RoughCaseInfoDto> findRoughCaseListByDiseaseId(Long diseaseId, Pageable pageable) {
+        return caseDiseaseRepository.findRoughCaseInfoByDiseaseId(diseaseId, pageable);
     }
 
     @Override
@@ -247,8 +243,7 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public SimplePage<RoughCaseInfoDto> getMyCollectedCases(Long userId, Pageable pageable) {
-        Page<RoughCaseInfoDto> page = caseRepository.findRoughCaseInfoByUserId(userId, pageable);
-        return new SimplePage<>(page);
+    public Page<RoughCaseInfoDto> getMyCollectedCases(Long userId, Pageable pageable) {
+        return caseRepository.findRoughCaseInfoByUserId(userId, pageable);
     }
 }

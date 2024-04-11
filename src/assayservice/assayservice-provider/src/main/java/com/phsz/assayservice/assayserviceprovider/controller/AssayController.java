@@ -3,6 +3,7 @@ package com.phsz.assayservice.assayserviceprovider.controller;
 import com.phsz.assayservice.assayserviceprovider.pojo.Assay;
 import com.phsz.assayservice.assayserviceprovider.service.Impl.AssayServiceImpl;
 import com.phsz.common.Result;
+import com.phsz.common.SimplePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public class AssayController {
     @GetMapping
     public Result getAllAssays(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        return Result.success("get all assay OK", assayService.findAllAssays(pageable));
+        return Result.success("get all assay OK", new SimplePage<>(assayService.findAllAssays(pageable)));
     }
 
     // 添加新化验
