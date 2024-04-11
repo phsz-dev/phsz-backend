@@ -21,6 +21,6 @@ public class Examination {
     @JoinColumn(name = "paper_id")
     private Paper paper;
     private Integer score;
-    @OneToMany(mappedBy = "examination", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "id.examination", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<ExamQuestion> questions;
 }

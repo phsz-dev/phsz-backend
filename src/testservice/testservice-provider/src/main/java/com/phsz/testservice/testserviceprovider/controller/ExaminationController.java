@@ -7,7 +7,6 @@ import com.phsz.testservice.testserviceprovider.pojo.AnswerRequest;
 import com.phsz.testservice.testserviceprovider.pojo.Examination;
 import com.phsz.testservice.testserviceprovider.service.Impl.ExaminationServiceImpl;
 import jakarta.annotation.Resource;
-import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +25,6 @@ public class ExaminationController {
     @GetMapping("/{examinationId}")
     public Result getExaminationById(@PathVariable Long examinationId) {
         Examination examination = examinationService.getExaminationById(examinationId);
-        System.out.println(examination);
         if (examination == null) {
             return Result.error("not found");
         }
@@ -98,10 +96,11 @@ public class ExaminationController {
 
     @PutMapping("/end")
     public Result endExamination(@RequestHeader("UserId") String userId, @RequestBody Long examinationId) {
-        Boolean b = examinationService.endExamination(Long.parseLong(userId), examinationId);
-        if (b == null) {
-            return Result.error("not found");
+        try {
+            Integer score = examinationService.endExamination(Long.parseLong(userId), examinationId);
+            return Result.success("success", score);
+        } catch (CodeException e) {
+            return Result.error(e.getCode(), e.getMessage());
         }
-        return Result.success("success", b);
     }
 }

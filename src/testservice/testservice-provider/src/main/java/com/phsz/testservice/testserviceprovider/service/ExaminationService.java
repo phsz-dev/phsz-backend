@@ -21,7 +21,7 @@ public interface ExaminationService {
 
     Examination getCurrentExamination(Long userId);
 
-    Boolean endExamination(Long userId, Long examinationId);
+    Integer endExamination(Long userId, Long examinationId);
 
     Boolean saveAnswer(Long userId, Long examinationId, Long questionId, String answer);
 }
