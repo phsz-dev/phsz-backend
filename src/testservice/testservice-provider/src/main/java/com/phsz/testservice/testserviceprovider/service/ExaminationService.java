@@ -18,4 +18,10 @@ public interface ExaminationService {
     String deleteExamination(Long examinationId);
 
     Examination startExamination(Long userId, Long paperId);
+
+    Examination getCurrentExamination(Long userId);
+
+    Boolean endExamination(Long userId, Long examinationId);
+
+    Boolean saveAnswer(Long userId, Long examinationId, Long questionId, String answer);
 }
