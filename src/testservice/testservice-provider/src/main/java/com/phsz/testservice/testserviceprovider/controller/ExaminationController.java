@@ -103,4 +103,13 @@ public class ExaminationController {
             return Result.error(e.getCode(), e.getMessage());
         }
     }
+
+    @GetMapping("/history")
+    public Result getHistoryExaminations(@RequestHeader("UserId") String userId,
+                                         @RequestParam(value="pageNum", defaultValue = "0") int pageNum,
+                                         @RequestParam(value="pageSize", defaultValue = "10") int PageSize) {
+        Pageable pageable = PageRequest.of(pageNum, PageSize);
+        Page<Examination> examinations = examinationService.getHistoryExaminations(Long.parseLong(userId), pageable);
+        return Result.success("success", new SimplePage<>(examinations));
+    }
 }

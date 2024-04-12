@@ -61,6 +61,6 @@ public class ChargeServiceImpl implements ChargeService {
 
     @Override
     public List<Charge> findChargeByIds(List<Long> chargeIds) {
-        return chargeRepository.findChargeByChargeIdIn(chargeIds);
+        return chargeRepository.findChargeByIdIn(chargeIds);
     }
 }

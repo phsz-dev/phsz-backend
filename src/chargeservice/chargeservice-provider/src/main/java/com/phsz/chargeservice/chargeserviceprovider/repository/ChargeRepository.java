@@ -12,8 +12,8 @@ import java.util.Optional;
 public interface ChargeRepository extends JpaRepository<Charge, Long> {
     // 这里可以根据需要添加自定义查询方法
     // 例如根据疫苗名称查找：List<Vaccine> findByName(String name);
-    Optional<Charge> deleteChargeByChargeId(Long chargeId);
+    Optional<Charge> deleteChargeById(Long chargeId);
 
-    @Query("select c from Charge c where c.chargeId in :chargeIds")
-    List<Charge> findChargeByChargeIdIn(List<Long> chargeIds);
+    @Query("select c from Charge c where c.id in :chargeIds")
+    List<Charge> findChargeByIdIn(List<Long> chargeIds);
 }

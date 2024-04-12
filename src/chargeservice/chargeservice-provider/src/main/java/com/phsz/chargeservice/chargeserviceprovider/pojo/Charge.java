@@ -12,9 +12,8 @@ import java.util.Date;
 @Table(name = "Charge", schema = "public")
 public class Charge {
     @Id
-    @Column(name = "charge_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long chargeId;
+    private Long id;
     @Column(columnDefinition = "jsonb")
     @Convert(converter = JsonbConverter.class)
     private JsonNode details; // 假设这是新增的字段，表示收费详情

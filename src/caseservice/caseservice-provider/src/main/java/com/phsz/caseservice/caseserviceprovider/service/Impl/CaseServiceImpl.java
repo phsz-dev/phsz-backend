@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -107,6 +108,7 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
+    @Transactional
     public String updateCase(CaseInfo case1) {
         Long caseId = case1.getId();
         if (caseRepository.findById(caseId).isEmpty()) {
@@ -123,6 +125,7 @@ public class CaseServiceImpl implements CaseService {
             CaseMedicine caseMedicine = new CaseMedicine();
             caseMedicine.setCaseId(save.getId());
             caseMedicine.setMedicineId(medicineInfo.getId());
+            caseMedicine.setMedicineDosage(medicineInfo.getMedicineDosage());
             caseMedicineRepository.save(caseMedicine);
         }
         caseAssayRepository.deleteAllByCaseId(save.getId());
@@ -130,6 +133,7 @@ public class CaseServiceImpl implements CaseService {
         ) {
             CaseAssay caseAssay = new CaseAssay();
             caseAssay.setCaseId(save.getId());
+            caseAssay.setResult(assayInfo.getResult());
             caseAssay.setAssayId(assayInfo.getId());
             caseAssayRepository.save(caseAssay);
         }
@@ -220,8 +224,8 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public Page<Case> findAllCase(Pageable pageable) {
-        return caseRepository.findAll(pageable);
+    public Page<AdminCaseInfo> findAllCase(Pageable pageable) {
+        return caseRepository.findAllAdminCaseInfo(pageable);
     }
 
     @Override

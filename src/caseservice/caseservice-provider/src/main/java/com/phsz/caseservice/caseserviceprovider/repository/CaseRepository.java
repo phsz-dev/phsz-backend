@@ -1,6 +1,8 @@
 package com.phsz.caseservice.caseserviceprovider.repository;
 
+import com.phsz.caseservice.caseserviceprovider.pojo.AdminCaseInfo;
 import com.phsz.caseservice.caseserviceprovider.pojo.Case;
+import com.phsz.caseservice.caseserviceprovider.pojo.CaseInfo;
 import com.phsz.caseservice.caseserviceprovider.pojo.RoughCaseInfoDto;
 import feign.Param;
 import org.springframework.data.domain.Page;
@@ -23,5 +25,9 @@ public interface CaseRepository extends JpaRepository<Case, Long>, PagingAndSort
                 countQuery = "SELECT count(*) FROM CollectedCase WHERE userId = :userId")
      Page<RoughCaseInfoDto> findRoughCaseInfoByUserId(@Param("userId") Long userId, Pageable pageable);
 
+    @Query(value = "SELECT c.id AS id, c.name AS name, c.description AS description, c.submit_time AS submitTime, c.brief AS brief, c.charge_id AS chargeId, c.doctor_name AS doctorName, (SELECT STRING_AGG(CAST(ca.assay_id AS TEXT), ',') FROM case_assay ca WHERE ca.case_id = c.id) AS assays, (SELECT STRING_AGG(CAST(cd.disease_id AS TEXT), ',') FROM case_disease cd WHERE cd.case_id = c.id) AS diseases, (SELECT STRING_AGG(CAST(cm.medicine_id AS TEXT), ',') FROM case_medicine cm WHERE cm.case_id = c.id) AS medicines, (SELECT STRING_AGG(CAST(cv.vaccine_id AS TEXT), ',') FROM case_vaccine cv WHERE cv.case_id = c.id) AS vaccines FROM app_case c",
+            countQuery = "SELECT count(*) FROM app_case",
+            nativeQuery = true)
+    Page<AdminCaseInfo> findAllAdminCaseInfo(Pageable pageable);
 
 }

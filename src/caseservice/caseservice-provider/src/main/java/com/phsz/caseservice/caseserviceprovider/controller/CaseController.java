@@ -1,9 +1,6 @@
 package com.phsz.caseservice.caseserviceprovider.controller;
 
-import com.phsz.caseservice.caseserviceprovider.pojo.Case;
-import com.phsz.caseservice.caseserviceprovider.pojo.CaseInfo;
-import com.phsz.caseservice.caseserviceprovider.pojo.CollectedCase;
-import com.phsz.caseservice.caseserviceprovider.pojo.RoughCaseInfoDto;
+import com.phsz.caseservice.caseserviceprovider.pojo.*;
 import com.phsz.caseservice.caseserviceprovider.service.Impl.CaseServiceImpl;
 import com.phsz.common.Result;
 import com.phsz.common.SimplePage;
@@ -31,7 +28,7 @@ public class CaseController {
     @GetMapping
     public Result getAllCase(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
-        Page<Case> allCase = caseService.findAllCase(pageable);
+        Page<AdminCaseInfo> allCase = caseService.findAllCase(pageable);
         if (allCase == null) {
             return Result.error("not found");
         }

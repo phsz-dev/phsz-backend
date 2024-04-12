@@ -87,4 +87,5 @@ public class PaperController {
         Page<PaperInfo> papersByName = paperService.getPapersByName(name, pageable);
         return Result.success("success", new SimplePage<>(papersByName));
     }
+
 }

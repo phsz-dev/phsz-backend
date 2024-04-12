@@ -20,6 +20,8 @@ public class PaperServiceImpl implements PaperService {
     @Resource
     QuestionRepository questionRepository;
 
+
+
     public PaperServiceImpl(PaperRepository paperRepository, QuestionRepository questionRepository) {
         this.paperRepository = paperRepository;
         this.questionRepository = questionRepository;
@@ -75,4 +77,5 @@ public class PaperServiceImpl implements PaperService {
         Optional<Paper> paper = paperRepository.deletePaperById(paperId);
         return paper.map(Paper::getId).orElse(null);
     }
+
 }

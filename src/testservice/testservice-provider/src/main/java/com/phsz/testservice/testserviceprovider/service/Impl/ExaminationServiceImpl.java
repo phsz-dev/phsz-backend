@@ -165,4 +165,7 @@ public class ExaminationServiceImpl implements ExaminationService {
         return true;
     }
 
+    public Page<Examination> getHistoryExaminations(long l, Pageable pageable) {
+        return examinationRepository.findAllByUserId(l, pageable);
+    }
 }

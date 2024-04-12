@@ -18,6 +18,8 @@ public interface ExaminationRepository extends JpaRepository<Examination, Long>,
 
     Examination findExaminationByUserIdAndStatus(Long userId, String start);
 
+    Page<Examination> findAllByUserId(long userId, Pageable pageable);
+
 //    // 保存答案到exam_question表
 //    @Modifying
 //    @Transactional
