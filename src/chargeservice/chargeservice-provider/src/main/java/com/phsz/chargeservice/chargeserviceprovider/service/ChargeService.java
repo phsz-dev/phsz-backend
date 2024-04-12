@@ -22,5 +22,5 @@ public interface ChargeService {
     // 根据ID删除收费记录
     String deleteCharge(Long id);
 
-    List<Charge> findChargeByIds(List<Long> chargeIds);
+    List<Charge> findChargeByIds(List<Long> ids);
 }

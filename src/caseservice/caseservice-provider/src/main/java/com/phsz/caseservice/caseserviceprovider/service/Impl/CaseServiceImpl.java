@@ -5,7 +5,6 @@ import com.phsz.assayservice.assayserviceapi.pojo.Assay;
 import com.phsz.caseservice.caseserviceprovider.pojo.*;
 import com.phsz.caseservice.caseserviceprovider.repository.*;
 import com.phsz.caseservice.caseserviceprovider.service.CaseService;
-import com.phsz.common.SimplePage;
 import com.phsz.medicineservice.medicineserviceapi.client.MedicineClient;
 import com.phsz.medicineservice.medicineserviceapi.pojo.Medicine;
 import com.phsz.vaccineservice.vaccineserviceapi.client.VaccineClient;

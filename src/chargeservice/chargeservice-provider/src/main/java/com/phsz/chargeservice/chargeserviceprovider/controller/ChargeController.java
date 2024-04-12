@@ -68,8 +68,8 @@ public class ChargeController {
 
     // 批量获取收费记录信息
     @PostMapping("/batch")
-    public Result findChargeByIds(@RequestBody List<Long> chargeIds) {
-        List<Charge> charges = chargeService.findChargeByIds(chargeIds);
+    public Result findChargeByIds(@RequestBody List<Long> ids) {
+        List<Charge> charges = chargeService.findChargeByIds(ids);
         if (charges == null) {
             return Result.error("not found");
         }

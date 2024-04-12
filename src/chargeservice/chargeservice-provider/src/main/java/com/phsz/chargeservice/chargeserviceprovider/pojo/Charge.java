@@ -12,6 +12,7 @@ import java.util.Date;
 @Table(name = "Charge", schema = "public")
 public class Charge {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(columnDefinition = "jsonb")
