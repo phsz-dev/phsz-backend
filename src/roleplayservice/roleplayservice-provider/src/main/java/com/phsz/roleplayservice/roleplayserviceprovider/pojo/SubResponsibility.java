@@ -1,4 +1,4 @@
-package com.phsz.playservice.playserviceprovider.pojo;
+package com.phsz.roleplayservice.roleplayserviceprovider.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;

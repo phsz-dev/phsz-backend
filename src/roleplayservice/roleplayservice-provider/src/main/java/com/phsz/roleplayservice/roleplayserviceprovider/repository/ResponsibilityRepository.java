@@ -1,7 +1,7 @@
-package com.phsz.playservice.playserviceprovider.repository;
+package com.phsz.roleplayservice.roleplayserviceprovider.repository;
 
-import com.phsz.playservice.playserviceprovider.pojo.Responsibility;
-import com.phsz.playservice.playserviceprovider.pojo.Role;
+import com.phsz.roleplayservice.roleplayserviceprovider.pojo.Responsibility;
+import com.phsz.roleplayservice.roleplayserviceprovider.pojo.Role;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

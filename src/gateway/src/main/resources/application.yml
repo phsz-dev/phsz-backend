@@ -51,9 +51,9 @@ spring:
             lb://officeservice-provider
           predicates:
             - Path=/api/offices/**
-        - id: playservice-provider
+        - id: roleplayservice-provider
           uri:
-            lb://playservice-provider
+            lb://roleplayservice-provider
           predicates:
             - Path=/api/plays/**
         - id: testservice-provider

@@ -28,8 +28,8 @@
 		<module>src/caseservice</module>
 		<module>src/testservice</module>
 		<module>src/testservice/testservice-provider</module>
-		<module>src/playservice</module>
-		<module>src/playservice/playservice-provider</module>
+		<module>src/roleplayservice</module>
+		<module>src/roleplayservice/roleplayservice-provider</module>
 		<module>src/vaccineservice</module>
 		<module>src/vaccineservice/vaccineservice-provider</module>
 		<module>src/vaccineservice/vaccineservice-api</module>

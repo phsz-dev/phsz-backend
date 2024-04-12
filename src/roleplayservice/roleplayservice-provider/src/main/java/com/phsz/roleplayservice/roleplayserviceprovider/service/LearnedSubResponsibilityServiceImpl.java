@@ -1,8 +1,8 @@
-package com.phsz.playservice.playserviceprovider.service;
+package com.phsz.roleplayservice.roleplayserviceprovider.service;
 
-import com.phsz.playservice.playserviceprovider.pojo.LearnedSubResponsibility;
-import com.phsz.playservice.playserviceprovider.pojo.Role;
-import com.phsz.playservice.playserviceprovider.repository.LearnedSubResponsibilityRepository;
+import com.phsz.roleplayservice.roleplayserviceprovider.pojo.LearnedSubResponsibility;
+import com.phsz.roleplayservice.roleplayserviceprovider.pojo.Role;
+import com.phsz.roleplayservice.roleplayserviceprovider.repository.LearnedSubResponsibilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,10 +1,9 @@
-package com.phsz.playservice.playserviceprovider.service;
+package com.phsz.roleplayservice.roleplayserviceprovider.service;
 
-import com.phsz.playservice.playserviceprovider.pojo.LearnedSubResponsibility;
-import com.phsz.playservice.playserviceprovider.pojo.Responsibility;
-import com.phsz.playservice.playserviceprovider.pojo.Role;
-import com.phsz.playservice.playserviceprovider.repository.LearnedSubResponsibilityRepository;
-import com.phsz.playservice.playserviceprovider.repository.ResponsibilityRepository;
+import com.phsz.roleplayservice.roleplayserviceprovider.pojo.Responsibility;
+import com.phsz.roleplayservice.roleplayserviceprovider.pojo.Role;
+import com.phsz.roleplayservice.roleplayserviceprovider.repository.LearnedSubResponsibilityRepository;
+import com.phsz.roleplayservice.roleplayserviceprovider.repository.ResponsibilityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

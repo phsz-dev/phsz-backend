@@ -1,12 +1,10 @@
-package com.phsz.playservice.playserviceprovider.repository;
+package com.phsz.roleplayservice.roleplayserviceprovider.repository;
 
-import com.phsz.playservice.playserviceprovider.pojo.LearnedSubResponsibility;
-import com.phsz.playservice.playserviceprovider.pojo.Role;
+import com.phsz.roleplayservice.roleplayserviceprovider.pojo.LearnedSubResponsibility;
+import com.phsz.roleplayservice.roleplayserviceprovider.pojo.Role;
 import feign.Param;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

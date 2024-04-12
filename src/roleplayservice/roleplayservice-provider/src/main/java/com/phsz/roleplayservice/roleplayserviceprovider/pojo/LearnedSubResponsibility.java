@@ -1,4 +1,4 @@
-package com.phsz.playservice.playserviceprovider.pojo;
+package com.phsz.roleplayservice.roleplayserviceprovider.pojo;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
