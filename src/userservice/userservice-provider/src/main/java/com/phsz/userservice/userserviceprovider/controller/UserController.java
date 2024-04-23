@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,8 +22,12 @@ public class UserController {
 
     @GetMapping
     public Result getAll(@RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
-                         @RequestParam(value = "pageSize", defaultValue = "10") int pageSize) {
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
+                         @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
+                         @RequestParam(value = "orderColumn", defaultValue = "id") String colName,
+                         @RequestParam(value = "orderType", defaultValue = "asc") String orderType
+    ) {
+        Sort sort  = orderType.equals("asc") ? Sort.by(colName).ascending() : Sort.by(colName).descending();
+        Pageable pageable = PageRequest.of(pageNum, pageSize,sort);
         Page<AppUser> users = userService.getAll(pageable);
         Page<UserInfo> userInfos = users.map(user -> new UserInfo(user.getId(), user.getUsername(), user.getEmail(), user.isEnabled(),user.getAvatar(), user.getRoles()));
         return Result.success("Get all users successful", new SimplePage<>(userInfos));
