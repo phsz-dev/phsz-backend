@@ -23,7 +23,7 @@ public class SimplePage<E> {
         this.pageNumber = page.getNumber();
         this.pageSize = page.getSize();
         this.orderColumn = page.getSort().toString().split(":")[0];
-        this.orderType = page.getSort().toString().split(":")[1];
+        this.orderType = page.getSort().toString().split(":")[1].trim();
     }
 
 }

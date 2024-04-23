@@ -23,11 +23,15 @@ public class UserController {
     @GetMapping
     public Result getAll(@RequestParam(value = "pageNum", defaultValue = "0") int pageNum,
                          @RequestParam(value = "pageSize", defaultValue = "10") int pageSize,
-                         @RequestParam(value = "orderColumn", defaultValue = "id") String colName,
-                         @RequestParam(value = "orderType", defaultValue = "asc") String orderType
+                         @RequestParam(value = "orderColumn", defaultValue = "id") String orderColumn,
+                         @RequestParam(value = "orderType", defaultValue = "ASC") String orderType
     ) {
-        Sort sort  = orderType.equals("asc") ? Sort.by(colName).ascending() : Sort.by(colName).descending();
-        Pageable pageable = PageRequest.of(pageNum, pageSize,sort);
+        if (orderColumn.equals("roles")) {
+            // 改成roles_bitmap
+            orderColumn = "rolesBitmap";
+        }
+        Sort sort = orderType.equals("ASC") ? Sort.by(orderColumn).ascending() : Sort.by(orderColumn).descending();
+        Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
         Page<AppUser> users = userService.getAll(pageable);
         Page<UserInfo> userInfos = users.map(user -> new UserInfo(user.getId(), user.getUsername(), user.getEmail(), user.isEnabled(),user.getAvatar(), user.getRoles()));
         return Result.success("Get all users successful", new SimplePage<>(userInfos));
