@@ -7,6 +7,7 @@ import com.phsz.common.SimplePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +22,12 @@ public class ChargeController {
 
     // 获取所有收费信息
     @GetMapping
-    public Result getAllCharges(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
+    public Result getAllCharges(@RequestParam("pageSize") int pageSize,
+                                @RequestParam("pageNum") int pageNum,
+                                @RequestParam(value = "orderColumn",defaultValue = "id") String orderColumn,
+                                @RequestParam(value = "orderType",defaultValue = "ASC") String orderType) {
+        Sort sort = orderType.equals("ASC") ? Sort.by(orderColumn).ascending() : Sort.by(orderColumn).descending();
+        Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
         return Result.success("get all charge OK", new SimplePage<>(chargeService.findAllCharges(pageable)));
     }
 

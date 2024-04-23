@@ -7,6 +7,7 @@ import com.phsz.common.SimplePage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -25,8 +26,12 @@ public class AssayController {
 
     // 获取所有化验
     @GetMapping
-    public Result getAllAssays(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
+    public Result getAllAssays(@RequestParam("pageSize") int pageSize,
+                               @RequestParam("pageNum") int pageNum,
+                               @RequestParam(value = "orderColumn",defaultValue = "id") String orderColumn,
+                               @RequestParam(value = "orderType",defaultValue = "ASC") String orderType) {
+        Sort sort = orderType.equals("ASC") ? Sort.by(orderColumn).ascending() : Sort.by(orderColumn).descending();
+        Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
         return Result.success("get all assay OK", new SimplePage<>(assayService.findAllAssays(pageable)));
     }
 

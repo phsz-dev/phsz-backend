@@ -7,6 +7,7 @@ import com.phsz.vaccineservice.vaccineserviceprovider.service.Impl.VaccineServic
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,8 +19,12 @@ public class VaccineController {
 
     // 获取所有疫苗
     @GetMapping
-    public Result getAllVaccines(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
+    public Result getAllVaccines(@RequestParam("pageSize") int pageSize,
+                                 @RequestParam("pageNum") int pageNum,
+                                 @RequestParam(value = "orderColumn",defaultValue = "id") String orderColumn,
+                                 @RequestParam(value = "orderType",defaultValue = "ASC") String orderType) {
+        Sort sort = orderType.equals("ASC") ? Sort.by(orderColumn).ascending() : Sort.by(orderColumn).descending();
+        Pageable pageable = PageRequest.of(pageNum, pageSize,sort);
         return Result.success("get all vaccine OK", new SimplePage<>(vaccineService.findAllVaccines(pageable)));
     }
 

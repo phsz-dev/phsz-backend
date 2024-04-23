@@ -7,6 +7,7 @@ import com.phsz.medicineservice.medicineserviceprovider.service.Impl.MedicineSer
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,8 +19,13 @@ public class MedicineController {
 
     // 获取所有药品
     @GetMapping
-    public Result getAllMedicines(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
+    public Result getAllMedicines(@RequestParam("pageSize") int pageSize,
+                                  @RequestParam("pageNum") int pageNum,
+                                  @RequestParam(value = "orderColumn",defaultValue = "id") String orderColumn,
+                                    @RequestParam(value = "orderType",defaultValue = "ASC") String orderType
+    ) {
+        Sort sort = orderType.equals("ASC") ? Sort.by(orderColumn).ascending() : Sort.by(orderColumn).descending();
+        Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
         return Result.success("get all medicine OK", new SimplePage<>(medicineService.findAllMedicines(pageable)));
     }
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -26,8 +27,12 @@ public class CaseController {
 
     //查找所有病例
     @GetMapping
-    public Result getAllCase(@RequestParam("pageSize") int pageSize, @RequestParam("pageNum") int pageNum) {
-        Pageable pageable = PageRequest.of(pageNum, pageSize);
+    public Result getAllCase(@RequestParam("pageSize") int pageSize,
+                             @RequestParam("pageNum") int pageNum,
+                             @RequestParam(value = "orderColumn",defaultValue = "id") String orderColumn,
+                             @RequestParam(value = "orderType",defaultValue = "ASC") String orderType) {
+        Sort sort = orderType.equals("ASC") ? Sort.by(orderColumn).ascending() : Sort.by(orderColumn).descending();
+        Pageable pageable = PageRequest.of(pageNum, pageSize, sort);
         Page<AdminCaseInfo> allCase = caseService.findAllCase(pageable);
         if (allCase == null) {
             return Result.error("not found");
