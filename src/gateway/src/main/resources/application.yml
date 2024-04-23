@@ -3,7 +3,7 @@ server:
 phsz:
   jwt:
     secret: Of0dtVLJL/iNa5tlASR8VXKRvAe7UEqETaC4s0EtePo=
-    expiration: 3600000
+    expiration: 86400000
 spring:
   application:
     name: gateway

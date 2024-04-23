@@ -13,6 +13,8 @@ public class SimplePage<E> {
     private int totalPages;
     private int pageNumber;
     private int pageSize;
+    private String orderColumn;
+    private String orderType;
 
     public SimplePage(Page<E> page) {
         this.content = page.getContent();
@@ -20,6 +22,8 @@ public class SimplePage<E> {
         this.totalPages = page.getTotalPages();
         this.pageNumber = page.getNumber();
         this.pageSize = page.getSize();
+        this.orderColumn = page.getSort().toString().split(":")[0];
+        this.orderType = page.getSort().toString().split(":")[1];
     }
 
 }
