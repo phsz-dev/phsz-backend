@@ -1,8 +1,6 @@
 package com.phsz.userservice.userserviceprovider.service;
 
 import com.phsz.fileuploadservice.fileuploadserviceapi.client.OSSClient;
-import com.phsz.fileuploadservice.fileuploadserviceapi.entity.OSSFile;
-import com.phsz.medicineservice.medicineserviceapi.client.MedicineClient;
 import com.phsz.userservice.userserviceapi.service.UserService;
 import com.phsz.userservice.userserviceprovider.entity.AppUser;
 import com.phsz.userservice.userserviceprovider.repository.UserRepository;
@@ -16,7 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 
