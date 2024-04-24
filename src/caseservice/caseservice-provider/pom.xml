@@ -90,21 +90,6 @@
             <version>4.1.0</version>
         </dependency>
         <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>medicineservice-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>vaccineservice-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.example</groupId>
-            <artifactId>assayservice-api</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>com.phsz</groupId>
             <artifactId>common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
