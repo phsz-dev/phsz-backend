@@ -1,9 +1,8 @@
 package com.phsz.caseservice.caseserviceprovider.repository;
 
-import com.phsz.caseservice.caseserviceprovider.pojo.AdminCaseInfo;
-import com.phsz.caseservice.caseserviceprovider.pojo.Case;
-import com.phsz.caseservice.caseserviceprovider.pojo.CaseInfo;
-import com.phsz.caseservice.caseserviceprovider.pojo.RoughCaseInfoDto;
+import com.phsz.caseservice.caseserviceprovider.pojo.caseRelation.AdminCaseInfo;
+import com.phsz.caseservice.caseserviceprovider.pojo.caseRelation.Case;
+import com.phsz.caseservice.caseserviceprovider.pojo.caseRelation.RoughCaseInfoDto;
 import feign.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface CaseRepository extends JpaRepository<Case, Long>, PagingAndSortingRepository<Case, Long> {

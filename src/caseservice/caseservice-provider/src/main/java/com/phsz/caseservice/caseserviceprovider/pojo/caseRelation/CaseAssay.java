@@ -1,19 +1,18 @@
-package com.phsz.caseservice.caseserviceprovider.pojo;
+package com.phsz.caseservice.caseserviceprovider.pojo.caseRelation;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Entity
 @Data
-public class CaseDisease {
+@Entity
+public class CaseAssay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column
     private Long caseId;
-
     @Column
-    private Long diseaseId;
-
+    private Long assayId;
+    @Column
+    private String result;
 }

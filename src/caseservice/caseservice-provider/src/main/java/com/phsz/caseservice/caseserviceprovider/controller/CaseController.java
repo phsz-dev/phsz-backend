@@ -1,6 +1,9 @@
 package com.phsz.caseservice.caseserviceprovider.controller;
 
-import com.phsz.caseservice.caseserviceprovider.pojo.*;
+import com.phsz.caseservice.caseserviceprovider.pojo.caseRelation.AdminCaseInfo;
+import com.phsz.caseservice.caseserviceprovider.pojo.caseRelation.CaseInfo;
+import com.phsz.caseservice.caseserviceprovider.pojo.caseRelation.CollectedCase;
+import com.phsz.caseservice.caseserviceprovider.pojo.caseRelation.RoughCaseInfoDto;
 import com.phsz.caseservice.caseserviceprovider.service.Impl.CaseServiceImpl;
 import com.phsz.common.Result;
 import com.phsz.common.SimplePage;
@@ -10,10 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cases")

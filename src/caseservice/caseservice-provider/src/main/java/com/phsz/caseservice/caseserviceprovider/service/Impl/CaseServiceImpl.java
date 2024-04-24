@@ -1,14 +1,15 @@
 package com.phsz.caseservice.caseserviceprovider.service.Impl;
 
-import com.phsz.assayservice.assayserviceapi.client.AssayClient;
-import com.phsz.assayservice.assayserviceapi.pojo.Assay;
+import com.phsz.caseservice.caseserviceprovider.pojo.Assay;
 import com.phsz.caseservice.caseserviceprovider.pojo.*;
+import com.phsz.caseservice.caseserviceprovider.pojo.caseRelation.*;
 import com.phsz.caseservice.caseserviceprovider.repository.*;
+import com.phsz.caseservice.caseserviceprovider.service.AssayService;
 import com.phsz.caseservice.caseserviceprovider.service.CaseService;
-import com.phsz.medicineservice.medicineserviceapi.client.MedicineClient;
-import com.phsz.medicineservice.medicineserviceapi.pojo.Medicine;
-import com.phsz.vaccineservice.vaccineserviceapi.client.VaccineClient;
-import com.phsz.vaccineservice.vaccineserviceapi.pojo.Vaccine;
+import com.phsz.caseservice.caseserviceprovider.service.MedicineService;
+import com.phsz.caseservice.caseserviceprovider.service.VaccineService;
+import com.phsz.caseservice.caseserviceprovider.pojo.Medicine;
+import com.phsz.caseservice.caseserviceprovider.pojo.Vaccine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,22 +37,21 @@ public class CaseServiceImpl implements CaseService {
     private final CollectedCaseRepository collectedCaseRepository;
 
 
-    private final MedicineClient medicineClient;
-    private final VaccineClient vaccineClient;
-
-    private final AssayClient assayClient;
+    private final MedicineService medicineService;
+    private final VaccineService vaccineService;
+    private final AssayService assayService;
 
     @Autowired
-    public CaseServiceImpl(CaseRepository caseRepository, CaseMedicineRepository caseMedicineRepository, DiseaseRepository diseaseRepository, CaseAssayRepository caseAssayRepository, CaseVaccineRepository caseVaccineRepository, CaseDiseaseRepository caseDiseaseRepository, MedicineClient medicineClient, VaccineClient vaccineClient, AssayClient assayClient, CollectedCaseRepository collectedCaseRepository) {
+    public CaseServiceImpl(CaseRepository caseRepository, CaseMedicineRepository caseMedicineRepository, DiseaseRepository diseaseRepository, CaseAssayRepository caseAssayRepository, CaseVaccineRepository caseVaccineRepository, CaseDiseaseRepository caseDiseaseRepository, MedicineService medicineService, VaccineService vaccineService, AssayService assayService, CollectedCaseRepository collectedCaseRepository) {
         this.caseRepository = caseRepository;
         this.caseMedicineRepository = caseMedicineRepository;
         this.diseaseRepository = diseaseRepository;
         this.caseAssayRepository = caseAssayRepository;
         this.caseVaccineRepository = caseVaccineRepository;
         this.caseDiseaseRepository = caseDiseaseRepository;
-        this.medicineClient = medicineClient;
-        this.vaccineClient = vaccineClient;
-        this.assayClient = assayClient;
+        this.medicineService = medicineService;
+        this.vaccineService = vaccineService;
+        this.assayService = assayService;
         this.collectedCaseRepository = collectedCaseRepository;
     }
 
@@ -185,7 +185,7 @@ public class CaseServiceImpl implements CaseService {
         for (CaseMedicine caseMedicine : content
         ) {
             MedicineInfo medicineInfo = new MedicineInfo();
-            Medicine medicineById = medicineClient.getMedicineById(caseMedicine.getMedicineId());
+            Medicine medicineById = medicineService.findMedicineById(caseMedicine.getMedicineId());
             medicineInfo.MedicineInfoCons(medicineById, caseMedicine.getMedicineDosage());
             medicineInfos.add(medicineInfo);
         }
@@ -197,7 +197,7 @@ public class CaseServiceImpl implements CaseService {
         for (CaseAssay caseToMedicine : content1
         ) {
             AssayInfo assayInfo = new AssayInfo();
-            Assay assayById = assayClient.getAssayById(caseToMedicine.getAssayId());
+            Assay assayById = assayService.findAssayById(caseToMedicine.getAssayId());
             assayInfo.setId(assayById.getId());
             assayInfo.setName(assayById.getName());
             assayInfo.setDate(assayById.getDate());
@@ -211,7 +211,7 @@ public class CaseServiceImpl implements CaseService {
         for (CaseVaccine caseVaccine : content2
         ) {
             VaccineInfo vaccineInfo = new VaccineInfo();
-            Vaccine vaccineById = vaccineClient.getVaccineById(caseVaccine.getVaccineId());
+            Vaccine vaccineById = vaccineService.findVaccineById(caseVaccine.getVaccineId());
             vaccineInfo.setId(caseVaccine.getVaccineId());
             vaccineInfo.setName(vaccineById.getName());
             vaccineInfo.setManufacturer(vaccineById.getManufacturer());

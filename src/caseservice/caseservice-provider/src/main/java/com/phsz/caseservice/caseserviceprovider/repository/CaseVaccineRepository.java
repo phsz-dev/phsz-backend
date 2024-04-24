@@ -1,6 +1,6 @@
 package com.phsz.caseservice.caseserviceprovider.repository;
 
-import com.phsz.caseservice.caseserviceprovider.pojo.CaseVaccine;
+import com.phsz.caseservice.caseserviceprovider.pojo.caseRelation.CaseVaccine;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

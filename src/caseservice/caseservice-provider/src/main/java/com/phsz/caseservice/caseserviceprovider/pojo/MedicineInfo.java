@@ -1,6 +1,6 @@
 package com.phsz.caseservice.caseserviceprovider.pojo;
 
-import com.phsz.medicineservice.medicineserviceapi.pojo.Medicine;
+import com.phsz.caseservice.caseserviceprovider.pojo.Medicine;
 import lombok.Data;
 
 import java.util.Date;
@@ -19,7 +19,6 @@ public class MedicineInfo {
         this.setMedicineDosage(medicineDosage);
         this.setUsage(medicine.getUsage());
         this.setValidity(medicine.getValidity());
-
         return this;
     }
 

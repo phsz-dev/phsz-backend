@@ -22,8 +22,10 @@ public class SimplePage<E> {
         this.totalPages = page.getTotalPages();
         this.pageNumber = page.getNumber();
         this.pageSize = page.getSize();
-        this.orderColumn = page.getSort().toString().split(":")[0];
-        this.orderType = page.getSort().toString().split(":")[1].trim();
+        page.getSort().get().forEach(order -> {
+            this.orderColumn = order.getProperty();
+            this.orderType = order.getDirection().name();
+        });
     }
 
 }

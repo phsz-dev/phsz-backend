@@ -1,11 +1,11 @@
-package com.phsz.caseservice.caseserviceprovider.pojo;
+package com.phsz.caseservice.caseserviceprovider.pojo.caseRelation;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
-@Data
 @Entity
-public class CaseMedicine {
+@Data
+public class CaseDisease {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,8 +14,6 @@ public class CaseMedicine {
     private Long caseId;
 
     @Column
-    private Long medicineId;
+    private Long diseaseId;
 
-    @Column
-    private String medicineDosage;
 }

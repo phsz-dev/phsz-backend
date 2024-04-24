@@ -1,7 +1,7 @@
 package com.phsz.caseservice.caseserviceprovider.repository;
 
-import com.phsz.caseservice.caseserviceprovider.pojo.CaseDisease;
-import com.phsz.caseservice.caseserviceprovider.pojo.RoughCaseInfoDto;
+import com.phsz.caseservice.caseserviceprovider.pojo.caseRelation.CaseDisease;
+import com.phsz.caseservice.caseserviceprovider.pojo.caseRelation.RoughCaseInfoDto;
 import feign.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

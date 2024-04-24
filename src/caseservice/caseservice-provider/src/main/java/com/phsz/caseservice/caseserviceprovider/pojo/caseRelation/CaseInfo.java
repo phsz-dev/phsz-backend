@@ -1,5 +1,9 @@
-package com.phsz.caseservice.caseserviceprovider.pojo;
+package com.phsz.caseservice.caseserviceprovider.pojo.caseRelation;
 
+import com.phsz.caseservice.caseserviceprovider.pojo.AssayInfo;
+import com.phsz.caseservice.caseserviceprovider.pojo.Disease;
+import com.phsz.caseservice.caseserviceprovider.pojo.MedicineInfo;
+import com.phsz.caseservice.caseserviceprovider.pojo.VaccineInfo;
 import lombok.Data;
 
 import java.util.List;

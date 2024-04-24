@@ -16,21 +16,11 @@ spring:
         enable: false
     gateway:
       routes:
-        - id: assayservice-provider
-          uri:
-            lb://assayservice-provider
-          predicates:
-            - Path=/api/assays/**
         - id: caseservice-provider
           uri:
             lb://caseservice-provider
           predicates:
-            - Path=/api/cases/**,/api/diseases/**
-        - id: chargeservice-provider
-          uri:
-            lb://chargeservice-provider
-          predicates:
-            - Path=/api/charges/**
+            - Path=/api/cases/**,/api/diseases/**,/api/assays/**,/api/medicines/**,/api/vaccines/**,/api/charges/**
         - id: clerkservice-provider
           uri:
             lb://clerkservice-provider
@@ -66,16 +56,6 @@ spring:
             lb://userservice-provider
           predicates:
             - Path=/api/users/**, /api/auth/**
-        - id: vaccineservice-provider
-          uri:
-            lb://vaccineservice-provider
-          predicates:
-            - Path=/api/vaccines/**
-        - id: medicineservice-provider
-          uri:
-            lb://medicineservice-provider
-          predicates:
-            - Path=/api/medicines/**
         - id: fileuploadservice-provider
           uri:
               lb://fileuploadservice-provider

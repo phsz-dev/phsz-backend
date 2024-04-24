@@ -1,13 +1,8 @@
 package com.phsz.caseservice.caseserviceprovider.service;
 
-import com.phsz.caseservice.caseserviceprovider.pojo.*;
-import com.phsz.common.SimplePage;
+import com.phsz.caseservice.caseserviceprovider.pojo.caseRelation.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 public interface CaseService {
     //增加新病例

@@ -1,4 +1,4 @@
-package com.phsz.caseservice.caseserviceprovider.pojo;
+package com.phsz.caseservice.caseserviceprovider.pojo.caseRelation;
 
 import lombok.Data;
 
