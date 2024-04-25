@@ -3,6 +3,7 @@ package com.phsz.testservice.testserviceprovider.pojo;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -11,14 +12,16 @@ public class Paper {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
     private String name;
-    @Column
     private String content;
-    @Column
     private Integer totalScore;
-    @Column
     private Long durationSeconds;
+    private Date deadline;
+
     @OneToMany(mappedBy = "paper", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<PaperQuestion> questions;
+
+    // paper_user 表示有权限的用户 id
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<Long> paperUser;
 }

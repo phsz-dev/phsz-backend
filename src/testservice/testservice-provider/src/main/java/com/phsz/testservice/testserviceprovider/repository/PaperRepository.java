@@ -15,12 +15,12 @@ public interface PaperRepository extends JpaRepository<Paper, Long>, PagingAndSo
 
     Optional<Paper> deletePaperById(Long paperId);
 
-    @Query("SELECT p.id as id, p.name as name, p.content as content, p.totalScore as totalScore, p.durationSeconds as durationSeconds FROM Paper p WHERE p.id = ?1")
+    @Query("SELECT p.id as id, p.name as name, p.content as content, p.totalScore as totalScore, p.durationSeconds as durationSeconds, p.deadline as deadline FROM Paper p WHERE p.id = ?1")
     PaperInfo findPaperInfoById(Long paperId);
 
-    @Query("SELECT p.id as id, p.name as name, p.content as content, p.totalScore as totalScore, p.durationSeconds as durationSeconds FROM Paper p")
+    @Query("SELECT p.id as id, p.name as name, p.content as content, p.totalScore as totalScore, p.durationSeconds as durationSeconds, p.deadline as deadline FROM Paper p")
     Page<PaperInfo> findAllInfoBy(Pageable pageable);
 
-    @Query("SELECT p.id as id, p.name as name, p.content as content, p.totalScore as totalScore, p.durationSeconds as durationSeconds FROM Paper p WHERE p.name like %?1%")
+    @Query("SELECT p.id as id, p.name as name, p.content as content, p.totalScore as totalScore, p.durationSeconds as durationSeconds, p.deadline as deadline FROM Paper p WHERE p.name like %?1%")
     Page<PaperInfo> findAllInfoByNameLike(String name, Pageable pageable);
 }
