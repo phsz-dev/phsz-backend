@@ -9,7 +9,7 @@ import java.util.List;
 public class CaseInfo {
     private Long id;
     private String name;
-    private List<Disease> diseaseList;
+    private Disease diseaseList;
     private String description;
     private Long submitTime;
     private List<AssayInfo> assays;

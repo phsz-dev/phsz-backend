@@ -73,13 +73,10 @@ public class CaseServiceImpl implements CaseService {
             aCase.setChargeId(case1.getCharge().getId());
         }
         Case save = caseRepository.save(aCase);
-        for (Disease disease : case1.getDiseaseList()
-        ) {
-            CaseDisease caseDisease = new CaseDisease();
-            caseDisease.setCaseId(save.getId());
-            caseDisease.setDiseaseId(disease.getId());
-            caseDiseaseRepository.save(caseDisease);
-        }
+        CaseDisease caseDisease = new CaseDisease();
+        caseDisease.setCaseId(save.getId());
+        caseDisease.setDiseaseId(case1.getDiseaseList().getId());
+        caseDiseaseRepository.save(caseDisease);
         for (MedicineInfo medicineInfo : case1.getMedicines()
         ) {
             CaseMedicine caseMedicine = new CaseMedicine();
@@ -164,13 +161,11 @@ public class CaseServiceImpl implements CaseService {
             caseVaccineRepository.save(caseVaccine);
         }
         caseDiseaseRepository.deleteAllByCaseId(save.getId());
-        for (Disease disease : case1.getDiseaseList()
-        ) {
-            CaseDisease caseDisease = new CaseDisease();
-            caseDisease.setCaseId(save.getId());
-            caseDisease.setDiseaseId(disease.getId());
-            caseDiseaseRepository.save(caseDisease);
-        }
+
+        CaseDisease caseDisease = new CaseDisease();
+        caseDisease.setCaseId(save.getId());
+        caseDisease.setDiseaseId(case1.getDiseaseList().getId());
+        caseDiseaseRepository.save(caseDisease);
         return save.getId().toString();
     }
 
@@ -196,7 +191,9 @@ public class CaseServiceImpl implements CaseService {
         for (CaseDisease caseDisease : diseaseList) {
             diseaseRepository.findById(caseDisease.getDiseaseId()).ifPresent(diseaseResList::add);
         }
-        caseInfo.setDiseaseList(diseaseResList);
+        if(!diseaseResList.isEmpty()){
+            caseInfo.setDiseaseList(diseaseResList.getFirst());
+        }
         Long caseId1 = aCase.get().getId();
         Pageable pageable = PageRequest.of(0, 10);
 //

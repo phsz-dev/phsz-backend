@@ -1,5 +1,6 @@
 package com.phsz.caseservice.caseserviceprovider.service.Impl;
 
+import com.phsz.caseservice.caseserviceprovider.pojo.BriefDisease;
 import com.phsz.caseservice.caseserviceprovider.pojo.Disease;
 import com.phsz.caseservice.caseserviceprovider.pojo.DiseaseResponse;
 import com.phsz.caseservice.caseserviceprovider.pojo.DiseaseType;
@@ -38,5 +39,18 @@ public class DiseaseServiceImpl implements DiseaseService {
             diseaseResponses.add(diseaseResponse);
         }
         return diseaseResponses;
+    }
+
+    @Override
+    public Object getBriefDisease() {
+        List<BriefDisease> briefDiseases = new ArrayList<>();
+        List<Disease> allDiseases = diseaseRepository.findAll();
+        for (Disease disease : allDiseases) {
+            BriefDisease briefDisease = new BriefDisease();
+            briefDisease.setId(disease.getId());
+            briefDisease.setName(disease.getName());
+            briefDiseases.add(briefDisease);
+        }
+        return briefDiseases;
     }
 }
