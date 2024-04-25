@@ -17,7 +17,9 @@ public class JsonbConverter implements AttributeConverter<JsonNode, String> {
             return null;
         }
         try {
-            return objectMapper.writeValueAsString(attribute);
+            String tmp = objectMapper.writeValueAsString(attribute);
+            System.out.println("tmp: " + tmp);
+            return tmp;
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Could not convert json to string", e);
         }

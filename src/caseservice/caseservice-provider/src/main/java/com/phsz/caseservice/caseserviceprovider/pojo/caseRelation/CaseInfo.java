@@ -1,9 +1,6 @@
 package com.phsz.caseservice.caseserviceprovider.pojo.caseRelation;
 
-import com.phsz.caseservice.caseserviceprovider.pojo.AssayInfo;
-import com.phsz.caseservice.caseserviceprovider.pojo.Disease;
-import com.phsz.caseservice.caseserviceprovider.pojo.MedicineInfo;
-import com.phsz.caseservice.caseserviceprovider.pojo.VaccineInfo;
+import com.phsz.caseservice.caseserviceprovider.pojo.*;
 import lombok.Data;
 
 import java.util.List;
@@ -18,7 +15,7 @@ public class CaseInfo {
     private List<AssayInfo> assays;
     private List<MedicineInfo> medicines;
     private List<VaccineInfo> vaccines;
-    private Long chargeId;
+    private Charge charge;
     private String brief;
     private String doctorName;
 

@@ -10,6 +10,7 @@ import com.phsz.caseservice.caseserviceprovider.service.MedicineService;
 import com.phsz.caseservice.caseserviceprovider.service.VaccineService;
 import com.phsz.caseservice.caseserviceprovider.pojo.Medicine;
 import com.phsz.caseservice.caseserviceprovider.pojo.Vaccine;
+import com.phsz.common.JsonbConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,13 +37,15 @@ public class CaseServiceImpl implements CaseService {
 
     private final CollectedCaseRepository collectedCaseRepository;
 
+    private final ChargeRepository chargeRepository;
+
 
     private final MedicineService medicineService;
     private final VaccineService vaccineService;
     private final AssayService assayService;
 
     @Autowired
-    public CaseServiceImpl(CaseRepository caseRepository, CaseMedicineRepository caseMedicineRepository, DiseaseRepository diseaseRepository, CaseAssayRepository caseAssayRepository, CaseVaccineRepository caseVaccineRepository, CaseDiseaseRepository caseDiseaseRepository, MedicineService medicineService, VaccineService vaccineService, AssayService assayService, CollectedCaseRepository collectedCaseRepository) {
+    public CaseServiceImpl(CaseRepository caseRepository, CaseMedicineRepository caseMedicineRepository, DiseaseRepository diseaseRepository, CaseAssayRepository caseAssayRepository, CaseVaccineRepository caseVaccineRepository, CaseDiseaseRepository caseDiseaseRepository, MedicineService medicineService, VaccineService vaccineService, AssayService assayService, CollectedCaseRepository collectedCaseRepository, ChargeRepository chargeRepository) {
         this.caseRepository = caseRepository;
         this.caseMedicineRepository = caseMedicineRepository;
         this.diseaseRepository = diseaseRepository;
@@ -53,6 +56,7 @@ public class CaseServiceImpl implements CaseService {
         this.vaccineService = vaccineService;
         this.assayService = assayService;
         this.collectedCaseRepository = collectedCaseRepository;
+        this.chargeRepository = chargeRepository;
     }
 
     @Override
@@ -64,7 +68,10 @@ public class CaseServiceImpl implements CaseService {
         case1.setSubmitTime(new Date().getTime());
         Case aCase = new Case();
         aCase.CaseCons(case1);
-        aCase.setChargeId(case1.getChargeId());
+        if (case1.getCharge()!=null) {
+            chargeRepository.save(case1.getCharge());
+            aCase.setChargeId(case1.getCharge().getId());
+        }
         Case save = caseRepository.save(aCase);
         for (Disease disease : case1.getDiseaseList()
         ) {
@@ -95,15 +102,20 @@ public class CaseServiceImpl implements CaseService {
             caseVaccine.setVaccineId(vaccineInfo.getId());
             caseVaccineRepository.save(caseVaccine);
         }
+
         return save.getId();
     }
 
     @Override
     public String deleteCase(Long caseId) {
         Optional<Case> aCase = caseRepository.deleteCaseById(caseId);
+        if(aCase.isEmpty()){
+            return null;
+        }
         caseAssayRepository.deleteById(caseId);
         caseMedicineRepository.deleteById(caseId);
         caseVaccineRepository.deleteById(caseId);
+        chargeRepository.deleteChargeById(aCase.get().getChargeId());
         return aCase.map(aCase1 -> aCase1.getId().toString()).orElse(null);
     }
 
@@ -117,7 +129,12 @@ public class CaseServiceImpl implements CaseService {
         Case aCase = new Case();
         aCase.setId(case1.getId());
         aCase.CaseCons(case1);
-        aCase.setChargeId(case1.getChargeId());
+        if(case1.getCharge()!=null){
+            chargeRepository.deleteChargeById(case1.getCharge().getId());
+            case1.getCharge().setId(null);
+            chargeRepository.save(case1.getCharge());
+            aCase.setChargeId(case1.getCharge().getId());
+        }
         Case save = caseRepository.save(aCase);
         caseMedicineRepository.deleteAllByCaseId(save.getId());
         for (MedicineInfo medicineInfo : case1.getMedicines()
@@ -169,8 +186,11 @@ public class CaseServiceImpl implements CaseService {
         caseInfo.setName(aCase.get().getName());
         caseInfo.setSubmitTime(aCase.get().getSubmitTime());
         caseInfo.setId(aCase.get().getId());
-        caseInfo.setChargeId(aCase.get().getChargeId());
         caseInfo.setBrief(aCase.get().getBrief());
+        if(aCase.get().getChargeId()!=null) {
+            Charge charge = chargeRepository.findById(aCase.get().getChargeId()).orElse(null);
+            caseInfo.setCharge(charge);
+        }
         List<CaseDisease> diseaseList = caseDiseaseRepository.findAllByCaseId(caseId);
         ArrayList<Disease> diseaseResList = new ArrayList<>();
         for (CaseDisease caseDisease : diseaseList) {
@@ -188,7 +208,11 @@ public class CaseServiceImpl implements CaseService {
             MedicineInfo medicineInfo = new MedicineInfo();
             System.out.println(caseMedicine.getMedicineId());
             Medicine medicineById = medicineService.findMedicineById(caseMedicine.getMedicineId());
-            medicineInfo.MedicineInfoCons(medicineById, caseMedicine.getMedicineDosage());
+            if(medicineById==null){
+                medicineInfo.setName("药品不存在");
+            }else{
+                medicineInfo.MedicineInfoCons(medicineById, caseMedicine.getMedicineDosage());
+            }
             medicineInfos.add(medicineInfo);
         }
         caseInfo.setMedicines(medicineInfos);
@@ -200,10 +224,16 @@ public class CaseServiceImpl implements CaseService {
         ) {
             AssayInfo assayInfo = new AssayInfo();
             Assay assayById = assayService.findAssayById(caseToMedicine.getAssayId());
-            assayInfo.setId(assayById.getId());
-            assayInfo.setName(assayById.getName());
-            assayInfo.setDate(assayById.getDate());
-            assayInfo.setResult(caseToMedicine.getResult());
+            if(assayById!=null){
+                assayInfo.setId(assayById.getId());
+                assayInfo.setName(assayById.getName());
+                assayInfo.setDate(assayById.getDate());
+                assayInfo.setResult(caseToMedicine.getResult());
+                assayInfo.setPrice(assayById.getPrice());
+            }else{
+                assayInfo.setName("检查不存在");
+            }
+
             assayInfos.add(assayInfo);
         }
         caseInfo.setAssays(assayInfos);
@@ -214,10 +244,17 @@ public class CaseServiceImpl implements CaseService {
         ) {
             VaccineInfo vaccineInfo = new VaccineInfo();
             Vaccine vaccineById = vaccineService.findVaccineById(caseVaccine.getVaccineId());
-            vaccineInfo.setId(caseVaccine.getVaccineId());
-            vaccineInfo.setName(vaccineById.getName());
-            vaccineInfo.setManufacturer(vaccineById.getManufacturer());
-            vaccineInfo.setExpiryDate(vaccineById.getExpiryDate());
+            if(vaccineById!=null){
+                vaccineInfo.setId(caseVaccine.getVaccineId());
+                vaccineInfo.setName(vaccineById.getName());
+                vaccineInfo.setManufacturer(vaccineById.getManufacturer());
+                vaccineInfo.setExpiryDate(vaccineById.getExpiryDate());
+                vaccineInfo.setPrice(vaccineById.getPrice());
+            }else{
+                vaccineInfo.setName("疫苗不存在");
+            }
+
+
             vaccineInfos.add(vaccineInfo);
         }
         caseInfo.setVaccines(vaccineInfos);
