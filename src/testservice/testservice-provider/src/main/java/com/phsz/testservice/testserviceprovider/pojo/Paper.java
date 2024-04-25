@@ -23,5 +23,5 @@ public class Paper {
 
     // paper_user 表示有权限的用户 id
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<Long> paperUser;
+    private List<Long> permUser;
 }

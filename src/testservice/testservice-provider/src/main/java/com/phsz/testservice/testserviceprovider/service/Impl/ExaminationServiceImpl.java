@@ -83,7 +83,7 @@ public class ExaminationServiceImpl implements ExaminationService {
             throw new CodeException(2, "already has a running examination");
         }
         // 检查是否有权限
-        if (!paper.getPaperUser().isEmpty() && !paper.getPaperUser().contains(userId)) {
+        if (!paper.getPermUser().isEmpty() && !paper.getPermUser().contains(userId)) {
             throw new CodeException(3, "no permission");
         }
         Examination examination = new Examination();
