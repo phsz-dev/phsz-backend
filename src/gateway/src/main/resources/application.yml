@@ -65,7 +65,7 @@ spring:
           uri:
             lb://agi-provider
           predicates:
-            - Path=/api/chats/**
+            - Path=/api/chats/**, /api/docs/**
 
 logging:
   level:

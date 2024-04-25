@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface DiseaseRepository extends JpaRepository<Disease, Long>, PagingAndSortingRepository<Disease, Long> {
     List<Disease> findByTypeId(Long diseaseTypeId);
+
+
 }

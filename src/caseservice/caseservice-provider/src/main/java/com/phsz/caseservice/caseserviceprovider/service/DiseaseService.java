@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface DiseaseService {
     List<DiseaseResponse> getAllDisease();
+
+    Object getBriefDisease();
 }

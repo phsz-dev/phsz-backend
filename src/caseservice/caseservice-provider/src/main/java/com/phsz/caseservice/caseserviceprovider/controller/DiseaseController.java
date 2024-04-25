@@ -27,4 +27,9 @@ public class DiseaseController {
     public Result getAllDisease() {
         return Result.success("查找疾病序列成功", diseaseService.getAllDisease());
     }
+
+    @GetMapping("/brief")
+    public Result getBriefDisease() {
+        return Result.success("查找疾病简要信息成功", diseaseService.getBriefDisease());
+    }
 }

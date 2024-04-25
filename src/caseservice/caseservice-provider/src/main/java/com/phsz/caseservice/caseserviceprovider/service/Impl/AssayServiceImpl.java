@@ -1,5 +1,6 @@
 package com.phsz.caseservice.caseserviceprovider.service.Impl;
 
+import com.alibaba.nacos.shaded.com.google.gson.JsonObject;
 import com.phsz.caseservice.caseserviceprovider.pojo.Assay;
 import com.phsz.caseservice.caseserviceprovider.repository.AssayRepository;
 import com.phsz.caseservice.caseserviceprovider.service.AssayService;
@@ -53,5 +54,14 @@ public class AssayServiceImpl implements AssayService {
         Optional<Assay> assay = assayRepository.deleteAssayById(id);
         return assay.get().getId().toString();
 
+    }
+
+    @Override
+    public Page<Assay> searchAssay(String key, String head, Pageable pageable) {
+        String[] searchHeader = head.split(",");
+        if(searchHeader.length == 0) {
+            return assayRepository.searchAllAssay(key, pageable);
+        }
+        return assayRepository.searchAssay(key, searchHeader, pageable);
     }
 }

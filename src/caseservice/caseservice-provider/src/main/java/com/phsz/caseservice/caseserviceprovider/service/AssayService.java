@@ -1,5 +1,6 @@
 package com.phsz.caseservice.caseserviceprovider.service;
 
+import com.alibaba.nacos.shaded.com.google.gson.JsonObject;
 import com.phsz.caseservice.caseserviceprovider.pojo.Assay;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,4 +22,6 @@ public interface AssayService {
 
     // 根据ID删除化验信息
     String deleteAssay(Long id);
+
+    Page<Assay> searchAssay(String key, String head, Pageable pageable);
 }

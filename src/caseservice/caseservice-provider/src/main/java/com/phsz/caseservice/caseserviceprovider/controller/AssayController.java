@@ -1,10 +1,12 @@
 package com.phsz.caseservice.caseserviceprovider.controller;
 
+import com.alibaba.nacos.shaded.com.google.gson.JsonObject;
 import com.phsz.caseservice.caseserviceprovider.pojo.Assay;
 import com.phsz.caseservice.caseserviceprovider.service.Impl.AssayServiceImpl;
 import com.phsz.common.Result;
 import com.phsz.common.SimplePage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -78,5 +80,16 @@ public class AssayController {
     @GetMapping("/client/{assayId}")
     public Assay findAssayByIdClient(@PathVariable("assayId") Long assayId) {
         return assayService.findAssayById(assayId);
+    }
+
+    @GetMapping("/search")
+    public Result searchAssay(@RequestParam("key") String key,
+                              @RequestParam("head") String head,
+                              @RequestParam("pageSize") int pageSize,
+                              @RequestParam("pageNum") int pageNum,
+                              @RequestParam(value = "orderColumn",defaultValue = "id") String orderColumn,
+                              @RequestParam(value = "orderType",defaultValue = "ASC") String orderType) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.by(orderType.equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC, orderColumn));
+        return Result.success("search assay OK", new SimplePage<>(assayService.searchAssay(key,head, pageable)));
     }
 }
