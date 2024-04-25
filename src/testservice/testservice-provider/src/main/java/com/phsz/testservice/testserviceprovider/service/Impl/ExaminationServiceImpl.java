@@ -86,6 +86,10 @@ public class ExaminationServiceImpl implements ExaminationService {
         if (!paper.getPermUser().isEmpty() && !paper.getPermUser().contains(userId)) {
             throw new CodeException(3, "no permission");
         }
+        // 检查是否截止
+        if (paper.getDeadline() != null && paper.getDeadline().before(new Date())) {
+            throw new CodeException(4, "deadline");
+        }
         Examination examination = new Examination();
         examination.setName(paper.getName());
         examination.setStatus("start");
