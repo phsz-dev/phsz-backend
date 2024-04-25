@@ -6,7 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface CaseService {
     //增加新病例
-    String addNewCase(CaseInfo case1);
+    Long addNewCase(CaseInfo case1);
 
     //删除病例
     String deleteCase(Long caseId);

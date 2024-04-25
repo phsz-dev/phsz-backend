@@ -61,6 +61,11 @@ spring:
               lb://fileuploadservice-provider
           predicates:
               - Path=/oss/**
+        - id: agi-provider
+          uri:
+            lb://agi-provider
+          predicates:
+            - Path=/api/chats/**
 
 logging:
   level:

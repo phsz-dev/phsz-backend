@@ -42,11 +42,11 @@ public class CaseController {
     //添加病例
     @PostMapping
     public Result addNewCase(@RequestBody CaseInfo case1) {
-        String s = caseService.addNewCase(case1);
-        if (s == null) {
+        Long id = caseService.addNewCase(case1);
+        if (id == null) {
             return Result.error("add case failed");
         }
-        return Result.success("add case successfully", null);
+        return Result.success("add case successfully", id);
     }
 
     //删除病例

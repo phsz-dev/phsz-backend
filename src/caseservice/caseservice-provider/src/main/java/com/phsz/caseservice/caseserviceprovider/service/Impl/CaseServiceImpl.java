@@ -56,11 +56,12 @@ public class CaseServiceImpl implements CaseService {
     }
 
     @Override
-    public String addNewCase(CaseInfo case1) {
+    public Long addNewCase(CaseInfo case1) {
         Long caseId = case1.getId();
-        if (caseRepository.findById(caseId).isPresent()) {
+        if (caseId != null && caseRepository.findById(caseId).isPresent()) {
             return null;
         }
+        case1.setSubmitTime(new Date().getTime());
         Case aCase = new Case();
         aCase.CaseCons(case1);
         aCase.setChargeId(case1.getChargeId());
@@ -94,7 +95,7 @@ public class CaseServiceImpl implements CaseService {
             caseVaccine.setVaccineId(vaccineInfo.getId());
             caseVaccineRepository.save(caseVaccine);
         }
-        return save.getId().toString();
+        return save.getId();
     }
 
     @Override
@@ -185,6 +186,7 @@ public class CaseServiceImpl implements CaseService {
         for (CaseMedicine caseMedicine : content
         ) {
             MedicineInfo medicineInfo = new MedicineInfo();
+            System.out.println(caseMedicine.getMedicineId());
             Medicine medicineById = medicineService.findMedicineById(caseMedicine.getMedicineId());
             medicineInfo.MedicineInfoCons(medicineById, caseMedicine.getMedicineDosage());
             medicineInfos.add(medicineInfo);
