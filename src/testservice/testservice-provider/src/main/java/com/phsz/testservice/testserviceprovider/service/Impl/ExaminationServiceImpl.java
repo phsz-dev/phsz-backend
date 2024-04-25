@@ -82,6 +82,10 @@ public class ExaminationServiceImpl implements ExaminationService {
         if (running != null) {
             throw new CodeException(2, "already has a running examination");
         }
+        // 检查是否有权限
+        if (!paper.getPaperUser().isEmpty() && !paper.getPaperUser().contains(userId)) {
+            throw new CodeException(3, "no permission");
+        }
         Examination examination = new Examination();
         examination.setName(paper.getName());
         examination.setStatus("start");
